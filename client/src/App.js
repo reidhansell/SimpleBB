@@ -44,7 +44,12 @@ class App extends Component {
             />
             <ExerciseModal date={this.state.date.toISOString().substring(0, 10).concat('T00:00:00.000Z')}/>
             <ExerciseList date={this.state.date.toISOString().substring(0, 10).concat('T00:00:00.000Z')}/>
-          </Container>):(<div style={{textAlign: 'center'}}>Please log in or register above</div>)}
+          </Container>):(<div style={{textAlign: 'center'}}>
+            <h5>Welcome to Simple Bodybuilding
+            <br />
+            <br />
+            Please log in or register above to start tracking activity</h5>
+            </div>)}
         </div>
     );
   }

@@ -95,16 +95,17 @@ class ExerciseModal extends Component {
               <FormGroup>
                 <Label for='exercise'>Exercise</Label>
                 <Input
+                  className="mb-3"
                   type='text'
                   name='name'
                   id='exercise'
                   placeholder='Add exercise'
                   onChange={this.onChange}
                 />
-                <Label for='exercise'>Weight / Reps</Label>
+                <Label for='exercise'>Sets</Label>
                 {this.state.sets.map((value, index) => (
                   <li key={index} style={{listStyle: 'none'}}>
-                  <Row>
+                  <Row className="mt-1 mb-1">
                   <Col><Input
                     type='text'
                     name={index}

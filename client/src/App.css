@@ -1,5 +1,7 @@
 .remove-btn {
   margin-right: 0.5rem;
+  height: 2em;
+  width: 2em;
 }
 
 .fade-enter {
@@ -22,4 +24,8 @@
 
 .react-calendar{
   margin:auto;
+}
+
+body{
+  background: gray;
 }

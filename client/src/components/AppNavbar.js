@@ -40,9 +40,6 @@ class AppNavbar extends Component {
           </span>
         </NavItem>
         <NavItem>
-          <NavLink>Activity Tracker</NavLink>
-        </NavItem>
-        <NavItem>
           <Logout />
         </NavItem>
       </Fragment>
@@ -61,7 +58,7 @@ class AppNavbar extends Component {
 
     return (
       <div>
-        <Navbar color='primary' dark expand='sm' className='mb-5'>
+        <Navbar color='dark' dark expand='sm' className='mb-5'>
           <Container>
             <NavbarBrand href='/'>SimpleBB</NavbarBrand>
             <NavbarToggler onClick={this.toggle} />

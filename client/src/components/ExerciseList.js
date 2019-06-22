@@ -29,14 +29,14 @@ class ExerciseList extends Component {
     return (
       <Container>
         {this.props.isAuthenticated ? (
-        <ListGroup>
+        <ListGroup style={{width:'80%', margin: 'auto'}}>
           <TransitionGroup className='Exercise-list'>
             {exercises.map(({ _id, name, email, date, sets}) => (
               (this.props.auth.user.email === email && this.props.date === date) ? (
               <CSSTransition key={_id} timeout={500} classNames='fade'>
-                <ListGroupItem> 
+                <ListGroupItem style={{background:'lightgray'}} className="mb-2"> 
                 <Row>
-                {name}
+                <h4 style={{marginLeft: '0.5em'}}>{name}</h4>
                   <Button
                       className='remove-btn'
                       color='danger'
@@ -47,10 +47,10 @@ class ExerciseList extends Component {
                       &times;
                     </Button>
                   </Row>
-                  <Row><Col>Weight</Col><Col>Reps</Col></Row>
+                  <Row style={{background:'white'}} className="border-bottom"><Col><h5>Weight</h5></Col><Col><h5>Reps</h5></Col></Row>
                   {sets.map((index) =>(
                     <div key={index}>
-                      <Row><Col>{index[0]}</Col><Col>{index[1]}</Col></Row>
+                      <Row style={{background:'white'}} className="border-top border-bottom"><Col>{index[0]}</Col><Col>{index[1]}</Col></Row>
                     </div>
                   ))}
                 </ListGroupItem>
