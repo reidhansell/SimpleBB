@@ -1,10 +1,8 @@
-# MERN Shopping List
+# SimpleBB - MERN
 
-> Shopping list app built with the MERN stack along with Redux for state management, Reactstrap and react-transition-group.
+A bodybuilding web app focused on simplicity made with the MERN stack. Original architecture came from Traversy Media's MERN stack tutorial which you can find here https://www.youtube.com/watch?v=PBTYxXADG_k&list=PLillGF-RfqbbiTGgA77tGO426V3hRF9iE
 
 ## Quick Start
-
-Add your MONGO_URI to the default.json file. Make sure you set an env var for that and the jwtSecret on deployment
 
 ```bash
 # Install dependencies for server
@@ -27,14 +25,13 @@ npm run client
 
 ## Deployment
 
-There is a Heroku post build script so that you do not have to compile your React frontend manually, it is done on the server. Simply push to Heroku and it will build and load the client index.html page
+This app uses a Heroku postbuild script.
 
 ## App Info
 
 ### Author
 
-Brad Traversy
-[Traversy Media](http://www.traversymedia.com)
+Reid Hansell
 
 ### Version
 
