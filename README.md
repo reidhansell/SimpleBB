@@ -3,8 +3,11 @@
 A bodybuilding web app focused on simplicity made with the MERN stack. Original architecture came from Traversy Media's MERN stack tutorial which you can find here https://www.youtube.com/watch?v=PBTYxXADG_k&list=PLillGF-RfqbbiTGgA77tGO426V3hRF9iE
 
 ## Quick Start
-Clone to local, terminal: "npm install && cd client && npm run client-install && cd .. && npm run dev"
-
+Clone to local
+Add folder "config" to home dir, go into config and add file "default.json"
+Add mongodb uri and jwt token to default.json
+Terminal in main dir: "npm install && cd client && npm run client-install && cd .. && npm run dev"
+App will open when finished
 
 ```bash
 # Install dependencies for server
@@ -28,8 +31,6 @@ npm run client
 ## Deployment
 
 This app uses a Heroku postbuild script.
-
-## App Info
 
 ### Author
 
