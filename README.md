@@ -3,6 +3,8 @@
 A bodybuilding web app focused on simplicity made with the MERN stack. Original architecture came from Traversy Media's MERN stack tutorial which you can find here https://www.youtube.com/watch?v=PBTYxXADG_k&list=PLillGF-RfqbbiTGgA77tGO426V3hRF9iE
 
 ## Quick Start
+Clone to local, terminal: "npm install && cd client && npm run client-install && cd .. && npm run dev"
+
 
 ```bash
 # Install dependencies for server
