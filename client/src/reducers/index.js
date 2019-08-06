@@ -1,10 +1,8 @@
 import { combineReducers } from 'redux';
-import exerciseReducer from './exerciseReducer';
-import errorReducer from './errorReducer';
-import authReducer from './authReducer';
+import alert from './alert';
+import auth from './auth';
 
 export default combineReducers({
-  exercise: exerciseReducer,
-  error: errorReducer,
-  auth: authReducer
+  alert,
+  auth
 });

@@ -1,8 +1,6 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require("mongoose");
 
-// Create Schema
-const UserSchema = new Schema({
+const UserSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
@@ -16,10 +14,26 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-  register_date: {
+  date: {
     type: Date,
     default: Date.now
-  }
+  },
+  workouts: [{workout: {name: String}, exercises: [{name: {type: String}}]}],
+  exercises: [{ name: { type: String }, type: { type: String } }],
+  days: [
+    {
+      date: {type: Date},
+      weight: {type: Number},
+      exercises: [
+        {
+          name: {type: String},
+          type: {type: String},
+          weightdistances: [{weightdistance: {type: Number}}],
+          repstimes: [{repstime: {type: Number}}]
+        }
+      ]
+    }
+  ]
 });
 
-module.exports = User = mongoose.model('user', UserSchema);
+module.exports = User = mongoose.model("user", UserSchema);

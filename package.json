@@ -1,12 +1,11 @@
 {
   "name": "simplebb",
   "version": "1.0.0",
-  "description": "Bodybuilding app",
+  "description": "Fitness tracker and more",
   "main": "server.js",
   "scripts": {
-    "client-install": "npm install --prefix client",
-    "start": "node server.js",
-    "server": "nodemon server.js",
+    "start": "node server",
+    "server": "nodemon server",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
@@ -15,14 +14,16 @@
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "concurrently": "^3.6.0",
-    "config": "^3.0.1",
-    "express": "^4.16.3",
-    "jsonwebtoken": "^8.5.0",
-    "mongoose": "^5.1.6",
-    "react-calendar": "^2.19.0"
+    "bootstrap": "^4.3.1",
+    "config": "^3.1.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.6.3",
+    "request": "^2.88.0"
   },
   "devDependencies": {
-    "nodemon": "^1.17.5"
+    "concurrently": "^4.1.1",
+    "nodemon": "^1.19.1"
   }
 }

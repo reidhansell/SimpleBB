@@ -1,36 +1,39 @@
-# SimpleBB - MERN
+# SimpleBB
 
-A bodybuilding web app focused on simplicity made with the MERN stack. Original architecture came from Traversy Media's MERN stack tutorial which you can find here https://www.youtube.com/watch?v=PBTYxXADG_k&list=PLillGF-RfqbbiTGgA77tGO426V3hRF9iE
+> Fitness tracker and more
+
+A MERN stack application for tracking fitness goals and more. General architecture from [Udemy](https://www.udemy.com/mern-stack-front-to-back/?couponCode=TRAVERSYMEDIA).
 
 ## Quick Start
-Clone to local
-Add folder "config" to home dir, go into config and add file "default.json"
-Add mongodb uri and jwt token to default.json
-Terminal in main dir: "npm install && cd client && npm run client-install && cd .. && npm run dev"
-App will open when finished
 
-```bash
-# Install dependencies for server
-npm install
+```
+# change default.json file in config folder
 
-# Install dependencies for client
-npm run client-install
+# this file is located in config/default.json
 
-# Run the client & server with concurrently
-npm run dev
+# add uri of your mongodb connection for example
 
-# Run the Express server only
-npm run server
-
-# Run the React client only
-npm run client
-
-# Server runs on http://localhost:5000 and client on http://localhost:3000
+ "mongoURI": "mongodb://localhost/dev-social",
+ 
 ```
 
-## Deployment
+```bash
+# Install server dependencies
+npm install
 
-This app uses a Heroku postbuild script.
+# Install client dependencies
+cd client
+npm install
+
+# Run both Express & React from root
+npm run dev
+
+# Build for production
+cd client
+npm run build
+```
+
+## App Info
 
 ### Author
 
@@ -38,7 +41,7 @@ Reid Hansell
 
 ### Version
 
-1.0.0
+0.1
 
 ### License
 

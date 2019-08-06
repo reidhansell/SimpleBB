@@ -1,31 +1,20 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const connectDB = require('./config/db');
 const path = require('path');
-const config = require('config');
 
 const app = express();
 
-// Bodyparser Middleware
-app.use(express.json());
+// Connect Database
+connectDB();
 
-// DB Config
-const db = config.get('mongoURI');
+// Init Middleware
+app.use(express.json({ extended: false }));
 
-// Connect to Mongo
-mongoose
-  .connect(db, { 
-    useNewUrlParser: true,
-    useCreateIndex: true
-  }) // Adding new mongo url parser
-  .then(() => console.log('MongoDB Connected...'))
-  .catch(err => console.log(err));
-
-// Use Routes
-app.use('/api/exercises', require('./routes/api/exercises'));
+// Define Routes
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
 
-// Serve static assets if in production
+// Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
   app.use(express.static('client/build'));
@@ -35,6 +24,6 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
-app.listen(port, () => console.log(`Server started on port ${port}`));
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
