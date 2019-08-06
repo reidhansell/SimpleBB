@@ -7,13 +7,17 @@ A MERN stack application for tracking fitness goals and more. General architectu
 ## Quick Start
 
 ```
-# change default.json file in config folder
+# create default.json inside of config/
 
-# this file is located in config/default.json
+# file path will look like simplebb/config/default.json
 
-# add uri of your mongodb connection for example
+# add the following code and fill it out accordingly
 
- "mongoURI": "mongodb://localhost/dev-social",
+{
+  "mongoURI": "",
+
+  "jwtSecret": "",
+}
  
 ```
 
