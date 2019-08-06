@@ -6,11 +6,12 @@ import DatePicker from "react-date-picker";
 import AddEModal from "./AddEModal";
 import AddWModal from "./AddWModal";
 import Spinner from "../layout/Spinner";
+import Exercise from "./Exercise";
 
-const Tracker = ({ auth: { user, isAuthenticated, loading } }) => {
+const Tracker = ({ auth: { loading, user, isAuthenticated } }) => {
   const [date, setDate] = useState(new Date());
 
-  return !isAuthenticated ? (
+  return !isAuthenticated || loading ? (
     <Spinner />
   ) : (
     <div className="container text-center">
@@ -22,12 +23,18 @@ const Tracker = ({ auth: { user, isAuthenticated, loading } }) => {
       />
       <h3 className="my-3">Weight: {}</h3>
       <br />
-      <AddEModal />
+      <AddEModal date={date} />
       <AddWModal />
       <br />
-      {
-        //user.days.exercises.map(x => {return <li className="my-1 border-top border-bottom py-1">{x.name}</li>;})
-      }
+      <ul className="no-style-list">
+        {user.exercisesTracked.map(x => {
+          return new Date(x.date).getDate() === date.getDate() ? (
+            <li className="my-1 border-top border-bottom py-1">
+              <Exercise exercise={x} />
+            </li>
+          ) : null;
+        })}
+      </ul>
     </div>
   );
 };

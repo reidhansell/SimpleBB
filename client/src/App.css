@@ -1,0 +1,13 @@
+.no-style-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ml-a {
+  margin-left: auto;
+}
+
+.mr-a {
+  margin-right: auto;
+}

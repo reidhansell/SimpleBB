@@ -83,9 +83,7 @@ router.post(
 router.put("/exercises", [auth, []], async (req, res) => {
   console.log("entered route");
   const { name, type } = req.body;
-  console.log("exercise in route:");
-  console.log(name);
-  console.log(type);
+
   const newExercise = {
     name,
     type
@@ -110,18 +108,16 @@ router.put("/exercises", [auth, []], async (req, res) => {
   }
 });
 
-// @route    PUT api/users/days/exercises
+// @route    PUT api/users/days/exercisesTracked
 // @desc     Add exercise to day
 // @access   Private
-router.put("/days", [auth, []], async (req, res) => {
+router.put("/exercisesTracked", [auth, []], async (req, res) => {
   console.log("entered route");
-  const { name, type } = req.body;
-  console.log("exercise in route:");
-  console.log(name);
-  console.log(type);
+  const { name, type, date } = req.body;
   const newExercise = {
     name,
-    type
+    type,
+    date
   };
 
   try {
@@ -131,7 +127,43 @@ router.put("/days", [auth, []], async (req, res) => {
 
     console.log("newExercise:");
     console.log(newExercise);
-    user.exercises.unshift(newExercise);
+    user.exercisesTracked.unshift(newExercise);
+
+    console.log("new user: " + user);
+    await user.save();
+
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+// @route    PUT api/users/days/exercisesTracked/sets
+// @desc     Add set to exercisesTracked
+// @access   Private
+router.put("/exercisesTracked/sets", [auth, []], async (req, res) => {
+  console.log("entered route");
+  const { weightdistance, repstime, exerciseid } = req.body;
+
+  const newSet = {
+    weightdistance,
+    repstime,
+    exerciseid
+  };
+
+  try {
+    console.log("req.user:");
+    console.log(req.user);
+    const user = await User.findOne({ _id: req.user.id });
+
+    const exercise = user.exercisesTracked.find(x => {
+      return x.id === exerciseid;
+    });
+
+    console.log("newSet:");
+    console.log(newSet);
+    exercise.sets.unshift(newSet);
 
     console.log("new user: " + user);
     await user.save();

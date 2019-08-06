@@ -18,20 +18,22 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  workouts: [{workout: {name: String}, exercises: [{name: {type: String}}]}],
+  workouts: [
+    { workout: { name: String }, exercises: [{ name: { type: String } }] }
+  ],
   exercises: [{ name: { type: String }, type: { type: String } }],
-  days: [
+  exercisesTracked: [
     {
-      date: {type: Date},
-      weight: {type: Number},
-      exercises: [
-        {
-          name: {type: String},
-          type: {type: String},
-          weightdistances: [{weightdistance: {type: Number}}],
-          repstimes: [{repstime: {type: Number}}]
-        }
-      ]
+      date: { type: Date },
+      name: { type: String },
+      type: { type: String },
+      sets: [{ weightdistance: { type: Number }, repstime: {type: Number} }]
+    }
+  ],
+  weight: [
+    {
+      date: { type: Date, unique: true },
+      weight: { type: Number }
     }
   ]
 });

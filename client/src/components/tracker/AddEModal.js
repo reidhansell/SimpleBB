@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import ReactSearchBox from "react-search-box";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { addExercise } from "../../actions/auth";
+import { addExercise, addTrackedExercise } from "../../actions/auth";
 
-const AddEModal = ({ addExercise, auth: { user, isAuthenticated } }) => {
+const AddEModal = ({
+  date,
+  addExercise,
+  addTrackedExercise,
+  auth: { user, isAuthenticated }
+}) => {
   const [modal, setModal] = useState(false);
 
   const [create, setCreate] = useState(false);
@@ -43,10 +47,11 @@ const AddEModal = ({ addExercise, auth: { user, isAuthenticated } }) => {
     console.log("End submitting");
   };
 
-  var listStyle = {
-    listStyleType: "none",
-    margin: "0",
-    padding: "0"
+  const onClick = async (e, exercise) => {
+    e.preventDefault();
+    exercise.date = date;
+    addTrackedExercise(exercise);
+    setModal(!modal);
   };
 
   return isAuthenticated ? (
@@ -56,7 +61,9 @@ const AddEModal = ({ addExercise, auth: { user, isAuthenticated } }) => {
           Add Exercise
         </Button>
         <Modal isOpen={modal} toggle={toggle}>
-          <ModalHeader toggle={toggle}>Click or tap exercise to add</ModalHeader>
+          <ModalHeader toggle={toggle}>
+            Click or tap exercise to add
+          </ModalHeader>
           <ModalBody>
             <input
               placeholder="Search..."
@@ -64,10 +71,15 @@ const AddEModal = ({ addExercise, auth: { user, isAuthenticated } }) => {
               onChange={e => onChangeSearch(e)}
             />
 
-            <ul style={listStyle}>
+            <ul className="no-style-list">
               {user.exercises.map(x => {
                 return x.name === null ? null : x.name.includes(search) ? (
-                  <li className="my-1 border-top border-bottom py-1">{x.name}</li>
+                  <li
+                    className="my-1 border-top border-bottom py-1"
+                    onClick={e => onClick(e, x)}
+                  >
+                    {x.name}
+                  </li>
                 ) : null;
               })}
             </ul>
@@ -88,27 +100,27 @@ const AddEModal = ({ addExercise, auth: { user, isAuthenticated } }) => {
           Add Exercise
         </Button>
         <Modal isOpen={modal} toggle={toggle}>
-          <ModalHeader toggle={toggle}>Enter exercise information to create</ModalHeader>
+          <ModalHeader toggle={toggle}>
+            Enter exercise information to create
+          </ModalHeader>
           <ModalBody>
-            <label>
-              <input
-                name="name"
-                value={name}
-                onChange={e => onChange(e)}
-                placeholder="Name of exercise"
-                className="mx-3"
-              />
-            </label>
+            <input
+              name="name"
+              value={name}
+              onChange={e => onChange(e)}
+              placeholder="Name of exercise"
+              className="mx-3"
+            />
+
             <br />
-            <label>
-              <input
-                name="type"
-                value={type}
-                onChange={e => onChange(e)}
-                placeholder="Type of exercise"
-                className="mx-3"
-              />
-            </label>
+
+            <input
+              name="type"
+              value={type}
+              onChange={e => onChange(e)}
+              placeholder="Type of exercise"
+              className="mx-3"
+            />
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={onSubmit}>
@@ -127,16 +139,18 @@ const AddEModal = ({ addExercise, auth: { user, isAuthenticated } }) => {
 AddEModal.propTypes = {
   auth: PropTypes.object.isRequired,
   modal: PropTypes.bool,
-  addExercise: PropTypes.func.isRequired
+  addExercise: PropTypes.func.isRequired,
+  addTrackedExercise: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
   modal: state.modal,
-  addExercise: addExercise
+  addExercise: addExercise,
+  addTrackedExercise: addTrackedExercise
 });
 
 export default connect(
   mapStateToProps,
-  { addExercise }
+  { addExercise, addTrackedExercise }
 )(AddEModal);
