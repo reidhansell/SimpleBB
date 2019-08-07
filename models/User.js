@@ -27,7 +27,7 @@ const UserSchema = new mongoose.Schema({
       date: { type: Date },
       name: { type: String },
       type: { type: String },
-      sets: [{ weightdistance: { type: Number }, repstime: {type: Number} }]
+      sets: [{set: { weightdistance: { type: Number }, repstime: {type: Number} }}]
     }
   ],
   weight: [
