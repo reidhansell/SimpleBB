@@ -7,7 +7,9 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   ACCOUNT_DELETED,
-  ADD_EXERCISE_SUCCESS
+  ADD_EXERCISE_SUCCESS,
+  DELETE_EXERCISE,
+  EXERCISE_ERROR
 } from "../actions/types";
 
 const initialState = {

@@ -29,7 +29,7 @@ const Tracker = ({ auth: { loading, user, isAuthenticated } }) => {
       <ul className="no-style-list">
         {user.exercisesTracked.map(x => {
           return new Date(x.date).getDate() === date.getDate() ? (
-            <li className="my-1 border-top border-bottom py-1">
+            <li className="my-1 border-top border-bottom py-1" key={x._id}>
               <Exercise exercise={x} />
             </li>
           ) : null;

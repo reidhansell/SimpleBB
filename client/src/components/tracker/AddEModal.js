@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { addExercise, addTrackedExercise } from "../../actions/auth";
+import {
+  addExercise,
+  addTrackedExercise,
+  deleteExercise
+} from "../../actions/auth";
 
 const AddEModal = ({
   date,
   addExercise,
   addTrackedExercise,
+  deleteExercise,
   auth: { user, isAuthenticated }
 }) => {
   const [modal, setModal] = useState(false);
@@ -54,6 +59,11 @@ const AddEModal = ({
     setModal(!modal);
   };
 
+  const onDelete = async (e, id) => {
+    e.preventDefault();
+    deleteExercise(id);
+  };
+
   return isAuthenticated ? (
     !create ? (
       <div>
@@ -70,16 +80,25 @@ const AddEModal = ({
               value={search}
               onChange={e => onChangeSearch(e)}
             />
-
-            <ul className="no-style-list">
+            <ul className="no-style-list my-2">
               {user.exercises.map(x => {
                 return x.name === null ? null : x.name.includes(search) ? (
-                  <li
-                    className="my-1 border-top border-bottom py-1"
-                    onClick={e => onClick(e, x)}
-                  >
-                    {x.name}
-                  </li>
+                  <div className="row" key={x._id}>
+                    <li
+                      className="col clickable my-1 border-top border-bottom py-1"
+                      onClick={e => onClick(e, x)}
+                      
+                    >
+                      {x.name}
+                    </li>
+                    <Button
+                      className="my-1"
+                      color="danger"
+                      onClick={e => onDelete(e, x._id)}
+                    >
+                      <i className="fas fa-trash ml-a" />
+                    </Button>
+                  </div>
                 ) : null;
               })}
             </ul>
@@ -113,6 +132,7 @@ const AddEModal = ({
             />
 
             <br />
+            <br />
 
             <input
               name="type"
@@ -140,17 +160,19 @@ AddEModal.propTypes = {
   auth: PropTypes.object.isRequired,
   modal: PropTypes.bool,
   addExercise: PropTypes.func.isRequired,
-  addTrackedExercise: PropTypes.func.isRequired
+  addTrackedExercise: PropTypes.func.isRequired,
+  deleteExercise: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
   modal: state.modal,
   addExercise: addExercise,
-  addTrackedExercise: addTrackedExercise
+  addTrackedExercise: addTrackedExercise,
+  deleteExercise: deleteExercise
 });
 
 export default connect(
   mapStateToProps,
-  { addExercise, addTrackedExercise }
+  { addExercise, addTrackedExercise, deleteExercise }
 )(AddEModal);

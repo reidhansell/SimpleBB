@@ -9,7 +9,9 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   ADD_EXERCISE_SUCCESS,
-  ADD_EXERCISE_FAIL
+  ADD_EXERCISE_FAIL,
+  DELETE_EXERCISE,
+  EXERCISE_ERROR
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 
@@ -113,6 +115,8 @@ export const addExercise = exercise => async dispatch => {
       type: ADD_EXERCISE_SUCCESS,
       payload: res.data
     });
+
+    dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -123,6 +127,27 @@ export const addExercise = exercise => async dispatch => {
     dispatch({
       type: ADD_EXERCISE_FAIL,
       payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// Delete exercise
+export const deleteExercise = id => async dispatch => {
+  try {
+    await axios.delete(`/api/users/exercises/${id}`);
+
+    dispatch({
+      type: DELETE_EXERCISE,
+      payload: id
+    });
+
+    dispatch(loadUser());
+
+    //dispatch(setAlert('Post Removed', 'success'));
+  } catch (err) {
+    dispatch({
+      type: EXERCISE_ERROR,
+      payload: { msg: err.res.statusText, status: err.res.status }
     });
   }
 };
@@ -161,6 +186,27 @@ export const addTrackedExercise = exercise => async dispatch => {
   }
 };
 
+// Delete tracked exercise
+export const deleteTrackedExercise = id => async dispatch => {
+  try {
+    await axios.delete(`/api/users/exercisesTracked/${id}`);
+
+    dispatch({
+      type: DELETE_EXERCISE,
+      payload: id
+    });
+
+    dispatch(loadUser());
+
+    //dispatch(setAlert('Post Removed', 'success'));
+  } catch (err) {
+    dispatch({
+      type: EXERCISE_ERROR,
+      payload: { msg: err.res.statusText, status: err.res.status }
+    });
+  }
+};
+
 // Add set to tracked exercise
 export const addSet = set => async dispatch => {
   try {
@@ -191,6 +237,27 @@ export const addSet = set => async dispatch => {
     dispatch({
       type: ADD_EXERCISE_FAIL,
       payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// Delete tracked exercise set
+export const deleteTrackedExerciseSet = (exerciseid, setid) => async dispatch => {
+  try {
+    await axios.delete(`/api/users/exercisesTracked/${exerciseid}/sets/${setid}`);
+
+    dispatch({
+      type: DELETE_EXERCISE,
+      payload: setid
+    });
+
+    dispatch(loadUser());
+
+    //dispatch(setAlert('Post Removed', 'success'));
+  } catch (err) {
+    dispatch({
+      type: EXERCISE_ERROR,
+      payload: { msg: err.res.statusText, status: err.res.status }
     });
   }
 };
