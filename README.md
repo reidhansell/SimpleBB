@@ -57,29 +57,29 @@ This project is licensed under the MIT License
 
 ### To do lists; in order of importance
 
-Main list:
--Aesthetics and navigation [see below for a relevant list]
--About page (the goal)
--Help page (how to use)
--Create, add, and delete workouts
--Edit all things that can be created (if and only if necessary)
--Optimization [see below for a relevant list]
--Stricter input rules for signup
--Increase security or add a warning/disclaimer about the current state of security
--Add diet tracking
--Add social profiles
+Main list:  
+-Aesthetics and navigation [see below for a relevant list]  
+-About page (the goal)  
+-Help page (how to use)  
+-Create, add, and delete workouts  
+-Edit all things that can be created (if and only if necessary)  
+-Optimization [see below for a relevant list]  
+-Stricter input rules for signup  
+-Increase security or add a warning/disclaimer about the current state of security  
+-Add diet tracking  
+-Add social profiles  
+  
+Optimization list:  
+-Change state on click instead of waiting for loadUser. loadUser will correct the state regardless of any errors that occured on the backend. This will give the appreance of instant loading.  
+-Fix Redux actions or remove it entirely. Keep in mind it will be useful when diet tracking and social profiles are added.  
+-General fixes. Fix repeated, inconsistent, and unnecessary code.  
 
-Optimization list:
--Change state on click instead of waiting for loadUser. loadUser will correct the state regardless of any errors that occured on the backend. This will give the appreance of instant loading.
--Fix Redux actions or remove it entirely. Keep in mind it will be useful when diet tracking and social profiles are added.
--General fixes. Fix repeated, inconsistent, and unnecessary code.
-
-Aesthetics and navigation list:
--Implement color pallette
--Implement logo
--Implement icon
--Hide delete buttons for sets unless the exercise's edit toggle is activated.
--Mobile optimization
--General design improvements
+Aesthetics and navigation list:  
+-Implement color pallette  
+-Implement logo  
+-Implement icon  
+-Hide delete buttons for sets unless the exercise's edit toggle is activated.  
+-Mobile optimization  
+-General design improvements  
 
 
