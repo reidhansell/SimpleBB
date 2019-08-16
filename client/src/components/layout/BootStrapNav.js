@@ -18,16 +18,19 @@ const BootStrapNav = ({ auth: { isAuthenticated, loading }, logout }) => {
   const authLinks = (
     <Nav className="ml-auto" navbar>
       <NavItem>
-        <Link to="/tracker" className="mx-2">Tracker</Link>
+        <Link to="/tracker" className="mx-3">Exercise Tracker</Link>
       </NavItem>
       <NavItem>
-        <Link to="/workouts" className="mx-2">Workouts</Link>
+        <Link to="/tracker" className="mx-3">About</Link>
       </NavItem>
       <NavItem>
-        <Link to="/exercises" className="mx-2 mr-5">Exercises</Link>
+        <Link to="/tracker" className="mx-3">Help</Link>
       </NavItem>
       <NavItem>
-        <a onClick={logout} href="#!">
+        <Link to="/tracker" className="mx-3 disabled">Diet Tracker</Link>
+      </NavItem>
+      <NavItem>
+        <a onClick={logout} href="#!" className="mx-3">
           <i className="fas fa-sign-out-alt" />{" "}
           <span className="hide-sm">Logout</span>
         </a>

@@ -7,28 +7,78 @@ import AddEModal from "./AddEModal";
 import AddWModal from "./AddWModal";
 import Spinner from "../layout/Spinner";
 import Exercise from "./Exercise";
+import { Button, Col } from "reactstrap";
 
-const Tracker = ({ auth: { loading, user, isAuthenticated } }) => {
+import { saveWeight } from "../../actions/auth";
+
+const Tracker = ({ saveWeight, auth: { loading, user, isAuthenticated } }) => {
   const [date, setDate] = useState(new Date());
+
+  const [weight, setWeight] = useState("");
+
+  const onChange = e => setWeight(e.target.value);
+
+  const onSubmit = async e => {
+    e.preventDefault();
+    console.log("Saving weight");
+    saveWeight(weight, date);
+    setWeight("");
+    console.log("End saving weight");
+  };
+
+  const clear = () => {
+    setWeight("");
+  };
+
+  var currentWeight =
+    !loading && isAuthenticated
+      ? user.weight.find(x => {
+          const newDate = new Date(x.date);
+          return newDate.getDate() === date.getDate() &&
+            newDate.getMonth() === date.getMonth() &&
+            newDate.getFullYear() === date.getFullYear()
+            ? x.weight
+            : null;
+        })
+      : null;
+
+  currentWeight = currentWeight ? currentWeight.weight : null;
 
   return !isAuthenticated || loading ? (
     <Spinner />
   ) : (
     <div className="container text-center">
       <DatePicker
-        className="mt-5"
+        className="my-3"
         onChange={setDate}
         value={date}
         clearIcon={null}
       />
-      <h3 className="my-3">Weight: {}</h3>
+      <h3 className="my-3">Weight: {currentWeight}</h3>
+      <Col className="my-3">
+        <input
+          className="w-25 mx-3"
+          placeholder="Today's bodyweight"
+          value={weight}
+          onChange={e => onChange(e)}
+        />
+        <Button color="primary" className="mb-2" onClick={onSubmit}>
+          Save
+        </Button>
+        <Button color="secondary" className="mb-2 ml-3" onClick={clear}>
+          Clear
+        </Button>
+      </Col>
       <br />
       <AddEModal date={date} />
       <AddWModal />
       <br />
       <ul className="no-style-list">
         {user.exercisesTracked.map(x => {
-          return new Date(x.date).getDate() === date.getDate() ? (
+          const newDate = new Date(x.date);
+          return newDate.getDate() === date.getDate() &&
+            newDate.getMonth() === date.getMonth() &&
+            newDate.getFullYear() === date.getFullYear() ? (
             <li className="my-1 border-top border-bottom py-1" key={x._id}>
               <Exercise exercise={x} />
             </li>
@@ -40,11 +90,16 @@ const Tracker = ({ auth: { loading, user, isAuthenticated } }) => {
 };
 
 Tracker.propTypes = {
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  saveWeight: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  saveWeight: saveWeight
 });
 
-export default connect(mapStateToProps)(Tracker);
+export default connect(
+  mapStateToProps,
+  { saveWeight }
+)(Tracker);

@@ -21,3 +21,15 @@
   cursor: pointer;
   background: whitesmoke
 }
+
+.disabled{
+  cursor: default;
+  color: gray;
+  text-decoration-line: line-through;
+}
+
+.disabled:hover{
+  cursor: default;
+  color: gray;
+  text-decoration-line: line-through;
+}

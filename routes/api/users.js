@@ -111,7 +111,7 @@ router.put("/exercises", [auth, []], async (req, res) => {
 // @route    DELETE api/users/exercises/:id
 // @desc     Delete an exercise
 // @access   Private
-router.delete('/exercises/:id', auth, async (req, res) => {
+router.delete("/exercises/:id", auth, async (req, res) => {
   console.log("entered route");
   try {
     const user = await User.findOne({ _id: req.user.id });
@@ -124,7 +124,7 @@ router.delete('/exercises/:id', auth, async (req, res) => {
     console.log(exercise);
 
     if (!exercise) {
-      return res.status(404).json({ msg: 'Exercise not found' });
+      return res.status(404).json({ msg: "Exercise not found" });
     }
 
     await exercise.remove();
@@ -134,13 +134,13 @@ router.delete('/exercises/:id', auth, async (req, res) => {
     console.log("newUser:");
     console.log(user);
 
-    res.json({ msg: 'Exercise removed' });
+    res.json({ msg: "Exercise removed" });
   } catch (err) {
     console.error(err.message);
-    if (err.kind === 'ObjectId') {
-      return res.status(404).json({ msg: 'Post not found' });
+    if (err.kind === "ObjectId") {
+      return res.status(404).json({ msg: "Post not found" });
     }
-    res.status(500).send('Server Error');
+    res.status(500).send("Server Error");
   }
 });
 
@@ -178,7 +178,7 @@ router.put("/exercisesTracked", [auth, []], async (req, res) => {
 // @route    DELETE api/users/exercisesTracked/:id
 // @desc     Delete an exercise
 // @access   Private
-router.delete('/exercisesTracked/:id', auth, async (req, res) => {
+router.delete("/exercisesTracked/:id", auth, async (req, res) => {
   console.log("entered route");
   try {
     const user = await User.findOne({ _id: req.user.id });
@@ -191,7 +191,7 @@ router.delete('/exercisesTracked/:id', auth, async (req, res) => {
     console.log(exercise);
 
     if (!exercise) {
-      return res.status(404).json({ msg: 'Exercise not found' });
+      return res.status(404).json({ msg: "Exercise not found" });
     }
 
     await exercise.remove();
@@ -201,17 +201,17 @@ router.delete('/exercisesTracked/:id', auth, async (req, res) => {
     console.log("newUser:");
     console.log(user);
 
-    res.json({ msg: 'Exercise removed' });
+    res.json({ msg: "Exercise removed" });
   } catch (err) {
     console.error(err.message);
-    if (err.kind === 'ObjectId') {
-      return res.status(404).json({ msg: 'Post not found' });
+    if (err.kind === "ObjectId") {
+      return res.status(404).json({ msg: "Post not found" });
     }
-    res.status(500).send('Server Error');
+    res.status(500).send("Server Error");
   }
 });
 
-// @route    PUT api/users/days/exercisesTracked/sets
+// @route    PUT api/users/exercisesTracked/sets
 // @desc     Add set to exercisesTracked
 // @access   Private
 router.put("/exercisesTracked/sets", [auth, []], async (req, res) => {
@@ -259,40 +259,87 @@ router.put("/exercisesTracked/sets", [auth, []], async (req, res) => {
 // @route    DELETE api/users/exercisesTracked/:exerciseid/sets/:setid
 // @desc     Delete a set
 // @access   Private
-router.delete('/exercisesTracked/:exerciseid/sets/:setid', auth, async (req, res) => {
+router.delete(
+  "/exercisesTracked/:exerciseid/sets/:setid",
+  auth,
+  async (req, res) => {
+    console.log("entered route");
+    try {
+      const user = await User.findOne({ _id: req.user.id });
+      console.log("user:");
+      console.log(user);
+      const exercise = user.exercisesTracked.find(x => {
+        return x.id === req.params.exerciseid;
+      });
+
+      const set = exercise.sets.find(x => {
+        return x.id === req.params.setid;
+      });
+      console.log("exercise:");
+      console.log(exercise);
+
+      if (!exercise) {
+        return res.status(404).json({ msg: "Exercise not found" });
+      }
+
+      await set.remove();
+
+      await user.save();
+
+      console.log("newUser:");
+      console.log(user);
+
+      res.json({ msg: "Exercise removed" });
+    } catch (err) {
+      console.error(err.message);
+      if (err.kind === "ObjectId") {
+        return res.status(404).json({ msg: "Post not found" });
+      }
+      res.status(500).send("Server Error");
+    }
+  }
+);
+
+// @route    PUT api/users/weight
+// @desc     Add set to exercisesTracked
+// @access   Private
+router.put("/weight", [auth, []], async (req, res) => {
   console.log("entered route");
+  console.log(" ");
+  const { weight, date } = req.body;
+
+  console.log("date: ");
+  console.log(date);
+  console.log(" ");
+
+  const newDate = {
+    weight,
+    date
+  };
   try {
+    console.log("req.user:");
+    console.log(req.user);
+    console.log(" ");
     const user = await User.findOne({ _id: req.user.id });
-    console.log("user:");
-    console.log(user);
-    const exercise = user.exercisesTracked.find(x => {
-      return x.id === req.params.exerciseid;
+
+    const reqDate = new Date(date);
+
+    const existingDate = user.weight.find(x => {
+      const newDate = new Date(x.date);
+      return newDate.getDate() === reqDate.getDate() && newDate.getMonth() === reqDate.getMonth() && newDate.getFullYear() === reqDate.getFullYear();
     });
 
-    const set = exercise.sets.find(x => {
-      return x.id === req.params.setid
-    })
-    console.log("exercise:");
-    console.log(exercise);
+    existingDate ? (existingDate.weight = weight) : user.weight.unshift(newDate);
 
-    if (!exercise) {
-      return res.status(404).json({ msg: 'Exercise not found' });
-    }
-
-    await set.remove();
-
+    console.log("new user: ");
+    console.log(user);
+    console.log(" ");
     await user.save();
 
-    console.log("newUser:");
-    console.log(user);
-
-    res.json({ msg: 'Exercise removed' });
+    res.json(user);
   } catch (err) {
     console.error(err.message);
-    if (err.kind === 'ObjectId') {
-      return res.status(404).json({ msg: 'Post not found' });
-    }
-    res.status(500).send('Server Error');
+    res.status(500).send("Server Error");
   }
 });
 

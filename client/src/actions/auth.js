@@ -261,6 +261,43 @@ export const deleteTrackedExerciseSet = (exerciseid, setid) => async dispatch =>
   }
 };
 
+// Save weight to date
+export const saveWeight = (weight, date) => async dispatch => {
+  try {
+    console.log("saveWeight entered");
+    console.log("date: ");
+    console.log(date);
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    const body = JSON.stringify({weight, date});
+
+    const res = await axios.put(
+      `/api/users/weight`,
+      body,
+      config
+    );
+    dispatch({
+      type: ADD_EXERCISE_SUCCESS,
+      payload: res.data
+    });
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+    }
+
+    dispatch({
+      type: ADD_EXERCISE_FAIL,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
 // Logout
 export const logout = () => dispatch => {
   dispatch({ type: LOGOUT });

@@ -7,20 +7,22 @@ const AddWModal = () => {
   const [modal, setModal] = useState(false);
 
   const toggle = () => {
-    setModal(!modal)
+    setModal(!modal);
   };
 
   return (
     <div>
-      <Button className="mt-1" color="primary" onClick={toggle}>Add Workout</Button>
+      <Button className="mt-1" color="secondary" onClick={toggle}>
+        <strike>Add Workout</strike>
+      </Button>{" "}
+      <br />
+      (Coming soon)
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Modal title</ModalHeader>
-        <ModalBody>
-          
-        </ModalBody>
+        <ModalHeader toggle={toggle}>Coming soon</ModalHeader>
+        <ModalBody />
         <ModalFooter>
           <Button color="primary" onClick={toggle}>
-            Do Something
+            Create Workout
           </Button>{" "}
           <Button color="secondary" onClick={toggle}>
             Cancel
