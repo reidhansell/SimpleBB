@@ -1,8 +1,12 @@
 # SimpleBB
 
-A MERN stack application for tracking fitness goals and more. General architecture from [Udemy](https://www.udemy.com/mern-stack-front-to-back/?couponCode=TRAVERSYMEDIA).
+A MERN stack application for tracking fitness goals and more. 
 
 Scroll to the bottom for a todo list.
+
+Architecture inspired by [Brad Traversy's MERN stack Udemy course](https://www.udemy.com/mern-stack-front-to-back/?couponCode=TRAVERSYMEDIA).
+
+Design inspired by FitList for iOS.
 
 ## Quick Start
 
