@@ -216,6 +216,7 @@ router.delete('/exercisesTracked/:id', auth, async (req, res) => {
 // @access   Private
 router.put("/exercisesTracked/sets", [auth, []], async (req, res) => {
   console.log("entered route");
+  console.log(" ");
   const { weightdistance, repstime, exerciseid } = req.body;
 
   const newSet = {
@@ -227,17 +228,25 @@ router.put("/exercisesTracked/sets", [auth, []], async (req, res) => {
   try {
     console.log("req.user:");
     console.log(req.user);
+    console.log(" ");
     const user = await User.findOne({ _id: req.user.id });
 
     const exercise = user.exercisesTracked.find(x => {
       return x.id === exerciseid;
     });
 
+    console.log("exercise: ");
+    console.log(exercise);
+    console.log(" ");
+
     console.log("newSet:");
     console.log(newSet);
+    console.log(" ");
     exercise.sets.unshift(newSet);
 
-    console.log("new user: " + user);
+    console.log("new user: ");
+    console.log(user);
+    console.log(" ");
     await user.save();
 
     res.json(user);
@@ -247,8 +256,8 @@ router.put("/exercisesTracked/sets", [auth, []], async (req, res) => {
   }
 });
 
-// @route    DELETE api/users/exercisesTracked/:id
-// @desc     Delete an exercise
+// @route    DELETE api/users/exercisesTracked/:exerciseid/sets/:setid
+// @desc     Delete a set
 // @access   Private
 router.delete('/exercisesTracked/:exerciseid/sets/:setid', auth, async (req, res) => {
   console.log("entered route");

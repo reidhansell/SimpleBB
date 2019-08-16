@@ -253,7 +253,6 @@ export const deleteTrackedExerciseSet = (exerciseid, setid) => async dispatch =>
 
     dispatch(loadUser());
 
-    //dispatch(setAlert('Post Removed', 'success'));
   } catch (err) {
     dispatch({
       type: EXERCISE_ERROR,
