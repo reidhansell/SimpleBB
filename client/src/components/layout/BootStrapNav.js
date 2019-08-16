@@ -21,13 +21,13 @@ const BootStrapNav = ({ auth: { isAuthenticated, loading }, logout }) => {
         <Link to="/tracker" className="mx-3">Exercise Tracker</Link>
       </NavItem>
       <NavItem>
-        <Link to="/tracker" className="mx-3">About</Link>
+        <Link to="/about" className="mx-3">About</Link>
       </NavItem>
       <NavItem>
-        <Link to="/tracker" className="mx-3">Help</Link>
+        <Link to="/help" className="mx-3">Help</Link>
       </NavItem>
       <NavItem>
-        <Link to="/tracker" className="mx-3 disabled">Diet Tracker</Link>
+        <Link to="/diettracker" className="mx-3 disabled">Diet Tracker</Link>
       </NavItem>
       <NavItem>
         <a onClick={logout} href="#!" className="mx-3">
@@ -50,8 +50,8 @@ const BootStrapNav = ({ auth: { isAuthenticated, loading }, logout }) => {
   );
 
   return (
-    <Navbar color="light" light expand="md">
-      <NavbarBrand href="/">SimpleBB</NavbarBrand>
+    <Navbar className="mb-5 border-bottom" light expand="md">
+      <NavbarBrand id="navbar-brand" href="/" className="text-primary">Simple Bodybuilding</NavbarBrand>
       <NavbarToggler onClick={() => setToggle(!toggle)} />
       <Collapse isOpen={toggle} navbar>
         {!loading && (

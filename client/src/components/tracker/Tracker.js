@@ -48,13 +48,13 @@ const Tracker = ({ saveWeight, auth: { loading, user, isAuthenticated } }) => {
     <Spinner />
   ) : (
     <div className="container text-center">
-      <DatePicker
+      <h5><DatePicker
         className="my-3"
         onChange={setDate}
         value={date}
         clearIcon={null}
-      />
-      <h3 className="my-3">Weight: {currentWeight}</h3>
+      /></h5>
+      <h3 className="my-3">Weight: {currentWeight === null ? "Not logged" : currentWeight}</h3>
       <Col className="my-3">
         <input
           className="w-25 mx-3"
@@ -79,7 +79,7 @@ const Tracker = ({ saveWeight, auth: { loading, user, isAuthenticated } }) => {
           return newDate.getDate() === date.getDate() &&
             newDate.getMonth() === date.getMonth() &&
             newDate.getFullYear() === date.getFullYear() ? (
-            <li className="my-1 border-top border-bottom py-1" key={x._id}>
+            <li className="my-1 border-top py-1" key={x._id}>
               <Exercise exercise={x} />
             </li>
           ) : null;

@@ -1,3 +1,7 @@
+#root {
+  font-family: "Lexend Deca", sans-serif;
+  color: black;
+}
 .no-style-list {
   list-style-type: none;
   margin: 0;
@@ -17,19 +21,37 @@
   margin-right: auto;
 }
 
-.clickable:hover{
+.clickable:hover {
   cursor: pointer;
-  background: whitesmoke
+  background: whitesmoke;
 }
 
-.disabled{
+#root .disabled {
   cursor: default;
   color: gray;
   text-decoration-line: line-through;
 }
 
-.disabled:hover{
+#root .disabled:hover {
   cursor: default;
   color: gray;
   text-decoration-line: line-through;
 }
+
+#root a{
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  transition:.5s;
+  text-decoration: none;
+}
+
+#root a:hover{
+  color:black;
+}
+#root a.navbar-brand:hover{
+  color:black !important;/*WARNING! IMPORTANT. FIX IN THE NEAR FUTURE IF POSSIBLE*/
+}
+
+

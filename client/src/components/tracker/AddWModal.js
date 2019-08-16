@@ -15,8 +15,6 @@ const AddWModal = () => {
       <Button className="mt-1" color="secondary" onClick={toggle}>
         <strike>Add Workout</strike>
       </Button>{" "}
-      <br />
-      (Coming soon)
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Coming soon</ModalHeader>
         <ModalBody />

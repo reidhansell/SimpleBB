@@ -69,11 +69,11 @@ const Exercise = ({ exercise, addSet, deleteTrackedExercise, deleteTrackedExerci
           </Button>
         </span>
       </div>
-      <ul className="no-style-list border-top border-left border-right w-50 mx-auto">
+      <ul className="no-style-list border-top w-50 mx-auto">
         <p className="text-muted">Weight/disance x reps/sets</p>
         {exercise.sets.map(x => {
           return (
-            <li key={x._id} className="my-1 py-1 border-top border-bottom">
+            <li key={x._id} className="my-1 py-1 border-top">
               {x.weightdistance} x {x.repstime}{" "}
               <Button
                 className="ml-5 btn-sm"
