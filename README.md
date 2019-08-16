@@ -1,7 +1,5 @@
 # SimpleBB
 
-> Fitness tracker and more
-
 A MERN stack application for tracking fitness goals and more. General architecture from [Udemy](https://www.udemy.com/mern-stack-front-to-back/?couponCode=TRAVERSYMEDIA).
 
 Scroll to the bottom for a todo list.
