@@ -65,9 +65,11 @@ Main list:
 -Stricter input rules for signup
 -Increase security or add a warning/disclaimer about the current state of security
 -Add diet tracking
+-Add social profiles
 
 Optimization list:
 -Change state on click instead of waiting for loadUser. loadUser will correct the state regardless of any errors that occured on the backend. This will give the appreance of instant loading.
+-Fix Redux actions or remove it entirely. Keep in mind it will be useful when diet tracking and social profiles are added.
 -General fixes. Fix repeated, inconsistent, and unnecessary code.
 
 Aesthetics and navigation list:
