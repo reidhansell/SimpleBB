@@ -6,7 +6,7 @@ import {
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem,
+  NavItem
 } from "reactstrap";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -18,19 +18,27 @@ const BootStrapNav = ({ auth: { user, isAuthenticated, loading }, logout }) => {
   const authLinks = (
     <Nav className="ml-auto" navbar>
       {!loading && isAuthenticated && (
-          <span className="mx-3">Welcome, {user.name}</span>
-        )}
+        <span className="mx-3">Welcome, {user.name}</span>
+      )}
       <NavItem>
-        <Link to="/tracker" className="mx-3">Exercise Tracker</Link>
+        <Link to="/tracker" className="mx-3">
+          Exercise Tracker
+        </Link>
       </NavItem>
       <NavItem>
-        <Link to="/about" className="mx-3">About</Link>
+        <Link to="/about" className="mx-3">
+          About
+        </Link>
       </NavItem>
       <NavItem>
-        <Link to="/help" className="mx-3">Help</Link>
+        <Link to="/help" className="mx-3">
+          Help
+        </Link>
       </NavItem>
       <NavItem>
-        <Link to="#" className="mx-3 disabled">Diet Tracker</Link>
+        <Link to="#" className="mx-3 disabled">
+          Diet Tracker
+        </Link>
       </NavItem>
       <NavItem>
         <a onClick={logout} href="#!" className="mx-3">
@@ -44,17 +52,34 @@ const BootStrapNav = ({ auth: { user, isAuthenticated, loading }, logout }) => {
   const guestLinks = (
     <Nav className="ml-auto" navbar>
       <NavItem>
-        <Link to="/register" className="mx-2">Register</Link>
+        <Link to="/login" className="mx-3">
+          Login
+        </Link>
       </NavItem>
       <NavItem>
-        <Link to="/login" className="mx-2">Login</Link>
+        <Link to="/register" className="mx-3">
+          Register
+        </Link>
+      </NavItem>
+
+      <NavItem>
+        <Link to="/about" className="mx-3">
+          About
+        </Link>
+      </NavItem>
+      <NavItem>
+        <Link to="/help" className="mx-3">
+          Help
+        </Link>
       </NavItem>
     </Nav>
   );
 
   return (
     <Navbar dark color="primary" expand="lg">
-      <NavbarBrand id="navbar-brand" href="/" className="mx-3">Simple Bodybuilding</NavbarBrand>
+      <NavbarBrand id="navbar-brand" href="/" className="mx-3">
+        Simple Bodybuilding
+      </NavbarBrand>
       <NavbarToggler onClick={() => setToggle(!toggle)} />
       <Collapse isOpen={toggle} navbar>
         {!loading && (
