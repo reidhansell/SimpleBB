@@ -7,10 +7,12 @@ import NotFound from "../layout/NotFound";
 import PrivateRoute from "../routing/PrivateRoute";
 import Alert from "../layout/Alert";
 import { Container } from "reactstrap";
+import BootStrapNav from "../layout/BootStrapNav";
 
 const Routes = () => {
   return (
-    <div className="p-0">
+    <Container fluid={true} className="p-0 m-0">
+      <BootStrapNav />
       <Alert />
       <Switch>
         <Route exact path="/" component={Login} />
@@ -19,7 +21,7 @@ const Routes = () => {
         <PrivateRoute exact path="/tracker" component={Tracker} />
         <Route component={NotFound} />
       </Switch>
-    </div>
+    </Container>
   );
 };
 

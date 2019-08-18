@@ -60,11 +60,11 @@ const Exercise = ({
 
   return (
     <Fragment>
-      <div className="clickable mb-1" onClick={toggle}>
-        <Row className="bg-primary">
-          <h3 className="ml-5 mr-a pt-1">{exercise.name}</h3>
+      <div className="clickable mb-2 border-bottom shadow rounded container-fluid" onClick={toggle}>
+        <Row className="bg-primary text-white rounded-right">
+          <h5 className="ml-5 mr-a pt-2">{exercise.name}</h5>
           <Button
-            className="mr-3"
+            className=""
             color="danger"
             onClick={e => onDelete(e, exercise._id)}
           >

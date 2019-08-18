@@ -47,19 +47,21 @@ const Tracker = ({ saveWeight, auth: { loading, user, isAuthenticated } }) => {
   return !isAuthenticated || loading ? (
     <Spinner />
   ) : (
-    <div className="text-center mt-3">
-      <h5>
-        <DatePicker
-          className="my-3"
-          onChange={setDate}
-          value={date}
-          clearIcon={null}
-        />
-      </h5>
+    <div className="text-center">
+      <div className="shadow">
+        <br />
+        <h5>
+          <DatePicker
+            className="my-3"
+            onChange={setDate}
+            value={date}
+            clearIcon={null}
+          />
+        </h5>
         <h5 className="my-3">
           Weight: {currentWeight === null ? "Not logged" : currentWeight}
         </h5>
-        <Col className="my-3 border-bottom">
+        <Col className="my-3">
           <input
             className="w-25 mx-3"
             placeholder="Today's bodyweight"
@@ -73,8 +75,13 @@ const Tracker = ({ saveWeight, auth: { loading, user, isAuthenticated } }) => {
             Clear
           </Button>
         </Col>
+        <br />
+      </div>
+      <br />
+      <br />
       <AddEModal date={date} />
       <AddWModal />
+      <br />
       <br />
       <ul className="no-style-list">
         {user.exercisesTracked.map(x => {

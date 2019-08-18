@@ -27,9 +27,9 @@ const Login = ({ login, isAuthenticated }) => {
   }
 
   return (
-    <Row>
-      <Col sm="12" md={{ size: 6, offset: 4 }}>
-      <h1 className='large text-primary'>Sign In</h1>
+
+      <Col sm="12" md={{ size: 6, offset: 5 }} className="mt-3">
+      <h1 className='large text-primary'>Login</h1>
       <p className='lead'>
         <i className='fas fa-user' /> Sign Into Your Account
       </p>
@@ -57,10 +57,10 @@ const Login = ({ login, isAuthenticated }) => {
         <input type='submit' className='btn btn-primary' value='Login' />
       </form>
       <p className='my-1'>
-        Don't have an account? <Link to='/register'>Sign Up</Link>
+        Don't have an account? <Link to='/register' className="text-primary">Sign Up</Link>
       </p>
       </Col>
-    </Row>
+
   );
 };
 

@@ -12,11 +12,14 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../../actions/auth";
 
-const BootStrapNav = ({ auth: { isAuthenticated, loading }, logout }) => {
+const BootStrapNav = ({ auth: { user, isAuthenticated, loading }, logout }) => {
   const [toggle, setToggle] = useState(false);
 
   const authLinks = (
     <Nav className="ml-auto" navbar>
+      {!loading && isAuthenticated && (
+          <span className="mx-3">Welcome, {user.name}</span>
+        )}
       <NavItem>
         <Link to="/tracker" className="mx-3">Exercise Tracker</Link>
       </NavItem>
@@ -27,7 +30,7 @@ const BootStrapNav = ({ auth: { isAuthenticated, loading }, logout }) => {
         <Link to="/help" className="mx-3">Help</Link>
       </NavItem>
       <NavItem>
-        <Link to="/diettracker" className="mx-3 disabled">Diet Tracker</Link>
+        <Link to="#" className="mx-3 disabled">Diet Tracker</Link>
       </NavItem>
       <NavItem>
         <a onClick={logout} href="#!" className="mx-3">
@@ -51,7 +54,7 @@ const BootStrapNav = ({ auth: { isAuthenticated, loading }, logout }) => {
 
   return (
     <Navbar dark color="primary" expand="lg">
-      <NavbarBrand id="navbar-brand" href="/">Simple Bodybuilding</NavbarBrand>
+      <NavbarBrand id="navbar-brand" href="/" className="mx-3">Simple Bodybuilding</NavbarBrand>
       <NavbarToggler onClick={() => setToggle(!toggle)} />
       <Collapse isOpen={toggle} navbar>
         {!loading && (

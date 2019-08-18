@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import BootStrapNav from "./components/layout/BootStrapNav";
+
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Routes from "./components/routing/Routes";
 
@@ -24,8 +24,6 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Fragment>
-          <BootStrapNav />
-
           <Route component={Routes} />
         </Fragment>
       </Router>
