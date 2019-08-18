@@ -7,7 +7,7 @@ import AddEModal from "./AddEModal";
 import AddWModal from "./AddWModal";
 import Spinner from "../layout/Spinner";
 import Exercise from "./Exercise";
-import { Button, Col } from "reactstrap";
+import { Button, Col, Row, Container } from "reactstrap";
 
 import { saveWeight } from "../../actions/auth";
 
@@ -47,29 +47,32 @@ const Tracker = ({ saveWeight, auth: { loading, user, isAuthenticated } }) => {
   return !isAuthenticated || loading ? (
     <Spinner />
   ) : (
-    <div className="container text-center">
-      <h5><DatePicker
-        className="my-3"
-        onChange={setDate}
-        value={date}
-        clearIcon={null}
-      /></h5>
-      <h3 className="my-3">Weight: {currentWeight === null ? "Not logged" : currentWeight}</h3>
-      <Col className="my-3">
-        <input
-          className="w-25 mx-3"
-          placeholder="Today's bodyweight"
-          value={weight}
-          onChange={e => onChange(e)}
+    <div className="text-center mt-3">
+      <h5>
+        <DatePicker
+          className="my-3"
+          onChange={setDate}
+          value={date}
+          clearIcon={null}
         />
-        <Button color="primary" className="mb-2" onClick={onSubmit}>
-          Save
-        </Button>
-        <Button color="secondary" className="mb-2 ml-3" onClick={clear}>
-          Clear
-        </Button>
-      </Col>
-      <br />
+      </h5>
+        <h5 className="my-3">
+          Weight: {currentWeight === null ? "Not logged" : currentWeight}
+        </h5>
+        <Col className="my-3 border-bottom">
+          <input
+            className="w-25 mx-3"
+            placeholder="Today's bodyweight"
+            value={weight}
+            onChange={e => onChange(e)}
+          />
+          <Button color="primary" className="mb-2" onClick={onSubmit}>
+            Save
+          </Button>
+          <Button color="secondary" className="mb-2 ml-3" onClick={clear}>
+            Clear
+          </Button>
+        </Col>
       <AddEModal date={date} />
       <AddWModal />
       <br />
@@ -79,7 +82,7 @@ const Tracker = ({ saveWeight, auth: { loading, user, isAuthenticated } }) => {
           return newDate.getDate() === date.getDate() &&
             newDate.getMonth() === date.getMonth() &&
             newDate.getFullYear() === date.getFullYear() ? (
-            <li className="my-1 border-top py-1" key={x._id}>
+            <li key={x._id}>
               <Exercise exercise={x} />
             </li>
           ) : null;

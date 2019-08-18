@@ -1,7 +1,10 @@
 #root {
   font-family: "Lexend Deca", sans-serif;
   color: black;
+  background-color: white;
+  min-height: 100vh;
 }
+
 .no-style-list {
   list-style-type: none;
   margin: 0;
@@ -21,15 +24,15 @@
   margin-right: auto;
 }
 
-.clickable:hover {
-  cursor: pointer;
-  background: whitesmoke;
-}
-
 #root .disabled {
   cursor: default;
   color: gray;
   text-decoration-line: line-through;
+}
+
+.clickable:hover {
+  cursor: pointer;
+  background: whitesmoke;
 }
 
 #root .disabled:hover {
@@ -38,20 +41,19 @@
   text-decoration-line: line-through;
 }
 
-#root a{
-  -o-transition:.5s;
-  -ms-transition:.5s;
-  -moz-transition:.5s;
-  -webkit-transition:.5s;
-  transition:.5s;
+#root a {
+  -o-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
   text-decoration: none;
+  color: white;
 }
 
-#root a:hover{
-  color:black;
+#root a:hover {
+  color: black;
 }
-#root a.navbar-brand:hover{
-  color:black !important;/*WARNING! IMPORTANT. FIX IN THE NEAR FUTURE IF POSSIBLE*/
+#root a.navbar-brand:hover {
+  color: black !important; /*WARNING! IMPORTANT. FIX IN THE NEAR FUTURE IF POSSIBLE*/
 }
-
-

@@ -50,8 +50,8 @@ const BootStrapNav = ({ auth: { isAuthenticated, loading }, logout }) => {
   );
 
   return (
-    <Navbar className="mb-5 border-bottom" light expand="md">
-      <NavbarBrand id="navbar-brand" href="/" className="text-primary">Simple Bodybuilding</NavbarBrand>
+    <Navbar dark color="primary" expand="lg">
+      <NavbarBrand id="navbar-brand" href="/">Simple Bodybuilding</NavbarBrand>
       <NavbarToggler onClick={() => setToggle(!toggle)} />
       <Collapse isOpen={toggle} navbar>
         {!loading && (
