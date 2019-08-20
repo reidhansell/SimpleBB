@@ -19,7 +19,10 @@ const UserSchema = new mongoose.Schema({
     default: Date.now
   },
   workouts: [
-    { workout: { name: String }, exercises: [{ name: { type: String } }] }
+    {
+      name: { type: String },
+      exercises: [{ name: { type: String }, type: { type: String } }]
+    }
   ],
   exercises: [{ name: { type: String }, type: { type: String } }],
   exercisesTracked: [

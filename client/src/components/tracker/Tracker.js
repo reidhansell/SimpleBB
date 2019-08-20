@@ -80,10 +80,10 @@ const Tracker = ({ saveWeight, auth: { loading, user, isAuthenticated } }) => {
       <br />
       <br />
       <AddEModal date={date} />
-      <AddWModal />
+      <AddWModal date={date}/>
       <br />
       <br />
-      <ul className="no-style-list">
+      <ul className="no-style-list col">
         {user.exercisesTracked.map(x => {
           const newDate = new Date(x.date);
           return newDate.getDate() === date.getDate() &&

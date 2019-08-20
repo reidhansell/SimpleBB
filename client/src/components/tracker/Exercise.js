@@ -60,8 +60,8 @@ const Exercise = ({
 
   return (
     <Fragment>
-      <div className="clickable mb-2 border-bottom shadow rounded container-fluid" onClick={toggle}>
-        <Row className="bg-primary text-white rounded-right">
+      <div className="clickable mb-2 shadow rounded container-fluid" onClick={toggle}>
+        <Row className="bg-primary text-white rounded">
           <h5 className="ml-5 mr-a pt-2">{exercise.name}</h5>
           <Button
             className=""

@@ -21,27 +21,27 @@ const BootStrapNav = ({ auth: { user, isAuthenticated, loading }, logout }) => {
         <span className="mx-3">Welcome, {user.name}</span>
       )}
       <NavItem>
-        <Link to="/tracker" className="mx-3">
+        <Link to="/tracker" className="mx-2">
           Exercise Tracker
         </Link>
       </NavItem>
       <NavItem>
-        <Link to="/about" className="mx-3">
+        <Link to="/about" className="mx-2">
           About
         </Link>
       </NavItem>
       <NavItem>
-        <Link to="/help" className="mx-3">
+        <Link to="/help" className="mx-2">
           Help
         </Link>
       </NavItem>
       <NavItem>
-        <Link to="#" className="mx-3 disabled">
+        <Link to="#" className="mx-2 disabled">
           Diet Tracker
         </Link>
       </NavItem>
       <NavItem>
-        <a onClick={logout} href="#!" className="mx-3">
+        <a onClick={logout} href="#!" className="mx-2">
           <i className="fas fa-sign-out-alt" />{" "}
           <span className="hide-sm">Logout</span>
         </a>
@@ -52,23 +52,23 @@ const BootStrapNav = ({ auth: { user, isAuthenticated, loading }, logout }) => {
   const guestLinks = (
     <Nav className="ml-auto" navbar>
       <NavItem>
-        <Link to="/login" className="mx-3">
+        <Link to="/login" className="mx-2">
           Login
         </Link>
       </NavItem>
       <NavItem>
-        <Link to="/register" className="mx-3">
+        <Link to="/register" className="mx-2">
           Register
         </Link>
       </NavItem>
 
       <NavItem>
-        <Link to="/about" className="mx-3">
+        <Link to="/about" className="mx-2">
           About
         </Link>
       </NavItem>
       <NavItem>
-        <Link to="/help" className="mx-3">
+        <Link to="/help" className="mx-2">
           Help
         </Link>
       </NavItem>
@@ -77,7 +77,7 @@ const BootStrapNav = ({ auth: { user, isAuthenticated, loading }, logout }) => {
 
   return (
     <Navbar dark color="primary" expand="lg">
-      <NavbarBrand id="navbar-brand" href="/" className="mx-3">
+      <NavbarBrand id="navbar-brand" href="/" className="mx-2">
         Simple Bodybuilding
       </NavbarBrand>
       <NavbarToggler onClick={() => setToggle(!toggle)} />

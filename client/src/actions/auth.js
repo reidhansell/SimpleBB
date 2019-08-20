@@ -298,6 +298,39 @@ export const saveWeight = (weight, date) => async dispatch => {
   }
 };
 
+// Create new workout
+export const createWorkout = workout => async dispatch => {
+  try {
+    console.log("createWorkout entered");
+    console.log("workout: ");
+    console.log(workout);
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    const body = JSON.stringify(workout);
+
+    const res = await axios.put(`/api/users/workouts`, body, config);
+    dispatch({
+      type: ADD_EXERCISE_SUCCESS,
+      payload: res.data
+    });
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+    }
+
+    dispatch({
+      type: ADD_EXERCISE_FAIL,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
 // Logout
 export const logout = () => dispatch => {
   dispatch({ type: LOGOUT });

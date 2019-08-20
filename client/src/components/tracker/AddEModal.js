@@ -67,10 +67,10 @@ const AddEModal = ({
   return isAuthenticated ? (
     !create ? (
       <div>
-        <Button className="mb-1" color="primary" onClick={toggle}>
+        <Button className="mb-1 btn-lg" color="primary" onClick={toggle}>
           Add Exercise
         </Button>
-        <Modal isOpen={modal} toggle={toggle}>
+        <Modal isOpen={modal} toggle={toggle} style={{fontFamily: "Lexend Deca"}}>
           <ModalHeader toggle={toggle}>
             Click or tap exercise to add
           </ModalHeader>
@@ -87,7 +87,6 @@ const AddEModal = ({
                     <li
                       className="col clickable my-1 border-top border-bottom py-1"
                       onClick={e => onClick(e, x)}
-                      
                     >
                       {x.name}
                     </li>
@@ -115,10 +114,10 @@ const AddEModal = ({
       </div>
     ) : (
       <div>
-        <Button className="mb-1" color="primary" onClick={toggle}>
+        <Button className="mb-1 btn-lg" color="primary" onClick={toggle}>
           Add Exercise
         </Button>
-        <Modal isOpen={modal} toggle={toggle}>
+        <Modal isOpen={modal} toggle={toggle} style={{fontFamily: "Lexend Deca"}}>
           <ModalHeader toggle={toggle}>
             Enter exercise information to create
           </ModalHeader>

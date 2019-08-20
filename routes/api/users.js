@@ -349,4 +349,43 @@ router.put("/weight", [auth, []], async (req, res) => {
   }
 });
 
+// @route    PUT api/users/workouts
+// @desc     Create Workout
+// @access   Private
+router.put("/workouts", [auth, []], async (req, res) => {
+  console.log("entered route");
+  console.log(" ");
+  console.log("req.body");
+  console.log(req.body);
+  const { name, exercises } = req.body;
+
+  const newWorkout = {
+    name: name,
+    exercises: exercises
+  }
+
+  console.log("newWorkout: ");
+  console.log(newWorkout);
+  console.log(" ");
+
+  try {
+    console.log("req.user:");
+    console.log(req.user);
+    console.log(" ");
+    const user = await User.findOne({ _id: req.user.id });
+
+    user.workouts.unshift(newWorkout);
+
+    console.log("new user: ");
+    console.log(user);
+    console.log(" ");
+    await user.save();
+
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 module.exports = router;
