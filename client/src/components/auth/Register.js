@@ -1,18 +1,18 @@
-import React, { Fragment, useState } from 'react';
-import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
-import { setAlert } from '../../actions/alert';
-import { register } from '../../actions/auth';
-import PropTypes from 'prop-types';
+import React, { Fragment, useState } from "react";
+import { connect } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
+import { setAlert } from "../../actions/alert";
+import { register } from "../../actions/auth";
+import PropTypes from "prop-types";
 
-import { Col, Row } from 'reactstrap';
+import { Col, Row } from "reactstrap";
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    password2: ''
+    name: "",
+    email: "",
+    password: "",
+    password2: ""
   });
 
   const { name, email, password, password2 } = formData;
@@ -23,65 +23,68 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   const onSubmit = async e => {
     e.preventDefault();
     if (password !== password2) {
-      setAlert('Passwords do not match', 'danger');
+      setAlert("Passwords do not match", "danger");
     } else {
       register({ name, email, password });
     }
   };
 
   if (isAuthenticated) {
-    return <Redirect to='/tracker' />;
+    return <Redirect to="/tracker" />;
   }
 
   return (
-      <Col sm="12" md={{ size: 6, offset: 5 }} className="pt-3">
-      <h1 className='large text-primary'>Register</h1>
-      <p className='lead'>
-        <i className='fas fa-user' /> Create Your Account
+    <Col sm="12" md={{ size: 6, offset: 5 }} className="pt-3">
+      <h1 className="large text-primary">Register</h1>
+      <p className="lead">
+        <i className="fas fa-user" /> Create Your Account
       </p>
-      <form className='form' onSubmit={e => onSubmit(e)}>
-        <div className='form-group'>
+      <form className="form" onSubmit={e => onSubmit(e)}>
+        <div className="form-group">
           <input
-            type='text'
-            placeholder='Name'
-            name='name'
+            type="text"
+            placeholder="Name"
+            name="name"
             value={name}
             onChange={e => onChange(e)}
           />
         </div>
-        <div className='form-group'>
+        <div className="form-group">
           <input
-            type='email'
-            placeholder='Email Address'
-            name='email'
+            type="email"
+            placeholder="Email Address"
+            name="email"
             value={email}
             onChange={e => onChange(e)}
           />
         </div>
-        <div className='form-group'>
+        <div className="form-group">
           <input
-            type='password'
-            placeholder='Password'
-            name='password'
+            type="password"
+            placeholder="Password"
+            name="password"
             value={password}
             onChange={e => onChange(e)}
           />
         </div>
-        <div className='form-group'>
+        <div className="form-group">
           <input
-            type='password'
-            placeholder='Confirm Password'
-            name='password2'
+            type="password"
+            placeholder="Confirm Password"
+            name="password2"
             value={password2}
             onChange={e => onChange(e)}
           />
         </div>
-        <input type='submit' className='btn btn-primary' value='Register' />
+        <input type="submit" className="btn btn-primary" value="Register" />
       </form>
-      <p className='my-1'>
-        Already have an account? <Link to='/login' className="text-primary">Sign In</Link>
+      <p className="my-1">
+        Already have an account?{" "}
+        <Link to="/login" className="text-primary">
+          Sign In
+        </Link>
       </p>
-      </Col>
+    </Col>
   );
 };
 

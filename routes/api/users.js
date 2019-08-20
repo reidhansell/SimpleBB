@@ -326,10 +326,16 @@ router.put("/weight", [auth, []], async (req, res) => {
 
     const existingDate = user.weight.find(x => {
       const newDate = new Date(x.date);
-      return newDate.getDate() === reqDate.getDate() && newDate.getMonth() === reqDate.getMonth() && newDate.getFullYear() === reqDate.getFullYear();
+      return (
+        newDate.getDate() === reqDate.getDate() &&
+        newDate.getMonth() === reqDate.getMonth() &&
+        newDate.getFullYear() === reqDate.getFullYear()
+      );
     });
 
-    existingDate ? (existingDate.weight = weight) : user.weight.unshift(newDate);
+    existingDate
+      ? (existingDate.weight = weight)
+      : user.weight.unshift(newDate);
 
     console.log("new user: ");
     console.log(user);

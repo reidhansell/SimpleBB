@@ -242,9 +242,14 @@ export const addSet = set => async dispatch => {
 };
 
 // Delete tracked exercise set
-export const deleteTrackedExerciseSet = (exerciseid, setid) => async dispatch => {
+export const deleteTrackedExerciseSet = (
+  exerciseid,
+  setid
+) => async dispatch => {
   try {
-    await axios.delete(`/api/users/exercisesTracked/${exerciseid}/sets/${setid}`);
+    await axios.delete(
+      `/api/users/exercisesTracked/${exerciseid}/sets/${setid}`
+    );
 
     dispatch({
       type: DELETE_EXERCISE,
@@ -252,7 +257,6 @@ export const deleteTrackedExerciseSet = (exerciseid, setid) => async dispatch =>
     });
 
     dispatch(loadUser());
-
   } catch (err) {
     dispatch({
       type: EXERCISE_ERROR,
@@ -273,13 +277,9 @@ export const saveWeight = (weight, date) => async dispatch => {
       }
     };
 
-    const body = JSON.stringify({weight, date});
+    const body = JSON.stringify({ weight, date });
 
-    const res = await axios.put(
-      `/api/users/weight`,
-      body,
-      config
-    );
+    const res = await axios.put(`/api/users/weight`, body, config);
     dispatch({
       type: ADD_EXERCISE_SUCCESS,
       payload: res.data
