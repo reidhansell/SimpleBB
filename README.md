@@ -8,6 +8,8 @@ Architecture inspired by [Brad Traversy's MERN stack Udemy course](https://www.u
 
 Design inspired by FitList for iOS.
 
+Linter: Prettier
+
 ## Quick Start
 
 ```
@@ -59,13 +61,11 @@ This project is licensed under the MIT License
 
 Main list:  
 -Aesthetics and navigation [see below for a relevant list]  
--About page (the goal)  
--Help page (how to use)  
 -Create, add, and delete workouts  
 -Edit all things that can be created (if and only if necessary)  
 -Optimization [see below for a relevant list]  
 -Stricter input rules for signup  
--Increase security or add a warning/disclaimer about the current state of security  
+-Increase security
 -Add diet tracking  
 -Add social profiles  
   
@@ -77,9 +77,6 @@ Optimization list:
 Aesthetics and navigation list:  
 -Implement color pallette  
 -Implement logo  
--Implement icon  
--Hide delete buttons for sets unless the exercise's edit toggle is activated.  
--Mobile optimization  
 -General design improvements  
 
 
