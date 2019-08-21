@@ -28,7 +28,7 @@ const Login = ({ login, isAuthenticated }) => {
 
   return (
     <div className="bg-white rounded shadow p-3 d-flex flex-row">
-      <div className="mt-3 mr-3 ml-a" style={{maxWidth: "20vh"}}>
+      <div className="mt-3 mr-3 ml-a" style={{maxWidth: "25vh"}}>
         <h3 className="text-primary mt-2">Simple Bodybuilding</h3>
         <br />
         <p>
