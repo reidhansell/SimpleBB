@@ -55,7 +55,7 @@ const AddEModal = ({
   const onClick = async (e, exercise) => {
     e.preventDefault();
     exercise.date = date;
-    addTrackedExercise(exercise);
+    addTrackedExercise([exercise]);
     setModal(!modal);
   };
 

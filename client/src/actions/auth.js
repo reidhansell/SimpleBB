@@ -153,7 +153,7 @@ export const deleteExercise = id => async dispatch => {
 };
 
 // Add tracked exercise
-export const addTrackedExercise = exercise => async dispatch => {
+export const addTrackedExercise = exercises => async dispatch => {
   try {
     console.log("addTrackedExercise entered");
     const config = {
@@ -161,11 +161,13 @@ export const addTrackedExercise = exercise => async dispatch => {
         "Content-Type": "application/json"
       }
     };
-    console.log("exercise in actions:");
-    console.log(exercise);
+    console.log("exercises in actions:");
+    console.log(exercises);
+
+    const body = JSON.stringify({ exercises });
     const res = await axios.put(
       "/api/users/exercisesTracked",
-      exercise,
+      body,
       config
     );
     dispatch({

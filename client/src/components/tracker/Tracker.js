@@ -7,7 +7,7 @@ import AddEModal from "./AddEModal";
 import AddWModal from "./AddWModal";
 import Spinner from "../layout/Spinner";
 import Exercise from "./Exercise";
-import { Button, Col, Row, Container } from "reactstrap";
+import { Button, Col } from "reactstrap";
 
 import { saveWeight } from "../../actions/auth";
 
@@ -30,17 +30,18 @@ const Tracker = ({ saveWeight, auth: { loading, user, isAuthenticated } }) => {
     setWeight("");
   };
 
-  var currentWeight =
-    !loading && isAuthenticated
-      ? user.weight.find(x => {
-          const newDate = new Date(x.date);
-          return newDate.getDate() === date.getDate() &&
-            newDate.getMonth() === date.getMonth() &&
-            newDate.getFullYear() === date.getFullYear()
-            ? x.weight
-            : null;
-        })
-      : null;
+  var currentWeight = loading
+    ? null
+    : isAuthenticated
+    ? user.weight.find(x => {
+        const newDate = new Date(x.date);
+        return newDate.getDate() === date.getDate() &&
+          newDate.getMonth() === date.getMonth() &&
+          newDate.getFullYear() === date.getFullYear()
+          ? x.weight
+          : null;
+      })
+    : null;
 
   currentWeight = currentWeight ? currentWeight.weight : null;
 
@@ -76,11 +77,13 @@ const Tracker = ({ saveWeight, auth: { loading, user, isAuthenticated } }) => {
           </Button>
         </Col>
         <br />
+        <br />
+        <AddEModal date={date} />
+        <AddWModal date={date} />
+        <br />
+        <br />
       </div>
-      <br />
-      <br />
-      <AddEModal date={date} />
-      <AddWModal date={date}/>
+
       <br />
       <br />
       <ul className="no-style-list col">

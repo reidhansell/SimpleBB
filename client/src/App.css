@@ -43,10 +43,6 @@
 }
 
 #root a {
-  -o-transition: 0.5s;
-  -ms-transition: 0.5s;
-  -moz-transition: 0.5s;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
   text-decoration: none;
   color: white;
@@ -54,7 +50,40 @@
 
 #root a:hover {
   color: black;
+  -webkit-animation-duration: 0.8s;
+  animation-duration: 0.8s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
 }
+
+@keyframes bounce {
+  0%,
+  100%,
+  20%,
+  50%,
+  80% {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+  40% {
+    -webkit-transform: translateY(-15px);
+    -ms-transform: translateY(-15px);
+    transform: translateY(-15px);
+  }
+  60% {
+    -webkit-transform: translateY(-7px);
+    -ms-transform: translateY(-7px);
+    transform: translateY(-7px);
+  }
+}
+
 #root a.navbar-brand:hover {
   color: black !important; /*WARNING! IMPORTANT. FIX IN THE NEAR FUTURE IF POSSIBLE*/
+  animation-name: bounce;
+  -moz-animation-name: bounce;
 }

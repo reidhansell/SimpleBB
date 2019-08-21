@@ -11,13 +11,19 @@ import {
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { addExercise, deleteExercise, createWorkout } from "../../actions/auth";
+import {
+  addExercise,
+  deleteExercise,
+  addTrackedExercise,
+  createWorkout
+} from "../../actions/auth";
 
 //2 has been added to things related to exercises.
 const AddWModal = ({
   date,
   addExercise,
   deleteExercise,
+  addTrackedExercise,
   createWorkout,
   auth: { user, isAuthenticated }
 }) => {
@@ -90,23 +96,26 @@ const AddWModal = ({
     console.log("End submitting");
   };
 
-  const onClick = async (e, exercise) => {
+  const onClick = async (e, workout) => {
     e.preventDefault();
-    //addWorkout(workout)
+    const newExercises = workout.exercises;
+    newExercises.forEach(x => {
+      x.date = date;
+      delete x._id
+    });
+    addTrackedExercise(newExercises);
     setModal(!modal);
   };
 
-  const onClick2 = async (e, exercise) => {
+  const onClick2 = (e, exercise) => {
+    const newExercise = {
+      date: exercise.date,
+      name: exercise.name,
+      type: exercise.type
+    };
     e.preventDefault();
-    /*exercise.date = date;
-    addTrackedExercise(exercise);
-    setModal(!modal);*/
-  };
-
-  const onClick3 = (e, exercise) => {
-    e.preventDefault();
-    return !workout.exercises.includes(exercise)
-      ? setWorkout({ ...workout, exercises: [...exercises, exercise] })
+    return !workout.exercises.includes(newExercise)
+      ? setWorkout({ ...workout, exercises: [...exercises, newExercise] })
       : {};
   };
 
@@ -163,7 +172,7 @@ const AddWModal = ({
                     </Row>
                     <ul className="no-style-list text-secondary col">
                       {x.exercises.map(x => {
-                        return <li>{x.name}</li>;
+                        return <li key={x.name}>{x.name}</li>;
                       })}
                     </ul>
                   </li>
@@ -234,7 +243,7 @@ const AddWModal = ({
                   <div className="row" key={x._id}>
                     <li
                       className="col clickable my-1 border-top border-bottom py-1"
-                      onClick={e => onClick3(e, x)}
+                      onClick={e => onClick2(e, x)}
                     >
                       {x.name}
                     </li>
@@ -315,6 +324,7 @@ AddWModal.propTypes = {
   modal: PropTypes.bool,
   addExercise: PropTypes.func.isRequired,
   deleteExercise: PropTypes.func.isRequired,
+  addTrackedExercise: PropTypes.func.isRequired,
   createWorkout: PropTypes.func.isRequired
 };
 
@@ -323,10 +333,11 @@ const mapStateToProps = state => ({
   modal: state.modal,
   addExercise: addExercise,
   deleteExercise: deleteExercise,
+  addTrackedExercise: addTrackedExercise,
   createWorkout: createWorkout
 });
 
 export default connect(
   mapStateToProps,
-  { createWorkout, addExercise, deleteExercise }
+  { createWorkout, addExercise, addTrackedExercise, deleteExercise }
 )(AddWModal);

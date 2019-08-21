@@ -30,6 +30,8 @@ const Exercise = ({
 
   const [modal, setModal] = useState(false);
 
+  const [deleting, setDeleting] = useState(false);
+
   const { weightdistance, repstime } = set;
 
   const onChange = e => setSet({ ...set, [e.target.name]: e.target.value });
@@ -46,6 +48,7 @@ const Exercise = ({
 
   const onDelete = async (e, id) => {
     e.preventDefault();
+    setDeleting(true);
     deleteTrackedExercise(id);
   };
 
@@ -58,7 +61,7 @@ const Exercise = ({
     setModal(!modal);
   };
 
-  return (
+  return (deleting ? null : (
     <Fragment>
       <div className="clickable mb-2 shadow rounded container-fluid" onClick={toggle}>
         <Row className="bg-primary text-white rounded">
@@ -71,6 +74,7 @@ const Exercise = ({
             <i className="fas fa-trash" />
           </Button>
         </Row>
+        <ul className="no-style-list col">
         {exercise.sets.map(x => {
           return (
             <li key={x._id} className="my-1 py-1">
@@ -78,6 +82,7 @@ const Exercise = ({
             </li>
           );
         })}
+        </ul>
       </div>
       <Modal className="text-center" isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Add set(s) to exercise</ModalHeader>
@@ -131,7 +136,7 @@ const Exercise = ({
         </ModalFooter>
       </Modal>
     </Fragment>
-  );
+  ));
 };
 
 Exercise.propTypes = {

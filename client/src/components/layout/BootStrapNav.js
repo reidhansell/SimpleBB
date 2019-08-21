@@ -18,7 +18,7 @@ const BootStrapNav = ({ auth: { user, isAuthenticated, loading }, logout }) => {
   const authLinks = (
     <Nav className="ml-auto" navbar>
       {!loading && isAuthenticated && (
-        <span className="mx-3">Welcome, {user.name}</span>
+        <span className="mx-2">Welcome, {user.name}</span>
       )}
       <NavItem>
         <Link to="/tracker" className="mx-2">

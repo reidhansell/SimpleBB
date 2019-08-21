@@ -145,25 +145,22 @@ router.delete("/exercises/:id", auth, async (req, res) => {
 });
 
 // @route    PUT api/users/days/exercisesTracked
-// @desc     Add exercise to day
+// @desc     Add exercises to day
 // @access   Private
 router.put("/exercisesTracked", [auth, []], async (req, res) => {
   console.log("entered route");
-  const { name, type, date } = req.body;
-  const newExercise = {
-    name,
-    type,
-    date
-  };
+  const { exercises } = req.body;
 
   try {
     console.log("req.user:");
     console.log(req.user);
     const user = await User.findOne({ _id: req.user.id });
 
-    console.log("newExercise:");
-    console.log(newExercise);
-    user.exercisesTracked.unshift(newExercise);
+    console.log("exercises:");
+    console.log(exercises);
+    exercises.forEach(x => {
+      user.exercisesTracked.unshift(x);
+    });
 
     console.log("new user: " + user);
     await user.save();
@@ -362,7 +359,7 @@ router.put("/workouts", [auth, []], async (req, res) => {
   const newWorkout = {
     name: name,
     exercises: exercises
-  }
+  };
 
   console.log("newWorkout: ");
   console.log(newWorkout);
