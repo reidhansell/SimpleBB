@@ -11,6 +11,7 @@ import {
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../../actions/auth";
+import logo from "../../LogoWhite.png";
 
 const BootStrapNav = ({ auth: { user, isAuthenticated, loading }, logout }) => {
   const [toggle, setToggle] = useState(false);
@@ -78,7 +79,7 @@ const BootStrapNav = ({ auth: { user, isAuthenticated, loading }, logout }) => {
   return (
     <Navbar dark color="primary" expand="lg">
       <NavbarBrand id="navbar-brand" href="/" className="mx-2">
-        Simple Bodybuilding
+        <img src={logo} alt="Logo" style={{maxHeight: "2.5vh"}}/>
       </NavbarBrand>
       <NavbarToggler onClick={() => setToggle(!toggle)} />
       <Collapse isOpen={toggle} navbar>

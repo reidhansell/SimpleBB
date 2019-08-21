@@ -87,7 +87,6 @@
 }
 
 #root a.navbar-brand:hover {
-  color: black !important; /*WARNING! IMPORTANT. FIX IN THE NEAR FUTURE IF POSSIBLE*/
   animation-name: bounce;
   -moz-animation-name: bounce;
 }

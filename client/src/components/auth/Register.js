@@ -36,7 +36,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   return (
     <div className="bg-white rounded shadow p-3 d-flex flex-row">
       <div className="mt-3 mr-3 ml-a" style={{ maxWidth: "22vh" }}>
-        <h3 className="text-primary mt-2">Simple Bodybuilding</h3>
+        <h5 className="text-primary mt-2">Simple Bodybuilding</h5>
         <br />
         <p>
           A web-based fitness tracker catering to bodybuilder-style training
@@ -49,7 +49,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
       <div className="mt-3 ml-3 mr-a" style={{ maxWidth: "22vh" }}>
         <h1 className="large text-primary">Register</h1>
         <p className="lead">
-          <i className="fas fa-user" /> Create Your Account
+          <i className="fas fa-user" /> Create Account
         </p>
         <form className="form" onSubmit={e => onSubmit(e)}>
           <div className="form-group">
@@ -95,7 +95,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
           <input type="submit" className="btn btn-primary" value="Register" />
         </form>
         <p className="my-1">
-          Already have an account?{" "}
+          Have an account?{" "}
           <Link to="/login" className="text-primary">
             Sign In
           </Link>
