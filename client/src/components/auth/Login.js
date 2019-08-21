@@ -28,7 +28,7 @@ const Login = ({ login, isAuthenticated }) => {
 
   return (
     <div className="bg-white rounded shadow p-3 d-flex flex-row">
-      <div className="mt-3 mr-3 ml-a" style={{maxWidth: "25vh"}}>
+      <div className="mt-3 mr-3 ml-a" style={{maxWidth: "22vh"}}>
         <h3 className="text-primary mt-2">Simple Bodybuilding</h3>
         <br />
         <p>
@@ -38,7 +38,7 @@ const Login = ({ login, isAuthenticated }) => {
           Sign in to start tracking exercises. No sensitive data other than a password is used or stored.
         </p>
       </div>
-      <div className="mt-3 ml-3 mr-a">
+      <div className="mt-3 ml-3 mr-a" style={{ maxWidth: "22vh" }}>
         <h1 className="large text-primary">Login</h1>
         <p className="lead">
           <i className="fas fa-user" /> Sign Into Your Account
@@ -52,6 +52,7 @@ const Login = ({ login, isAuthenticated }) => {
               value={email}
               onChange={e => onChange(e)}
               required
+              size="17"
             />
           </div>
           <div className="form-group">
@@ -62,6 +63,7 @@ const Login = ({ login, isAuthenticated }) => {
               value={password}
               onChange={e => onChange(e)}
               minLength="6"
+              size="17"
             />
           </div>
           <input type="submit" className="btn btn-primary" value="Login" />
