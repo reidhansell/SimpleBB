@@ -15,7 +15,8 @@ import {
   addExercise,
   deleteExercise,
   addTrackedExercise,
-  createWorkout
+  createWorkout,
+  deleteWorkout
 } from "../../actions/auth";
 
 //2 has been added to things related to exercises.
@@ -25,6 +26,7 @@ const AddWModal = ({
   deleteExercise,
   addTrackedExercise,
   createWorkout,
+  deleteWorkout,
   auth: { user, isAuthenticated }
 }) => {
   const [modal, setModal] = useState(false);
@@ -101,7 +103,7 @@ const AddWModal = ({
     const newExercises = workout.exercises;
     newExercises.forEach(x => {
       x.date = date;
-      delete x._id
+      delete x._id;
     });
     addTrackedExercise(newExercises);
     setModal(!modal);
@@ -119,9 +121,9 @@ const AddWModal = ({
       : {};
   };
 
-  const onDelete = async (e, exercise) => {
+  const onDelete = async (e, id) => {
     e.preventDefault();
-    //deleteWorkout({ ...workout, exercises: exercises.unshift(exercise) });
+    deleteWorkout(id);
   };
 
   const onDelete2 = async (e, id) => {
@@ -131,7 +133,14 @@ const AddWModal = ({
 
   const onDelete3 = async (e, exercise) => {
     e.preventDefault();
-    //DELETE SET FROM NEW WORKOUT
+    setWorkout({
+      ...workout,
+      exercises: [
+        ...exercises.filter(x => {
+          return x === exercise ? null : x;
+        })
+      ]
+    });
   };
 
   return isAuthenticated ? (
@@ -157,11 +166,15 @@ const AddWModal = ({
                 return x.name === null ? null : x.name.includes(search) ? (
                   <li
                     className="col clickable my-1 py-1 rounded shadow"
-                    onClick={e => onClick(e, x)}
                     key={x._id}
                   >
                     <Row className="bg-primary rounded">
-                      <Col className="mt-2 text-white">{x.name}</Col>{" "}
+                      <Col
+                        className="mt-2 text-white"
+                        onClick={e => onClick(e, x)}
+                      >
+                        {x.name}
+                      </Col>{" "}
                       <Button
                         className="ml-a"
                         color="danger"
@@ -170,7 +183,7 @@ const AddWModal = ({
                         <i className="fas fa-trash ml-a" />
                       </Button>
                     </Row>
-                    <ul className="no-style-list text-secondary col">
+                    <ul className="no-style-list text-secondary col" onClick={e => onClick(e, x)}>
                       {x.exercises.map(x => {
                         return <li key={x.name}>{x.name}</li>;
                       })}
@@ -222,7 +235,7 @@ const AddWModal = ({
                     <Button
                       className="my-1"
                       color="danger"
-                      onClick={e => onDelete3(e, x._id)}
+                      onClick={e => onDelete3(e, x)}
                     >
                       <i className="fas fa-trash ml-a" />
                     </Button>
@@ -325,7 +338,8 @@ AddWModal.propTypes = {
   addExercise: PropTypes.func.isRequired,
   deleteExercise: PropTypes.func.isRequired,
   addTrackedExercise: PropTypes.func.isRequired,
-  createWorkout: PropTypes.func.isRequired
+  createWorkout: PropTypes.func.isRequired,
+  deleteWorkout: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -334,10 +348,17 @@ const mapStateToProps = state => ({
   addExercise: addExercise,
   deleteExercise: deleteExercise,
   addTrackedExercise: addTrackedExercise,
-  createWorkout: createWorkout
+  createWorkout: createWorkout,
+  deleteWorkout: deleteWorkout
 });
 
 export default connect(
   mapStateToProps,
-  { createWorkout, addExercise, addTrackedExercise, deleteExercise }
+  {
+    createWorkout,
+    deleteWorkout,
+    addExercise,
+    addTrackedExercise,
+    deleteExercise
+  }
 )(AddWModal);

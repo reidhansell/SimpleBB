@@ -385,4 +385,40 @@ router.put("/workouts", [auth, []], async (req, res) => {
   }
 });
 
+// @route    DELETE api/users/workouts/:id
+// @desc     Delete a workout
+// @access   Private
+router.delete("/workouts/:id", auth, async (req, res) => {
+  console.log("entered route");
+  try {
+    const user = await User.findOne({ _id: req.user.id });
+    console.log("user:");
+    console.log(user);
+    const workout = user.workouts.find(x => {
+      return x.id === req.params.id;
+    });
+    console.log("workout:");
+    console.log(workout);
+
+    if (!workout) {
+      return res.status(404).json({ msg: "Exercise not found" });
+    }
+
+    await workout.remove();
+
+    await user.save();
+
+    console.log("newUser:");
+    console.log(user);
+
+    res.json({ msg: "Exercise removed" });
+  } catch (err) {
+    console.error(err.message);
+    if (err.kind === "ObjectId") {
+      return res.status(404).json({ msg: "Post not found" });
+    }
+    res.status(500).send("Server Error");
+  }
+});
+
 module.exports = router;

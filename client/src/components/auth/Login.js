@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { login } from "../../actions/auth";
 
-import { Col } from "reactstrap";
+import { Col, Row } from "reactstrap";
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -27,41 +27,53 @@ const Login = ({ login, isAuthenticated }) => {
   }
 
   return (
-    <Col sm="12" md={{ size: 6, offset: 5 }} className="mt-3">
-      <h1 className="large text-primary">Login</h1>
-      <p className="lead">
-        <i className="fas fa-user" /> Sign Into Your Account
-      </p>
-      <form className="form" onSubmit={e => onSubmit(e)}>
-        <div className="form-group">
-          <input
-            type="email"
-            placeholder="Email Address"
-            name="email"
-            value={email}
-            onChange={e => onChange(e)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            value={password}
-            onChange={e => onChange(e)}
-            minLength="6"
-          />
-        </div>
-        <input type="submit" className="btn btn-primary" value="Login" />
-      </form>
-      <p className="my-1">
-        Don't have an account?{" "}
-        <Link to="/register" className="text-primary">
-          Sign Up
-        </Link>
-      </p>
-    </Col>
+    <div className="bg-white rounded shadow p-3 d-flex flex-row">
+      <div className="mt-3 mr-3 ml-a" style={{maxWidth: "20vh"}}>
+        <h3 className="text-primary mt-2">Simple Bodybuilding</h3>
+        <br />
+        <p>
+          A web-based fitness tracker catering to bodybuilder-style training
+        </p>
+        <p>
+          Sign in to start tracking exercises. No sensitive data other than a password is used or stored.
+        </p>
+      </div>
+      <div className="mt-3 ml-3 mr-a">
+        <h1 className="large text-primary">Login</h1>
+        <p className="lead">
+          <i className="fas fa-user" /> Sign Into Your Account
+        </p>
+        <form className="form" onSubmit={e => onSubmit(e)}>
+          <div className="form-group">
+            <input
+              type="email"
+              placeholder="Email Address"
+              name="email"
+              value={email}
+              onChange={e => onChange(e)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={password}
+              onChange={e => onChange(e)}
+              minLength="6"
+            />
+          </div>
+          <input type="submit" className="btn btn-primary" value="Login" />
+        </form>
+        <p className="my-1">
+          Don't have an account?{" "}
+          <Link to="/register" className="text-primary">
+            Sign Up
+          </Link>
+        </p>
+      </div>
+    </div>
   );
 };
 

@@ -49,7 +49,7 @@ const Tracker = ({ saveWeight, auth: { loading, user, isAuthenticated } }) => {
     <Spinner />
   ) : (
     <div className="text-center">
-      <div className="shadow">
+      <div className="shadow bg-white">
         <br />
         <h5>
           <DatePicker

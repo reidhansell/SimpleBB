@@ -6,6 +6,10 @@
   background-color: white;
 }
 
+#root, #mainContainer{
+  min-height: 100vh;
+}
+
 .no-style-list {
   list-style-type: none;
   margin: 0;

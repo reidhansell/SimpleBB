@@ -333,6 +333,27 @@ export const createWorkout = workout => async dispatch => {
   }
 };
 
+// Delete workout
+export const deleteWorkout = id => async dispatch => {
+  try {
+    await axios.delete(`/api/users/workouts/${id}`);
+
+    dispatch({
+      type: DELETE_EXERCISE,
+      payload: id
+    });
+
+    dispatch(loadUser());
+
+    //dispatch(setAlert('Post Removed', 'success'));
+  } catch (err) {
+    dispatch({
+      type: EXERCISE_ERROR,
+      payload: { msg: err.res.statusText, status: err.res.status }
+    });
+  }
+};
+
 // Logout
 export const logout = () => dispatch => {
   dispatch({ type: LOGOUT });

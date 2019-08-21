@@ -63,7 +63,7 @@ const Exercise = ({
 
   return (deleting ? null : (
     <Fragment>
-      <div className="clickable mb-2 shadow rounded container-fluid" onClick={toggle}>
+      <div className="clickable pb-1 mb-2 shadow rounded container-fluid bg-white" onClick={toggle}>
         <Row className="bg-primary text-white rounded">
           <h5 className="ml-5 mr-a pt-2">{exercise.name}</h5>
           <Button
@@ -75,13 +75,13 @@ const Exercise = ({
           </Button>
         </Row>
         <ul className="no-style-list col">
-        {exercise.sets.map(x => {
+        {exercise.sets.length > 0 ? (exercise.sets.map(x => {
           return (
             <li key={x._id} className="my-1 py-1">
               {x.weightdistance} x {x.repstime}
             </li>
           );
-        })}
+        })) : "Click to log a set"}
         </ul>
       </div>
       <Modal className="text-center" isOpen={modal} toggle={toggle}>

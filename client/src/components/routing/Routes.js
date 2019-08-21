@@ -13,7 +13,7 @@ import BootStrapNav from "../layout/BootStrapNav";
 
 const Routes = () => {
   return (
-    <Container fluid={true} className="p-0 m-0">
+    <Container fluid={true} id="mainContainer" className="p-0 m-0 bg-secondary">
       <BootStrapNav />
       <Alert />
       <Switch>
