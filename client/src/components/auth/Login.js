@@ -27,12 +27,12 @@ const Login = ({ login, isAuthenticated }) => {
   }
 
   return (
-    <div className="bg-white rounded shadow p-3 d-flex flex-row">
+    <div className="bg-white rounded-bottom shadow p-1 d-flex flex-row pb-3">
       <div className="mt-3 mr-3 ml-a" style={{maxWidth: "22vh"}}>
         <h5 className="text-primary mt-2">Simple Bodybuilding</h5>
         <br />
         <p>
-          A web-based fitness tracker catering to bodybuilder-style training
+          A web-based fitness tracker catering to bodybuilder-style training.
         </p>
         <p>
           Sign in to start tracking exercises. No sensitive data other than a password is used or stored.
