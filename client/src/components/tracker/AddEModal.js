@@ -45,7 +45,7 @@ const AddEModal = ({
     e.preventDefault();
     const exercise = { name, type };
     addExercise(exercise);
-    setState({ ...state, create: !create });
+    setState({ ...state, create: !create, name: "", type: "" });
   };
 
   const onClick = async (e, exercise) => {

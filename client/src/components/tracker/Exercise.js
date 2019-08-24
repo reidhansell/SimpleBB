@@ -38,6 +38,7 @@ const Exercise = ({
     const set = { weightdistance, repstime };
     set.exerciseid = exercise._id;
     addSet(set);
+    setState({...state, weightdistance: "", repstime: ""});
   };
 
   const onDelete = async (e, id) => {

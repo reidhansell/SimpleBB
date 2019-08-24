@@ -21,10 +21,6 @@ const Tracker = ({ saveWeight, auth: { loading, user, isAuthenticated } }) => {
   const onSubmit = async e => {
     e.preventDefault();
     saveWeight(weight, date);
-    clear();
-  };
-
-  const clear = () => {
     setState({ ...state, weight: "" });
   };
 
@@ -77,7 +73,7 @@ const Tracker = ({ saveWeight, auth: { loading, user, isAuthenticated } }) => {
           <Button color="primary" className="mb-2" onClick={onSubmit}>
             Save
           </Button>
-          <Button color="secondary" className="mb-2 ml-3" onClick={clear}>
+          <Button color="secondary" className="mb-2 ml-3" onClick={() => setState({ ...state, weight: "" })}>
             Clear
           </Button>
         </Col>

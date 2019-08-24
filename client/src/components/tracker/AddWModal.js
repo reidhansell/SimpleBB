@@ -71,14 +71,14 @@ const AddWModal = ({
     e.preventDefault();
     const workout = { exercises, name };
     createWorkout(workout);
-    setState({ ...state, create: false });
+    setState({ ...state, create: false, exercises: [], name: "" });
   };
 
   const onSubmit2 = async e => {
     e.preventDefault();
     const newExercise = { name: name2, type };
     addExercise(newExercise);
-    setState({ ...state, create2: false });
+    setState({ ...state, create2: false, name2: "", type: "" });
   };
 
   const onClick = async (e, workout) => {
