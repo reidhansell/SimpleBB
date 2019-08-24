@@ -6,14 +6,9 @@
   background-color: white;
 }
 
-#root, #mainContainer{
+#root,
+#mainContainer {
   min-height: 100vh;
-}
-
-.no-style-list {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
 }
 
 .ml-a {
@@ -54,8 +49,8 @@
 
 #root a:hover {
   color: black;
-  -webkit-animation-duration: 0.8s;
-  animation-duration: 0.8s;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
   -webkit-animation-timing-function: ease-in-out;
@@ -66,27 +61,39 @@
 
 @keyframes bounce {
   0%,
-  100%,
-  20%,
-  50%,
-  80% {
+  80%,
+  45% {
     -webkit-transform: translateY(0);
     -ms-transform: translateY(0);
     transform: translateY(0);
   }
-  40% {
-    -webkit-transform: translateY(-15px);
-    -ms-transform: translateY(-15px);
-    transform: translateY(-15px);
+  30% {
+    -webkit-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    transform: translateY(-10px);
   }
   60% {
-    -webkit-transform: translateY(-7px);
-    -ms-transform: translateY(-7px);
-    transform: translateY(-7px);
+    -webkit-transform: translateY(-6px);
+    -ms-transform: translateY(-6px);
+    transform: translateY(-6px);
   }
 }
 
 #root a.navbar-brand:hover {
   animation-name: bounce;
   -moz-animation-name: bounce;
+}
+
+#spinner{
+  border: 2px solid lightgray; 
+  border-top-color: white; 
+  width: 17.5vh; 
+  height: 17.5vh; 
+  border-radius: 50%; 
+  animation: spin 1s infinite;
+}
+
+@keyframes spin{
+  from{transform: rotate(0deg);}
+  to{transform: rotate(360deg);}
 }

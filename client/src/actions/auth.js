@@ -7,11 +7,7 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  LOGOUT,
-  ADD_EXERCISE_SUCCESS,
-  ADD_EXERCISE_FAIL,
-  DELETE_EXERCISE,
-  EXERCISE_ERROR
+  LOGOUT
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 
@@ -36,7 +32,7 @@ export const loadUser = () => async dispatch => {
 };
 
 // Register User
-export const register = ({ name, email, password }) => async dispatch => {
+export const register = (name, email, password) => async dispatch => {
   const config = {
     headers: {
       "Content-Type": "application/json"
@@ -102,19 +98,12 @@ export const login = (email, password) => async dispatch => {
 // Add exercise
 export const addExercise = exercise => async dispatch => {
   try {
-    console.log("addExercise entered");
     const config = {
       headers: {
         "Content-Type": "application/json"
       }
     };
-    console.log("exercise in actions:");
-    console.log(exercise);
-    const res = await axios.put("/api/users/exercises", exercise, config);
-    dispatch({
-      type: ADD_EXERCISE_SUCCESS,
-      payload: res.data
-    });
+    await axios.put("/api/users/exercises", exercise, config);
 
     dispatch(loadUser());
   } catch (err) {
@@ -125,7 +114,7 @@ export const addExercise = exercise => async dispatch => {
     }
 
     dispatch({
-      type: ADD_EXERCISE_FAIL,
+      type: AUTH_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
@@ -136,17 +125,12 @@ export const deleteExercise = id => async dispatch => {
   try {
     await axios.delete(`/api/users/exercises/${id}`);
 
-    dispatch({
-      type: DELETE_EXERCISE,
-      payload: id
-    });
-
     dispatch(loadUser());
 
     //dispatch(setAlert('Post Removed', 'success'));
   } catch (err) {
     dispatch({
-      type: EXERCISE_ERROR,
+      type: AUTH_ERROR,
       payload: { msg: err.res.statusText, status: err.res.status }
     });
   }
@@ -155,25 +139,15 @@ export const deleteExercise = id => async dispatch => {
 // Add tracked exercise
 export const addTrackedExercise = exercises => async dispatch => {
   try {
-    console.log("addTrackedExercise entered");
     const config = {
       headers: {
         "Content-Type": "application/json"
       }
     };
-    console.log("exercises in actions:");
-    console.log(exercises);
 
     const body = JSON.stringify({ exercises });
-    const res = await axios.put(
-      "/api/users/exercisesTracked",
-      body,
-      config
-    );
-    dispatch({
-      type: ADD_EXERCISE_SUCCESS,
-      payload: res.data
-    });
+    await axios.put("/api/users/exercisesTracked", body, config);
+    dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -182,7 +156,7 @@ export const addTrackedExercise = exercises => async dispatch => {
     }
 
     dispatch({
-      type: ADD_EXERCISE_FAIL,
+      type: AUTH_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
@@ -193,17 +167,10 @@ export const deleteTrackedExercise = id => async dispatch => {
   try {
     await axios.delete(`/api/users/exercisesTracked/${id}`);
 
-    dispatch({
-      type: DELETE_EXERCISE,
-      payload: id
-    });
-
     dispatch(loadUser());
-
-    //dispatch(setAlert('Post Removed', 'success'));
   } catch (err) {
     dispatch({
-      type: EXERCISE_ERROR,
+      type: AUTH_ERROR,
       payload: { msg: err.res.statusText, status: err.res.status }
     });
   }
@@ -212,23 +179,13 @@ export const deleteTrackedExercise = id => async dispatch => {
 // Add set to tracked exercise
 export const addSet = set => async dispatch => {
   try {
-    console.log("addTrackedExercise entered");
     const config = {
       headers: {
         "Content-Type": "application/json"
       }
     };
-    console.log("set in actions:");
-    console.log(set);
-    const res = await axios.put(
-      "/api/users/exercisesTracked/sets",
-      set,
-      config
-    );
-    dispatch({
-      type: ADD_EXERCISE_SUCCESS,
-      payload: res.data
-    });
+    await axios.put("/api/users/exercisesTracked/sets", set, config);
+    dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -237,7 +194,7 @@ export const addSet = set => async dispatch => {
     }
 
     dispatch({
-      type: ADD_EXERCISE_FAIL,
+      type: AUTH_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
@@ -253,15 +210,10 @@ export const deleteTrackedExerciseSet = (
       `/api/users/exercisesTracked/${exerciseid}/sets/${setid}`
     );
 
-    dispatch({
-      type: DELETE_EXERCISE,
-      payload: setid
-    });
-
     dispatch(loadUser());
   } catch (err) {
     dispatch({
-      type: EXERCISE_ERROR,
+      type: AUTH_ERROR,
       payload: { msg: err.res.statusText, status: err.res.status }
     });
   }
@@ -270,9 +222,6 @@ export const deleteTrackedExerciseSet = (
 // Save weight to date
 export const saveWeight = (weight, date) => async dispatch => {
   try {
-    console.log("saveWeight entered");
-    console.log("date: ");
-    console.log(date);
     const config = {
       headers: {
         "Content-Type": "application/json"
@@ -281,11 +230,8 @@ export const saveWeight = (weight, date) => async dispatch => {
 
     const body = JSON.stringify({ weight, date });
 
-    const res = await axios.put(`/api/users/weight`, body, config);
-    dispatch({
-      type: ADD_EXERCISE_SUCCESS,
-      payload: res.data
-    });
+    await axios.put(`/api/users/weight`, body, config);
+    dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -294,7 +240,7 @@ export const saveWeight = (weight, date) => async dispatch => {
     }
 
     dispatch({
-      type: ADD_EXERCISE_FAIL,
+      type: AUTH_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
@@ -303,9 +249,6 @@ export const saveWeight = (weight, date) => async dispatch => {
 // Create new workout
 export const createWorkout = workout => async dispatch => {
   try {
-    console.log("createWorkout entered");
-    console.log("workout: ");
-    console.log(workout);
     const config = {
       headers: {
         "Content-Type": "application/json"
@@ -314,11 +257,8 @@ export const createWorkout = workout => async dispatch => {
 
     const body = JSON.stringify(workout);
 
-    const res = await axios.put(`/api/users/workouts`, body, config);
-    dispatch({
-      type: ADD_EXERCISE_SUCCESS,
-      payload: res.data
-    });
+    await axios.put(`/api/users/workouts`, body, config);
+    dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -327,7 +267,7 @@ export const createWorkout = workout => async dispatch => {
     }
 
     dispatch({
-      type: ADD_EXERCISE_FAIL,
+      type: AUTH_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
@@ -338,17 +278,10 @@ export const deleteWorkout = id => async dispatch => {
   try {
     await axios.delete(`/api/users/workouts/${id}`);
 
-    dispatch({
-      type: DELETE_EXERCISE,
-      payload: id
-    });
-
     dispatch(loadUser());
-
-    //dispatch(setAlert('Post Removed', 'success'));
   } catch (err) {
     dispatch({
-      type: EXERCISE_ERROR,
+      type: AUTH_ERROR,
       payload: { msg: err.res.statusText, status: err.res.status }
     });
   }

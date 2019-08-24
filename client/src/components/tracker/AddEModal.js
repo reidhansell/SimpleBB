@@ -8,6 +8,8 @@ import {
   deleteExercise
 } from "../../actions/auth";
 
+//To do: create one modal and load information based on  Reduce the amount of ?s.
+
 const AddEModal = ({
   date,
   addExercise,
@@ -15,48 +17,42 @@ const AddEModal = ({
   deleteExercise,
   auth: { user, isAuthenticated }
 }) => {
-  const [modal, setModal] = useState(false);
-
-  const [create, setCreate] = useState(false);
-
-  const [search, setSearch] = useState("");
-
-  const [exercise, setExercise] = useState({
+  const [state, setState] = useState({
+    modal: false,
+    create: false,
+    search: "",
     name: "",
     type: ""
   });
 
-  const { name, type } = exercise;
-
-  const onChangeSearch = e => setSearch(e.target.value);
+  const { modal, create, search, name, type } = state;
 
   const onChange = e =>
-    setExercise({ ...exercise, [e.target.name]: e.target.value });
+    setState({
+      ...state,
+      [e.target.name]: e.target.value
+        .replace(/[^a-zA-Z0-9 ]/g, "")
+        .replace(/(\b[a-z](?!\s))/g, function(x) {
+          return x.toUpperCase();
+        })
+    });
 
   const toggle = () => {
-    setModal(!modal);
-    setCreate(false);
-  };
-
-  const toggleCreate = () => {
-    setCreate(!create);
+    setState({ ...state, modal: !modal, create: false });
   };
 
   const onSubmit = async e => {
     e.preventDefault();
-    console.log("Submitting");
-    console.log("exercise in submit:");
-    console.log(exercise);
+    const exercise = { name, type };
     addExercise(exercise);
-    setCreate(!create);
-    console.log("End submitting");
+    setState({ ...state, create: !create });
   };
 
   const onClick = async (e, exercise) => {
     e.preventDefault();
     exercise.date = date;
     addTrackedExercise([exercise]);
-    setModal(!modal);
+    setState({ ...state, modal: !modal });
   };
 
   const onDelete = async (e, id) => {
@@ -70,17 +66,24 @@ const AddEModal = ({
         <Button className="mb-1 btn-lg" color="primary" onClick={toggle}>
           Add Exercise
         </Button>
-        <Modal isOpen={modal} toggle={toggle} style={{fontFamily: "Lexend Deca"}}>
-          <ModalHeader toggle={toggle}>
-            Click or tap exercise to add
-          </ModalHeader>
+        <Modal
+          isOpen={modal}
+          toggle={toggle}
+          style={{ fontFamily: "Lexend Deca" }}
+        >
+          <ModalHeader toggle={toggle}>Add exercise</ModalHeader>
           <ModalBody>
             <input
+              type="search"
+              name="search"
               placeholder="Search..."
               value={search}
-              onChange={e => onChangeSearch(e)}
+              onChange={e => onChange(e)}
             />
-            <ul className="no-style-list my-2">
+            <ul
+              className="my-2"
+              style={{ listStyleType: "none", margin: "0", padding: "0" }}
+            >
               {user.exercises.map(x => {
                 return x.name === null ? null : x.name.includes(search) ? (
                   <div className="row" key={x._id}>
@@ -103,7 +106,10 @@ const AddEModal = ({
             </ul>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={toggleCreate}>
+            <Button
+              color="primary"
+              onClick={() => setState({ ...state, create: true })}
+            >
               Create exercise
             </Button>{" "}
             <Button color="secondary" onClick={toggle}>
@@ -114,26 +120,33 @@ const AddEModal = ({
       </div>
     ) : (
       <div>
-        <Button className="mb-1 btn-lg" color="primary" onClick={toggle}>
+        <Button
+          className="mb-1 btn-lg"
+          color="primary"
+          onClick={() => setState({ ...state, modal: !modal, create: false })}
+        >
           Add Exercise
         </Button>
-        <Modal isOpen={modal} toggle={toggle} style={{fontFamily: "Lexend Deca"}}>
-          <ModalHeader toggle={toggle}>
-            Enter exercise information to create
-          </ModalHeader>
+        <Modal
+          isOpen={modal}
+          toggle={toggle}
+          style={{ fontFamily: "Lexend Deca" }}
+        >
+          <ModalHeader toggle={toggle}>Create exercise</ModalHeader>
           <ModalBody>
             <input
+              type="text"
               name="name"
               value={name}
               onChange={e => onChange(e)}
               placeholder="Name of exercise"
               className="mx-3"
+              required
             />
-
             <br />
             <br />
-
             <input
+              type="text"
               name="type"
               value={type}
               onChange={e => onChange(e)}
@@ -145,7 +158,10 @@ const AddEModal = ({
             <Button color="primary" onClick={onSubmit}>
               Finish creating exercise
             </Button>{" "}
-            <Button color="secondary" onClick={toggleCreate}>
+            <Button
+              color="secondary"
+              onClick={() => setState({ ...state, create: false })}
+            >
               Cancel
             </Button>
           </ModalFooter>
@@ -157,7 +173,6 @@ const AddEModal = ({
 
 AddEModal.propTypes = {
   auth: PropTypes.object.isRequired,
-  modal: PropTypes.bool,
   addExercise: PropTypes.func.isRequired,
   addTrackedExercise: PropTypes.func.isRequired,
   deleteExercise: PropTypes.func.isRequired
@@ -165,7 +180,6 @@ AddEModal.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  modal: state.modal,
   addExercise: addExercise,
   addTrackedExercise: addTrackedExercise,
   deleteExercise: deleteExercise

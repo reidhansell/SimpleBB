@@ -5,8 +5,6 @@ import { setAlert } from "../../actions/alert";
 import { register } from "../../actions/auth";
 import PropTypes from "prop-types";
 
-import { Col } from "reactstrap";
-
 const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     name: "",
@@ -18,14 +16,26 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   const { name, email, password, password2 } = formData;
 
   const onChange = e =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({
+      ...formData,
+      [e.target.name]:
+        e.target.name === "name"
+          ? e.target.value
+              .replace(/[^a-zA-Z ]/g, "")
+              .replace(/(\b[a-z](?!\s))/g, function(x) {
+                return x.toUpperCase();
+              })
+          : e.target.name === ("password" || "password2")
+          ? e.target.value.replace(/[^a-zA-Z0-9 ]/g, "")
+          : e.target.value.replace(/[^a-zA-Z0-9@. ]/g, "")
+    });
 
   const onSubmit = async e => {
     e.preventDefault();
     if (password !== password2) {
       setAlert("Passwords do not match", "danger");
     } else {
-      register({ name, email, password });
+      register(name, email.toLowerCase(), password);
     }
   };
 
@@ -60,6 +70,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
               value={name}
               onChange={e => onChange(e)}
               size="17"
+              required
             />
           </div>
           <div className="form-group">
@@ -70,6 +81,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
               value={email}
               onChange={e => onChange(e)}
               size="17"
+              required
             />
           </div>
           <div className="form-group">
@@ -80,6 +92,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
               value={password}
               onChange={e => onChange(e)}
               size="17"
+              required
             />
           </div>
           <div className="form-group">
@@ -90,6 +103,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
               value={password2}
               onChange={e => onChange(e)}
               size="17"
+              required
             />
           </div>
           <input type="submit" className="btn btn-primary" value="Register" />

@@ -81,7 +81,6 @@ router.post(
 // @desc     Add exercise
 // @access   Private
 router.put("/exercises", [auth, []], async (req, res) => {
-  console.log("entered route");
   const { name, type } = req.body;
 
   const newExercise = {
@@ -90,20 +89,14 @@ router.put("/exercises", [auth, []], async (req, res) => {
   };
 
   try {
-    console.log("req.user:");
-    console.log(req.user);
     const user = await User.findOne({ _id: req.user.id });
 
-    console.log("newExercise:");
-    console.log(newExercise);
     user.exercises.unshift(newExercise);
 
-    console.log("new user: " + user);
     await user.save();
 
     res.json(user);
   } catch (err) {
-    console.error(err.message);
     res.status(500).send("Server Error");
   }
 });
@@ -112,16 +105,12 @@ router.put("/exercises", [auth, []], async (req, res) => {
 // @desc     Delete an exercise
 // @access   Private
 router.delete("/exercises/:id", auth, async (req, res) => {
-  console.log("entered route");
   try {
     const user = await User.findOne({ _id: req.user.id });
-    console.log("user:");
-    console.log(user);
+
     const exercise = user.exercises.find(x => {
       return x.id === req.params.id;
     });
-    console.log("exercise:");
-    console.log(exercise);
 
     if (!exercise) {
       return res.status(404).json({ msg: "Exercise not found" });
@@ -131,12 +120,8 @@ router.delete("/exercises/:id", auth, async (req, res) => {
 
     await user.save();
 
-    console.log("newUser:");
-    console.log(user);
-
     res.json({ msg: "Exercise removed" });
   } catch (err) {
-    console.error(err.message);
     if (err.kind === "ObjectId") {
       return res.status(404).json({ msg: "Post not found" });
     }
@@ -148,26 +133,19 @@ router.delete("/exercises/:id", auth, async (req, res) => {
 // @desc     Add exercises to day
 // @access   Private
 router.put("/exercisesTracked", [auth, []], async (req, res) => {
-  console.log("entered route");
   const { exercises } = req.body;
 
   try {
-    console.log("req.user:");
-    console.log(req.user);
     const user = await User.findOne({ _id: req.user.id });
 
-    console.log("exercises:");
-    console.log(exercises);
     exercises.forEach(x => {
       user.exercisesTracked.unshift(x);
     });
 
-    console.log("new user: " + user);
     await user.save();
 
     res.json(user);
   } catch (err) {
-    console.error(err.message);
     res.status(500).send("Server Error");
   }
 });
@@ -176,16 +154,12 @@ router.put("/exercisesTracked", [auth, []], async (req, res) => {
 // @desc     Delete an exercise
 // @access   Private
 router.delete("/exercisesTracked/:id", auth, async (req, res) => {
-  console.log("entered route");
   try {
     const user = await User.findOne({ _id: req.user.id });
-    console.log("user:");
-    console.log(user);
+
     const exercise = user.exercisesTracked.find(x => {
       return x.id === req.params.id;
     });
-    console.log("exercise:");
-    console.log(exercise);
 
     if (!exercise) {
       return res.status(404).json({ msg: "Exercise not found" });
@@ -195,12 +169,8 @@ router.delete("/exercisesTracked/:id", auth, async (req, res) => {
 
     await user.save();
 
-    console.log("newUser:");
-    console.log(user);
-
     res.json({ msg: "Exercise removed" });
   } catch (err) {
-    console.error(err.message);
     if (err.kind === "ObjectId") {
       return res.status(404).json({ msg: "Post not found" });
     }
@@ -212,8 +182,6 @@ router.delete("/exercisesTracked/:id", auth, async (req, res) => {
 // @desc     Add set to exercisesTracked
 // @access   Private
 router.put("/exercisesTracked/sets", [auth, []], async (req, res) => {
-  console.log("entered route");
-  console.log(" ");
   const { weightdistance, repstime, exerciseid } = req.body;
 
   const newSet = {
@@ -223,32 +191,18 @@ router.put("/exercisesTracked/sets", [auth, []], async (req, res) => {
   };
 
   try {
-    console.log("req.user:");
-    console.log(req.user);
-    console.log(" ");
     const user = await User.findOne({ _id: req.user.id });
 
     const exercise = user.exercisesTracked.find(x => {
       return x.id === exerciseid;
     });
 
-    console.log("exercise: ");
-    console.log(exercise);
-    console.log(" ");
-
-    console.log("newSet:");
-    console.log(newSet);
-    console.log(" ");
     exercise.sets.unshift(newSet);
 
-    console.log("new user: ");
-    console.log(user);
-    console.log(" ");
     await user.save();
 
     res.json(user);
   } catch (err) {
-    console.error(err.message);
     res.status(500).send("Server Error");
   }
 });
@@ -260,11 +214,9 @@ router.delete(
   "/exercisesTracked/:exerciseid/sets/:setid",
   auth,
   async (req, res) => {
-    console.log("entered route");
     try {
       const user = await User.findOne({ _id: req.user.id });
-      console.log("user:");
-      console.log(user);
+
       const exercise = user.exercisesTracked.find(x => {
         return x.id === req.params.exerciseid;
       });
@@ -272,8 +224,6 @@ router.delete(
       const set = exercise.sets.find(x => {
         return x.id === req.params.setid;
       });
-      console.log("exercise:");
-      console.log(exercise);
 
       if (!exercise) {
         return res.status(404).json({ msg: "Exercise not found" });
@@ -283,12 +233,8 @@ router.delete(
 
       await user.save();
 
-      console.log("newUser:");
-      console.log(user);
-
       res.json({ msg: "Exercise removed" });
     } catch (err) {
-      console.error(err.message);
       if (err.kind === "ObjectId") {
         return res.status(404).json({ msg: "Post not found" });
       }
@@ -301,22 +247,13 @@ router.delete(
 // @desc     Add set to exercisesTracked
 // @access   Private
 router.put("/weight", [auth, []], async (req, res) => {
-  console.log("entered route");
-  console.log(" ");
   const { weight, date } = req.body;
-
-  console.log("date: ");
-  console.log(date);
-  console.log(" ");
 
   const newDate = {
     weight,
     date
   };
   try {
-    console.log("req.user:");
-    console.log(req.user);
-    console.log(" ");
     const user = await User.findOne({ _id: req.user.id });
 
     const reqDate = new Date(date);
@@ -334,14 +271,10 @@ router.put("/weight", [auth, []], async (req, res) => {
       ? (existingDate.weight = weight)
       : user.weight.unshift(newDate);
 
-    console.log("new user: ");
-    console.log(user);
-    console.log(" ");
     await user.save();
 
     res.json(user);
   } catch (err) {
-    console.error(err.message);
     res.status(500).send("Server Error");
   }
 });
@@ -350,10 +283,6 @@ router.put("/weight", [auth, []], async (req, res) => {
 // @desc     Create Workout
 // @access   Private
 router.put("/workouts", [auth, []], async (req, res) => {
-  console.log("entered route");
-  console.log(" ");
-  console.log("req.body");
-  console.log(req.body);
   const { name, exercises } = req.body;
 
   const newWorkout = {
@@ -361,26 +290,15 @@ router.put("/workouts", [auth, []], async (req, res) => {
     exercises: exercises
   };
 
-  console.log("newWorkout: ");
-  console.log(newWorkout);
-  console.log(" ");
-
   try {
-    console.log("req.user:");
-    console.log(req.user);
-    console.log(" ");
     const user = await User.findOne({ _id: req.user.id });
 
     user.workouts.unshift(newWorkout);
 
-    console.log("new user: ");
-    console.log(user);
-    console.log(" ");
     await user.save();
 
     res.json(user);
   } catch (err) {
-    console.error(err.message);
     res.status(500).send("Server Error");
   }
 });
@@ -389,16 +307,12 @@ router.put("/workouts", [auth, []], async (req, res) => {
 // @desc     Delete a workout
 // @access   Private
 router.delete("/workouts/:id", auth, async (req, res) => {
-  console.log("entered route");
   try {
     const user = await User.findOne({ _id: req.user.id });
-    console.log("user:");
-    console.log(user);
+
     const workout = user.workouts.find(x => {
       return x.id === req.params.id;
     });
-    console.log("workout:");
-    console.log(workout);
 
     if (!workout) {
       return res.status(404).json({ msg: "Exercise not found" });
@@ -407,9 +321,6 @@ router.delete("/workouts/:id", auth, async (req, res) => {
     await workout.remove();
 
     await user.save();
-
-    console.log("newUser:");
-    console.log(user);
 
     res.json({ msg: "Exercise removed" });
   } catch (err) {

@@ -16,32 +16,36 @@ import logo from "../../LogoWhite.png";
 const BootStrapNav = ({ auth: { user, isAuthenticated, loading }, logout }) => {
   const [toggle, setToggle] = useState(false);
 
+  const close = () => {
+    setToggle(false);
+  };
+
   const authLinks = (
     <Nav className="ml-auto" navbar>
       {!loading && isAuthenticated && (
         <span className="mx-2">Welcome, {user.name}</span>
       )}
-      <NavItem>
+      <NavItem onClick={() => close()}>
         <Link to="/tracker" className="mx-2">
           Exercise Tracker
         </Link>
       </NavItem>
-      <NavItem>
+      <NavItem onClick={() => close()}>
         <Link to="/about" className="mx-2">
           About
         </Link>
       </NavItem>
-      <NavItem>
+      <NavItem onClick={() => close()}>
         <Link to="/help" className="mx-2">
           Help
         </Link>
       </NavItem>
-      <NavItem>
+      <NavItem onClick={() => close()}>
         <Link to="#" className="mx-2 disabled">
           Diet Tracker
         </Link>
       </NavItem>
-      <NavItem>
+      <NavItem onClick={() => close()}>
         <a onClick={logout} href="#!" className="mx-2">
           <i className="fas fa-sign-out-alt" />{" "}
           <span className="hide-sm">Logout</span>
@@ -52,23 +56,23 @@ const BootStrapNav = ({ auth: { user, isAuthenticated, loading }, logout }) => {
 
   const guestLinks = (
     <Nav className="ml-auto" navbar>
-      <NavItem>
+      <NavItem onClick={() => close()}>
         <Link to="/login" className="mx-2">
           Login
         </Link>
       </NavItem>
-      <NavItem>
+      <NavItem onClick={() => close()}>
         <Link to="/register" className="mx-2">
           Register
         </Link>
       </NavItem>
 
-      <NavItem>
+      <NavItem onClick={() => close()}>
         <Link to="/about" className="mx-2">
           About
         </Link>
       </NavItem>
-      <NavItem>
+      <NavItem onClick={() => close()}>
         <Link to="/help" className="mx-2">
           Help
         </Link>
@@ -79,7 +83,7 @@ const BootStrapNav = ({ auth: { user, isAuthenticated, loading }, logout }) => {
   return (
     <Navbar dark color="primary" expand="lg">
       <NavbarBrand id="navbar-brand" href="/" className="mx-2">
-        <img src={logo} alt="Logo" style={{maxHeight: "2.5vh"}}/>
+        <img src={logo} alt="Logo" style={{ maxHeight: "2.5vh" }} />
       </NavbarBrand>
       <NavbarToggler onClick={() => setToggle(!toggle)} />
       <Collapse isOpen={toggle} navbar>

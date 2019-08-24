@@ -5,29 +5,27 @@ import { connect } from "react-redux";
 import DatePicker from "react-date-picker";
 import AddEModal from "./AddEModal";
 import AddWModal from "./AddWModal";
-import Spinner from "../layout/Spinner";
 import Exercise from "./Exercise";
 import { Button, Col } from "reactstrap";
 
 import { saveWeight } from "../../actions/auth";
 
 const Tracker = ({ saveWeight, auth: { loading, user, isAuthenticated } }) => {
-  const [date, setDate] = useState(new Date());
+  const [state, setState] = useState({
+    date: new Date(),
+    weight: ""
+  });
 
-  const [weight, setWeight] = useState("");
-
-  const onChange = e => setWeight(e.target.value);
+  const { date, weight } = state;
 
   const onSubmit = async e => {
     e.preventDefault();
-    console.log("Saving weight");
     saveWeight(weight, date);
-    setWeight("");
-    console.log("End saving weight");
+    clear();
   };
 
   const clear = () => {
-    setWeight("");
+    setState({ ...state, weight: "" });
   };
 
   var currentWeight = loading
@@ -46,7 +44,7 @@ const Tracker = ({ saveWeight, auth: { loading, user, isAuthenticated } }) => {
   currentWeight = currentWeight ? currentWeight.weight : null;
 
   return !isAuthenticated || loading ? (
-    <Spinner />
+    <div id="spinner" className=" mx-a mt-5" />
   ) : (
     <div className="text-center">
       <div className="shadow bg-white rounded-bottom">
@@ -54,7 +52,7 @@ const Tracker = ({ saveWeight, auth: { loading, user, isAuthenticated } }) => {
         <h5>
           <DatePicker
             className="my-3"
-            onChange={setDate}
+            onChange={date => setState({ ...state, date })}
             value={date}
             clearIcon={null}
           />
@@ -64,10 +62,17 @@ const Tracker = ({ saveWeight, auth: { loading, user, isAuthenticated } }) => {
         </h5>
         <Col className="my-3">
           <input
+            type="number"
             className="w-25 mx-3"
             placeholder="Today's bodyweight"
             value={weight}
-            onChange={e => onChange(e)}
+            onChange={e =>
+              setState({
+                ...state,
+                weight: e.target.value.replace(/[^0-9 ]/g, "")
+              })
+            }
+            required
           />
           <Button color="primary" className="mb-2" onClick={onSubmit}>
             Save
@@ -86,7 +91,7 @@ const Tracker = ({ saveWeight, auth: { loading, user, isAuthenticated } }) => {
 
       <br />
       <br />
-      <ul className="no-style-list col">
+      <ul className="col pb-2" style={{ listStyleType: "none", margin: "0" }}>
         {user.exercisesTracked.map(x => {
           const newDate = new Date(x.date);
           return newDate.getDate() === date.getDate() &&

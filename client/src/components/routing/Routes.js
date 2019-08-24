@@ -14,7 +14,7 @@ import BootStrapNav from "../layout/BootStrapNav";
 const Routes = () => {
   return (
     <Container fluid={true} id="mainContainer" className="p-0 m-0 bg-secondary">
-      <BootStrapNav />
+      <BootStrapNav app ={Routes}/>
       <Alert />
       <Switch>
         <Route exact path="/" component={Login} />
