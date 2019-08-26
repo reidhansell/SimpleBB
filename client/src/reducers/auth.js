@@ -2,6 +2,7 @@ import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   USER_LOADED,
+  USER_UPDATED,
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
@@ -20,6 +21,7 @@ export default function(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
+    case USER_UPDATED:
     case USER_LOADED:
       return {
         ...state,

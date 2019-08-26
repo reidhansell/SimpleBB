@@ -3,14 +3,17 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
+  updateUser,
   addExercise,
   addTrackedExercise,
-  deleteExercise
+  deleteExercise,
+  loadUser
 } from "../../actions/auth";
 
 //To do: create one modal and load information based on  Reduce the amount of ?s.
 
 const AddEModal = ({
+  updateUser,
   date,
   addExercise,
   addTrackedExercise,
@@ -45,19 +48,35 @@ const AddEModal = ({
     e.preventDefault();
     const exercise = { name, type };
     addExercise(exercise);
+    user.exercises.unshift(exercise);
+    updateUser(user)
     setState({ ...state, create: !create, name: "", type: "" });
   };
 
   const onClick = async (e, exercise) => {
     e.preventDefault();
-    exercise.date = date;
-    addTrackedExercise([exercise]);
+    //Remove ID by creating new exercise
+    const newExercise = {
+      name: exercise.name,
+      type: exercise.type,
+      date: date
+    };
+    addTrackedExercise([newExercise]);
+
+    newExercise.sets = [];
+    user.exercisesTracked.unshift(newExercise);
+    updateUser(user);
+
     setState({ ...state, modal: !modal });
   };
 
   const onDelete = async (e, id) => {
     e.preventDefault();
     deleteExercise(id);
+    user.exercises = user.exercises.filter(x => {
+      return x._id === id ? null : x;
+    });
+    updateUser(user);
   };
 
   return isAuthenticated ? (
@@ -72,37 +91,43 @@ const AddEModal = ({
           style={{ fontFamily: "Lexend Deca" }}
         >
           <ModalHeader toggle={toggle}>Add exercise</ModalHeader>
-          <ModalBody>
+          <ModalBody style={{ paddingLeft: "0", paddingRight: "0" }}>
             <input
               type="search"
               name="search"
               placeholder="Search..."
               value={search}
               onChange={e => onChange(e)}
+              className="ml-3"
             />
-            <ul
-              className="my-2"
-              style={{ listStyleType: "none", margin: "0", padding: "0" }}
-            >
-              {user.exercises.map(x => {
-                return x.name === null ? null : x.name.includes(search) ? (
-                  <div className="row" key={x._id}>
-                    <li
-                      className="col clickable my-1 border-top border-bottom py-1"
-                      onClick={e => onClick(e, x)}
-                    >
-                      {x.name}
-                    </li>
-                    <Button
-                      className="my-1"
-                      color="danger"
-                      onClick={e => onDelete(e, x._id)}
-                    >
-                      <i className="fas fa-trash ml-a" />
-                    </Button>
-                  </div>
-                ) : null;
-              })}
+            <br />
+            <br />
+            <ul style={{ listStyleType: "none", padding: "0" }}>
+              {user.exercises.length === 0
+                ? "No exercises created"
+                : user.exercises.map(x => {
+                    return x.name === null ? null : x.name.includes(search) ? (
+                      <div
+                        key={x._id}
+                        className="border-top border-bottom my-2"
+                        style={{ display: "flex" }}
+                      >
+                        <li
+                          className="clickable pt-1 w-100 pl-2"
+                          onClick={e => onClick(e, x)}
+                        >
+                          {x.name}
+                        </li>
+                        <Button
+                          className="ml-a"
+                          color="danger"
+                          onClick={e => onDelete(e, x._id)}
+                        >
+                          <i className="fas fa-trash" />
+                        </Button>
+                      </div>
+                    ) : null;
+                  })}
             </ul>
           </ModalBody>
           <ModalFooter>
@@ -133,7 +158,7 @@ const AddEModal = ({
           style={{ fontFamily: "Lexend Deca" }}
         >
           <ModalHeader toggle={toggle}>Create exercise</ModalHeader>
-          <ModalBody>
+          <ModalBody style={{ paddingLeft: "0", paddingRight: "0" }}>
             <input
               type="text"
               name="name"
@@ -172,6 +197,7 @@ const AddEModal = ({
 };
 
 AddEModal.propTypes = {
+  updateUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   addExercise: PropTypes.func.isRequired,
   addTrackedExercise: PropTypes.func.isRequired,
@@ -179,6 +205,7 @@ AddEModal.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  updateUser: state.updateUser,
   auth: state.auth,
   addExercise: addExercise,
   addTrackedExercise: addTrackedExercise,
@@ -187,5 +214,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addExercise, addTrackedExercise, deleteExercise }
+  { updateUser, addExercise, addTrackedExercise, deleteExercise }
 )(AddEModal);

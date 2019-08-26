@@ -6,11 +6,11 @@ import DatePicker from "react-date-picker";
 import AddEModal from "./AddEModal";
 import AddWModal from "./AddWModal";
 import Exercise from "./Exercise";
-import { Button, Col } from "reactstrap";
+import { Button } from "reactstrap";
 
-import { saveWeight } from "../../actions/auth";
+import { updateUser, saveWeight } from "../../actions/auth";
 
-const Tracker = ({ saveWeight, auth: { loading, user, isAuthenticated } }) => {
+const Tracker = ({ updateUser, saveWeight, auth: { loading, user, isAuthenticated } }) => {
   const [state, setState] = useState({
     date: new Date(),
     weight: ""
@@ -21,6 +21,8 @@ const Tracker = ({ saveWeight, auth: { loading, user, isAuthenticated } }) => {
   const onSubmit = async e => {
     e.preventDefault();
     saveWeight(weight, date);
+    user.weight.unshift({weight, date});
+    updateUser(user);
     setState({ ...state, weight: "" });
   };
 
@@ -56,27 +58,31 @@ const Tracker = ({ saveWeight, auth: { loading, user, isAuthenticated } }) => {
         <h5 className="my-3">
           Weight: {currentWeight === null ? "Not logged" : currentWeight}
         </h5>
-        <Col className="my-3">
-          <input
-            type="number"
-            className="w-25 mx-3"
-            placeholder="Today's bodyweight"
-            value={weight}
-            onChange={e =>
-              setState({
-                ...state,
-                weight: e.target.value.replace(/[^0-9 ]/g, "")
-              })
-            }
-            required
-          />
-          <Button color="primary" className="mb-2" onClick={onSubmit}>
-            Save
-          </Button>
-          <Button color="secondary" className="mb-2 ml-3" onClick={() => setState({ ...state, weight: "" })}>
-            Clear
-          </Button>
-        </Col>
+        <input
+          name="weight"
+          type="number"
+          className="mr-3"
+          placeholder="Bodyweight"
+          value={weight}
+          style={{maxWidth: "25%"}}
+          onChange={e =>
+            setState({
+              ...state,
+              [e.target.name]: e.target.value.replace(/[^0-9 ]/g, "")
+            })
+          }
+          required
+        />
+        <Button color="primary" className="mb-2" onClick={onSubmit}>
+          Save
+        </Button>
+        <Button
+          color="secondary"
+          className="mb-2 ml-3"
+          onClick={() => setState({ ...state, weight: "" })}
+        >
+          Clear
+        </Button>
         <br />
         <br />
         <AddEModal date={date} />
@@ -84,10 +90,9 @@ const Tracker = ({ saveWeight, auth: { loading, user, isAuthenticated } }) => {
         <br />
         <br />
       </div>
-
       <br />
       <br />
-      <ul className="col pb-2" style={{ listStyleType: "none", margin: "0" }}>
+      <ul className="pb-2 px-3 m-0" style={{ listStyleType: "none" }}>
         {user.exercisesTracked.map(x => {
           const newDate = new Date(x.date);
           return newDate.getDate() === date.getDate() &&
@@ -105,15 +110,17 @@ const Tracker = ({ saveWeight, auth: { loading, user, isAuthenticated } }) => {
 
 Tracker.propTypes = {
   auth: PropTypes.object.isRequired,
+  updateUser: PropTypes.func.isRequired,
   saveWeight: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
+  updateUser: updateUser,
   saveWeight: saveWeight
 });
 
 export default connect(
   mapStateToProps,
-  { saveWeight }
+  { updateUser, saveWeight }
 )(Tracker);

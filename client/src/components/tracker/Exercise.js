@@ -2,25 +2,24 @@ import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
+  updateUser,
   addSet,
   deleteTrackedExercise,
   deleteTrackedExerciseSet
 } from "../../actions/auth";
 
-import {
-  Button,
-  Row,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter
-} from "reactstrap";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { userInfo } from "os";
+
+//add authentication
 
 const Exercise = ({
+  updateUser,
   exercise,
   addSet,
   deleteTrackedExercise,
-  deleteTrackedExerciseSet
+  deleteTrackedExerciseSet,
+  auth: { user, isAuthenticated }
 }) => {
   const [state, setState] = useState({
     weightdistance: "",
@@ -31,26 +30,46 @@ const Exercise = ({
 
   const { weightdistance, repstime, modal, deleting } = state;
 
-  const onChange = e => setState({ ...state, [e.target.name]: e.target.value });
+  const onChange = e =>
+    setState({
+      ...state,
+      [e.target.name]: e.target.value.replace(/[^0-9 ]/g, "")
+    });
 
   const onSubmit = async e => {
     e.preventDefault();
     const set = { weightdistance, repstime };
+    user.exercisesTracked
+      .find(x => {
+        return x._id === exercise._id;
+      })
+      .sets.unshift(set);
+    updateUser(user);
     set.exerciseid = exercise._id;
     addSet(set);
-    setState({...state, weightdistance: "", repstime: ""});
+    setState({ ...state, weightdistance: "", repstime: "" });
   };
 
   const onDelete = async (e, id) => {
     e.preventDefault();
     e.stopPropagation();
-    setState({ ...state, deleting: true, toggle: false });
+    setState({ ...state, toggle: false, deleting: true });
     deleteTrackedExercise(id);
   };
 
   const onDeleteSet = async (e, exerciseid, setid) => {
     e.preventDefault();
     deleteTrackedExerciseSet(exerciseid, setid);
+    user.exercisesTracked.find(x => {
+      return x._id === exerciseid;
+    }).sets = user.exercisesTracked
+      .find(x => {
+        return x._id === exerciseid;
+      })
+      .sets.filter(x => {
+        return x._id === setid ? null : x;
+      });
+    updateUser(user);
   };
 
   const toggle = () => {
@@ -59,21 +78,23 @@ const Exercise = ({
 
   return deleting ? null : (
     <Fragment>
-      <div
-        className="clickable pb-1 mb-2 shadow rounded container-fluid bg-white"
-        onClick={toggle}
-      >
-        <Row className="bg-primary text-white rounded">
-          <h5 className="ml-5 mr-a pt-2">{exercise.name}</h5>
-          <Button
-            className=""
-            color="danger"
-            onClick={e => onDelete(e, exercise._id)}
-          >
+      <div className="clickable pb-1 mb-3 shadow rounded bg-white">
+        <div
+          className="bg-primary rounded-top text-white text-left w-100"
+          style={{ display: "flex" }}
+        >
+          <h5 onClick={toggle} className="ml-5 mr-a pt-2 w-100">
+            {exercise.name}
+          </h5>
+          <Button color="danger" onClick={e => onDelete(e, exercise._id)}>
             <i className="fas fa-trash" />
           </Button>
-        </Row>
-        <ul className="col" style={{ listStyleType: "none", margin: "0" }}>
+        </div>
+
+        <ul
+          onClick={toggle}
+          style={{ listStyleType: "none", margin: "0", padding: "0" }}
+        >
           {exercise.sets.length > 0
             ? exercise.sets.map(x => {
                 return (
@@ -85,9 +106,14 @@ const Exercise = ({
             : "Click or tap to log a set"}
         </ul>
       </div>
-      <Modal className="text-center" isOpen={modal} toggle={toggle}>
+      <Modal
+        className="text-center"
+        isOpen={modal}
+        toggle={toggle}
+        style={{ fontFamily: "Lexend Deca" }}
+      >
         <ModalHeader toggle={toggle}>{exercise.name} logged sets</ModalHeader>
-        <ModalBody>
+        <ModalBody style={{ paddingLeft: "0", paddingRight: "0" }}>
           <form className="form" onSubmit={e => onSubmit(e)}>
             <span className="form-group">
               <input
@@ -114,31 +140,30 @@ const Exercise = ({
             </span>
             <input type="submit" className="btn btn-primary" value="Add set" />
           </form>
-
           <br />
-          <ul
-            className="mx-auto"
-            style={{ listStyleType: "none", margin: "0", padding: "0" }}
-          >
-            {exercise.sets.map(x => {
-              return (
-                <div className="row" key={x._id}>
-                  <li
-                    key={x._id}
-                    className="border-top border-bottom my-1 col pt-1"
-                  >
-                    {x.weightdistance} x {x.repstime}
-                  </li>
-                  <Button
-                    className="my-1"
-                    color="danger"
-                    onClick={e => onDeleteSet(e, exercise._id, x._id)}
-                  >
-                    <i className="fas fa-trash ml-a" />
-                  </Button>
-                </div>
-              );
-            })}
+          <ul style={{ listStyleType: "none", padding: "0" }}>
+            {exercise.sets.length === 0
+              ? "No sets logged"
+              : exercise.sets.map(x => {
+                  return (
+                    <div
+                      key={x._id}
+                      className="border-top border-bottom my-2"
+                      style={{ display: "flex" }}
+                    >
+                      <li key={x._id} className="pt-1 mr-a text-center w-100">
+                        {x.weightdistance} x {x.repstime}
+                      </li>
+                      <Button
+                        className="ml-a"
+                        color="danger"
+                        onClick={e => onDeleteSet(e, exercise._id, x._id)}
+                      >
+                        <i className="fas fa-trash" />
+                      </Button>
+                    </div>
+                  );
+                })}
           </ul>
         </ModalBody>
         <ModalFooter>
@@ -152,6 +177,8 @@ const Exercise = ({
 };
 
 Exercise.propTypes = {
+  updateUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
   addSet: PropTypes.func.isRequired,
   exercise: PropTypes.object.isRequired,
   deleteTrackedExercise: PropTypes.func.isRequired,
@@ -159,6 +186,8 @@ Exercise.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  updateUser: updateUser,
+  auth: state.auth,
   addSet: addSet,
   deleteTrackedExercise: deleteTrackedExercise,
   deleteTrackedExerciseSet: deleteTrackedExerciseSet
@@ -166,5 +195,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addSet, deleteTrackedExercise, deleteTrackedExerciseSet }
+  { updateUser, addSet, deleteTrackedExercise, deleteTrackedExerciseSet }
 )(Exercise);

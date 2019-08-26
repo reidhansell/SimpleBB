@@ -1,9 +1,35 @@
 @import url("https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap");
 
+@media screen and (max-width: 500px) {
+  #root,
+  #root p {
+    font-size: 10pt;
+  }
+  #root h1 {
+    font-size: 16pt;
+  }
+  #root h2 {
+    font-size: 15pt;
+  }
+  #root h3 {
+    font-size: 14pt;
+  }
+  #root h4 {
+    font-size: 13pt;
+  }
+  #root h5 {
+    font-size: 12pt;
+  }
+  #root h6 {
+    font-size: 11pt;
+  }
+}
+
 #root {
-  font-family: "Lexend Deca";
   color: black;
   background-color: white;
+  font-family: "Lexend Deca";
+  min-width: 320px;
 }
 
 #root,
@@ -49,8 +75,8 @@
 
 #root a:hover {
   color: black;
-  -webkit-animation-duration: 0.5s;
-  animation-duration: 0.5s;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
   -webkit-animation-timing-function: ease-in-out;
@@ -59,41 +85,99 @@
   -webkit-animation-iteration-count: infinite;
 }
 
-@keyframes bounce {
-  0%,
-  80%,
-  45% {
-    -webkit-transform: translateY(0);
-    -ms-transform: translateY(0);
-    transform: translateY(0);
+@-webkit-keyframes rubberBand {
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
   }
+
   30% {
-    -webkit-transform: translateY(-10px);
-    -ms-transform: translateY(-10px);
-    transform: translateY(-10px);
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+    transform: scale3d(1.25, 0.75, 1);
   }
-  60% {
-    -webkit-transform: translateY(-6px);
-    -ms-transform: translateY(-6px);
-    transform: translateY(-6px);
+
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+    transform: scale3d(0.75, 1.25, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+    transform: scale3d(1.15, 0.85, 1);
+  }
+
+  65% {
+    -webkit-transform: scale3d(0.95, 1.05, 1);
+    transform: scale3d(0.95, 1.05, 1);
+  }
+
+  75% {
+    -webkit-transform: scale3d(1.05, 0.95, 1);
+    transform: scale3d(1.05, 0.95, 1);
+  }
+
+  to {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes rubberBand {
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+
+  30% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+    transform: scale3d(1.25, 0.75, 1);
+  }
+
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+    transform: scale3d(0.75, 1.25, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+    transform: scale3d(1.15, 0.85, 1);
+  }
+
+  65% {
+    -webkit-transform: scale3d(0.95, 1.05, 1);
+    transform: scale3d(0.95, 1.05, 1);
+  }
+
+  75% {
+    -webkit-transform: scale3d(1.05, 0.95, 1);
+    transform: scale3d(1.05, 0.95, 1);
+  }
+
+  to {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
   }
 }
 
 #root a.navbar-brand:hover {
-  animation-name: bounce;
-  -moz-animation-name: bounce;
+  -webkit-animation-name: rubberBand;
+  animation-name: rubberBand;
 }
 
-#spinner{
-  border: 2px solid lightgray; 
-  border-top-color: white; 
-  width: 17.5vh; 
-  height: 17.5vh; 
-  border-radius: 50%; 
+#spinner {
+  border: 2px solid lightgray;
+  border-top-color: white;
+  width: 17.5vh;
+  height: 17.5vh;
+  border-radius: 50%;
   animation: spin 1s infinite;
 }
 
-@keyframes spin{
-  from{transform: rotate(0deg);}
-  to{transform: rotate(360deg);}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
