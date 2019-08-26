@@ -75,7 +75,7 @@ const AddWModal = ({
     const newExercise = { name: name2, type };
     addExercise(newExercise);
     user.exercises.unshift(newExercise);
-    updateUser(user)
+    updateUser(user);
     setState({ ...state, create: true, create2: false, name2: "", type: "" });
   };
 
@@ -155,6 +155,7 @@ const AddWModal = ({
             <ModalHeader toggle={toggle}>Add workout</ModalHeader>
             <ModalBody>
               <input
+                style={{ fontFamily: "Lexend Deca" }}
                 type="search"
                 name="search"
                 placeholder="Search..."
@@ -232,6 +233,7 @@ const AddWModal = ({
             <ModalHeader toggle={toggle}>Create workout</ModalHeader>
             <ModalBody style={{ paddingLeft: "0", paddingRight: "0" }}>
               <input
+                style={{ fontFamily: "Lexend Deca" }}
                 className="ml-3"
                 type="text"
                 placeholder="Name of new workout..."
@@ -274,6 +276,7 @@ const AddWModal = ({
               <p className="ml-3">Add exercises to new workout:</p>
 
               <input
+                style={{ fontFamily: "Lexend Deca" }}
                 className="ml-3"
                 type="search"
                 name="search2"
@@ -335,6 +338,7 @@ const AddWModal = ({
             <ModalHeader toggle={toggle}>Create exercise</ModalHeader>
             <ModalBody style={{ paddingLeft: "0", paddingRight: "0" }}>
               <input
+              style={{fontFamily: "Lexend Deca"}}
                 type="text"
                 name="name2"
                 value={name2}
@@ -346,6 +350,7 @@ const AddWModal = ({
               <br />
               <br />
               <input
+              style={{fontFamily: "Lexend Deca"}}
                 type="text"
                 name="type"
                 value={type}

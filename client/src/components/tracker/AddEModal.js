@@ -93,6 +93,7 @@ const AddEModal = ({
           <ModalHeader toggle={toggle}>Add exercise</ModalHeader>
           <ModalBody style={{ paddingLeft: "0", paddingRight: "0" }}>
             <input
+            style={{fontFamily: "Lexend Deca"}}
               type="search"
               name="search"
               placeholder="Search..."
@@ -160,6 +161,7 @@ const AddEModal = ({
           <ModalHeader toggle={toggle}>Create exercise</ModalHeader>
           <ModalBody style={{ paddingLeft: "0", paddingRight: "0" }}>
             <input
+            style={{fontFamily: "Lexend Deca"}}
               type="text"
               name="name"
               value={name}
@@ -171,6 +173,7 @@ const AddEModal = ({
             <br />
             <br />
             <input
+            style={{fontFamily: "Lexend Deca"}}
               type="text"
               name="type"
               value={type}

@@ -63,6 +63,7 @@ const Login = ({ login, isAuthenticated }) => {
           </div>
           <div className="form-group">
             <input
+            style={{fontFamily: "Lexend Deca"}}
               type="password"
               placeholder="Password"
               name="password"

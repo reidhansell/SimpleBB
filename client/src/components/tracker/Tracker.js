@@ -59,6 +59,7 @@ const Tracker = ({ updateUser, saveWeight, auth: { loading, user, isAuthenticate
           Weight: {currentWeight === null ? "Not logged" : currentWeight}
         </h5>
         <input
+        style={{fontFamily: "Lexend Deca"}}
           name="weight"
           type="number"
           className="mr-3"
