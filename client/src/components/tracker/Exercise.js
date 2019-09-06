@@ -117,7 +117,7 @@ const Exercise = ({
           <form className="form" onSubmit={e => onSubmit(e)}>
             <span className="form-group">
               <input
-              style={{fontFamily: "Lexend Deca"}}
+                style={{ fontFamily: "Lexend Deca" }}
                 type="number"
                 name="weightdistance"
                 value={weightdistance}
@@ -130,7 +130,7 @@ const Exercise = ({
             X
             <span className="form-group">
               <input
-              style={{fontFamily: "Lexend Deca"}}
+                style={{ fontFamily: "Lexend Deca" }}
                 type="number"
                 name="repstime"
                 value={repstime}

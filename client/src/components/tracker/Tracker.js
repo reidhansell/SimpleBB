@@ -10,7 +10,11 @@ import { Button } from "reactstrap";
 
 import { updateUser, saveWeight } from "../../actions/auth";
 
-const Tracker = ({ updateUser, saveWeight, auth: { loading, user, isAuthenticated } }) => {
+const Tracker = ({
+  updateUser,
+  saveWeight,
+  auth: { loading, user, isAuthenticated }
+}) => {
   const [state, setState] = useState({
     date: new Date(),
     weight: ""
@@ -21,7 +25,7 @@ const Tracker = ({ updateUser, saveWeight, auth: { loading, user, isAuthenticate
   const onSubmit = async e => {
     e.preventDefault();
     saveWeight(weight, date);
-    user.weight.unshift({weight, date});
+    user.weight.unshift({ weight, date });
     updateUser(user);
     setState({ ...state, weight: "" });
   };
@@ -59,13 +63,13 @@ const Tracker = ({ updateUser, saveWeight, auth: { loading, user, isAuthenticate
           Weight: {currentWeight === null ? "Not logged" : currentWeight}
         </h5>
         <input
-        style={{fontFamily: "Lexend Deca"}}
+          style={{ fontFamily: "Lexend Deca" }}
           name="weight"
           type="number"
           className="mr-3"
           placeholder="Bodyweight"
           value={weight}
-          style={{maxWidth: "25%"}}
+          style={{ maxWidth: "25%" }}
           onChange={e =>
             setState({
               ...state,

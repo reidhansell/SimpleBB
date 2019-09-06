@@ -9,9 +9,9 @@ function About() {
       <br />
       <h5>What?</h5>
       <p>
-        Simple Bodybuilding is an app for tracking exercises. Over time, diet tracking
-        and social profiles will be added. Keep all of your workout data instead of
-        losing it when you uninstall the app.
+        Simple Bodybuilding is an app for tracking exercises. Over time, diet
+        tracking and social profiles will be added. Keep all of your workout
+        data instead of losing it when you uninstall the app.
       </p>
       <br />
       <h5>How?</h5>

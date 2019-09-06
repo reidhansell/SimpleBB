@@ -338,7 +338,7 @@ const AddWModal = ({
             <ModalHeader toggle={toggle}>Create exercise</ModalHeader>
             <ModalBody style={{ paddingLeft: "0", paddingRight: "0" }}>
               <input
-              style={{fontFamily: "Lexend Deca"}}
+                style={{ fontFamily: "Lexend Deca" }}
                 type="text"
                 name="name2"
                 value={name2}
@@ -350,7 +350,7 @@ const AddWModal = ({
               <br />
               <br />
               <input
-              style={{fontFamily: "Lexend Deca"}}
+                style={{ fontFamily: "Lexend Deca" }}
                 type="text"
                 name="type"
                 value={type}
