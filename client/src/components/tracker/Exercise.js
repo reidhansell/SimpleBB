@@ -9,7 +9,6 @@ import {
 } from "../../actions/auth";
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { userInfo } from "os";
 
 //add authentication
 

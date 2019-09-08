@@ -63,13 +63,12 @@ const Tracker = ({
           Weight: {currentWeight === null ? "Not logged" : currentWeight}
         </h5>
         <input
-          style={{ fontFamily: "Lexend Deca" }}
+          style={{ fontFamily: "Lexend Deca", maxWidth: "25%" }}
           name="weight"
           type="number"
           className="mr-3"
           placeholder="Bodyweight"
           value={weight}
-          style={{ maxWidth: "25%" }}
           onChange={e =>
             setState({
               ...state,

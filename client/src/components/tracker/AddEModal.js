@@ -7,7 +7,6 @@ import {
   addExercise,
   addTrackedExercise,
   deleteExercise,
-  loadUser
 } from "../../actions/auth";
 
 //To do: create one modal and load information based on  Reduce the amount of ?s.

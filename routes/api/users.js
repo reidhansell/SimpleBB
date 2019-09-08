@@ -44,9 +44,10 @@ router.post(
         name,
         email,
         password,
-        exercises: [],
         workouts: [],
-        days: []
+        exercises: [],
+        exercisesTracked: [],
+        weight: []
       });
 
       const salt = await bcrypt.genSalt(10);
@@ -64,7 +65,7 @@ router.post(
       jwt.sign(
         payload,
         config.get("jwtSecret"),
-        { expiresIn: 360000 },
+        { expiresIn: 3600 },
         (err, token) => {
           if (err) throw err;
           res.json({ token });
