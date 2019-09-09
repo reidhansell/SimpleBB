@@ -231,104 +231,110 @@ const AddWModal = ({
         create ? (
           <>
             <ModalHeader toggle={toggle}>Create workout</ModalHeader>
-            <ModalBody style={{ paddingLeft: "0", paddingRight: "0" }}>
-              <input
-                style={{ fontFamily: "Lexend Deca" }}
-                className="ml-3"
-                type="text"
-                placeholder="Name of new workout..."
-                value={name}
-                name="name"
-                onChange={e => onChange(e)}
-                required
-              />
-              <br />
-              <br />
-              {exercises.length === 0 ? (
-                <div className="ml-3 border-bottom">
-                  No exercises added
-                  <br />
-                  <br />
-                </div>
-              ) : (
+            <form className="form" onSubmit={e => onSubmit(e)}>
+              <ModalBody style={{ paddingLeft: "0", paddingRight: "0" }}>
+                <span className="form-group">
+                  <input
+                    style={{ fontFamily: "Lexend Deca" }}
+                    className="ml-3"
+                    type="text"
+                    placeholder="Name of workout..."
+                    value={name}
+                    name="name"
+                    onChange={e => onChange(e)}
+                    required
+                  />
+                </span>
+                <br />
+                <br />
+                {exercises.length === 0 ? (
+                  <div className="ml-3 border-bottom">
+                    No exercises added
+                    <br />
+                    <br />
+                  </div>
+                ) : (
+                  <ul style={{ listStyleType: "none", padding: "0" }}>
+                    {exercises.map(x => {
+                      return x.name === null ? null : (
+                        <div
+                          key={x._id}
+                          className="border-top border-bottom my-2"
+                          style={{ display: "flex" }}
+                        >
+                          <li className="my-1 mr-a">{x.name}</li>
+                          <Button
+                            className="ml-a"
+                            color="danger"
+                            onClick={e => onDelete3(e, x)}
+                          >
+                            <i className="fas fa-trash" />
+                          </Button>
+                        </div>
+                      );
+                    })}
+                  </ul>
+                )}
+                <br />
+                <p className="ml-3">Add exercises to new workout:</p>
+
+                <input
+                  style={{ fontFamily: "Lexend Deca" }}
+                  className="ml-3"
+                  type="search"
+                  name="search2"
+                  placeholder="Search..."
+                  value={search2}
+                  onChange={e => onChange(e)}
+                />
                 <ul style={{ listStyleType: "none", padding: "0" }}>
-                  {exercises.map(x => {
-                    return x.name === null ? null : (
+                  {user.exercises.map(x => {
+                    return x.name === null ? null : x.name.includes(search2) ? (
                       <div
                         key={x._id}
                         className="border-top border-bottom my-2"
                         style={{ display: "flex" }}
                       >
-                        <li className="my-1 mr-a">{x.name}</li>
+                        <li
+                          className="clickable mr-a my-1 w-100"
+                          onClick={e => onClick2(e, x)}
+                        >
+                          {x.name}
+                        </li>
                         <Button
                           className="ml-a"
                           color="danger"
-                          onClick={e => onDelete3(e, x)}
+                          onClick={e => onDelete2(e, x._id)}
                         >
                           <i className="fas fa-trash" />
                         </Button>
                       </div>
-                    );
+                    ) : null;
                   })}
                 </ul>
-              )}
-              <br />
-              <p className="ml-3">Add exercises to new workout:</p>
-
-              <input
-                style={{ fontFamily: "Lexend Deca" }}
-                className="ml-3"
-                type="search"
-                name="search2"
-                placeholder="Search..."
-                value={search2}
-                onChange={e => onChange(e)}
-              />
-              <ul style={{ listStyleType: "none", padding: "0" }}>
-                {user.exercises.map(x => {
-                  return x.name === null ? null : x.name.includes(search2) ? (
-                    <div
-                      key={x._id}
-                      className="border-top border-bottom my-2"
-                      style={{ display: "flex" }}
-                    >
-                      <li
-                        className="clickable mr-a my-1 w-100"
-                        onClick={e => onClick2(e, x)}
-                      >
-                        {x.name}
-                      </li>
-                      <Button
-                        className="ml-a"
-                        color="danger"
-                        onClick={e => onDelete2(e, x._id)}
-                      >
-                        <i className="fas fa-trash" />
-                      </Button>
-                    </div>
-                  ) : null;
-                })}
-              </ul>
-            </ModalBody>
-            <ModalFooter>
-              <Button color="primary" onClick={onSubmit}>
-                Finish creating workout
-              </Button>{" "}
-              <Button
-                color="primary"
-                onClick={() =>
-                  setState({ ...state, create2: true, create: false })
-                }
-              >
-                Create exercise
-              </Button>{" "}
-              <Button
-                color="secondary"
-                onClick={() => setState({ ...state, create: false })}
-              >
-                Cancel
-              </Button>
-            </ModalFooter>
+              </ModalBody>
+              <ModalFooter>
+                <input
+                  type="submit"
+                  className="btn btn-primary"
+                  value="Finish creating workout"
+                />
+                <Button
+                  color="primary"
+                  onClick={() =>
+                    setState({ ...state, create2: true, create: false })
+                  }
+                >
+                  Create exercise
+                </Button>{" "}
+                <Button
+                  color="secondary"
+                  onClick={() => setState({ ...state, create: false })}
+                >
+                  Cancel
+                </Button>
+              </ModalFooter>
+            </form>
           </>
         ) : null}
 
@@ -336,42 +342,50 @@ const AddWModal = ({
         create2 ? (
           <>
             <ModalHeader toggle={toggle}>Create exercise</ModalHeader>
-            <ModalBody style={{ paddingLeft: "0", paddingRight: "0" }}>
-              <input
-                style={{ fontFamily: "Lexend Deca" }}
-                type="text"
-                name="name2"
-                value={name2}
-                onChange={e => onChange(e)}
-                placeholder="Name of exercise"
-                className="mx-3"
-                required
-              />
-              <br />
-              <br />
-              <input
-                style={{ fontFamily: "Lexend Deca" }}
-                type="text"
-                name="type"
-                value={type}
-                onChange={e => onChange(e)}
-                placeholder="Type of exercise"
-                className="mx-3"
-              />
-            </ModalBody>
-            <ModalFooter>
-              <Button color="primary" onClick={onSubmit2}>
-                Finish creating exercise
-              </Button>{" "}
-              <Button
-                color="secondary"
-                onClick={() =>
-                  setState({ ...state, create2: false, create: true })
-                }
-              >
-                Cancel
-              </Button>
-            </ModalFooter>
+            <form className="form" onSubmit={e => onSubmit2(e)}>
+              <ModalBody style={{ paddingLeft: "0", paddingRight: "0" }}>
+                <span className="form-group">
+                  <input
+                    style={{ fontFamily: "Lexend Deca" }}
+                    type="text"
+                    name="name2"
+                    value={name2}
+                    onChange={e => onChange(e)}
+                    placeholder="Name of exercise"
+                    className="mx-3"
+                    required
+                  />
+                </span>
+                <br />
+                <br />
+                <span className="form-group">
+                  <input
+                    style={{ fontFamily: "Lexend Deca" }}
+                    type="text"
+                    name="type"
+                    value={type}
+                    onChange={e => onChange(e)}
+                    placeholder="Type of exercise"
+                    className="mx-3"
+                  />
+                </span>
+              </ModalBody>
+              <ModalFooter>
+                <input
+                  type="submit"
+                  className="btn btn-primary"
+                  value="Finish creating exercise"
+                />
+                <Button
+                  color="secondary"
+                  onClick={() =>
+                    setState({ ...state, create2: false, create: true })
+                  }
+                >
+                  Cancel
+                </Button>
+              </ModalFooter>
+            </form>
           </>
         ) : null}
       </Modal>

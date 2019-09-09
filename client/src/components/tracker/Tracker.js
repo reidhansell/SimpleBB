@@ -62,24 +62,30 @@ const Tracker = ({
         <h5 className="my-3">
           Weight: {currentWeight === null ? "Not logged" : currentWeight}
         </h5>
-        <input
-          style={{ fontFamily: "Lexend Deca", maxWidth: "25%" }}
-          name="weight"
-          type="number"
-          className="mr-3"
-          placeholder="Bodyweight"
-          value={weight}
-          onChange={e =>
-            setState({
-              ...state,
-              [e.target.name]: e.target.value.replace(/[^0-9 ]/g, "")
-            })
-          }
-          required
-        />
-        <Button color="primary" className="mb-2" onClick={onSubmit}>
-          Save
-        </Button>
+        <form
+          className="form"
+          style={{ display: "inline" }}
+          onSubmit={onSubmit}
+        >
+          <span className="form-group">
+            <input
+              style={{ fontFamily: "Lexend Deca", maxWidth: "25%" }}
+              name="weight"
+              type="number"
+              className="mr-3"
+              placeholder="Bodyweight"
+              value={weight}
+              onChange={e =>
+                setState({
+                  ...state,
+                  [e.target.name]: e.target.value.replace(/[^0-9 ]/g, "")
+                })
+              }
+              required
+            />
+          </span>
+          <input type="submit" className="btn btn-primary mb-2" value="Save" />
+        </form>
         <Button
           color="secondary"
           className="mb-2 ml-3"

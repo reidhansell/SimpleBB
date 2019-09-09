@@ -6,7 +6,7 @@ import {
   updateUser,
   addExercise,
   addTrackedExercise,
-  deleteExercise,
+  deleteExercise
 } from "../../actions/auth";
 
 //To do: create one modal and load information based on  Reduce the amount of ?s.
@@ -158,40 +158,49 @@ const AddEModal = ({
           style={{ fontFamily: "Lexend Deca" }}
         >
           <ModalHeader toggle={toggle}>Create exercise</ModalHeader>
-          <ModalBody style={{ paddingLeft: "0", paddingRight: "0" }}>
-            <input
-              style={{ fontFamily: "Lexend Deca" }}
-              type="text"
-              name="name"
-              value={name}
-              onChange={e => onChange(e)}
-              placeholder="Name of exercise"
-              className="mx-3"
-              required
-            />
-            <br />
-            <br />
-            <input
-              style={{ fontFamily: "Lexend Deca" }}
-              type="text"
-              name="type"
-              value={type}
-              onChange={e => onChange(e)}
-              placeholder="Type of exercise"
-              className="mx-3"
-            />
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={onSubmit}>
-              Finish creating exercise
-            </Button>{" "}
-            <Button
-              color="secondary"
-              onClick={() => setState({ ...state, create: false })}
-            >
-              Cancel
-            </Button>
-          </ModalFooter>
+
+          <form className="form" onSubmit={e => onSubmit(e)}>
+            <ModalBody style={{ paddingLeft: "0", paddingRight: "0" }}>
+              <span className="form-group">
+                <input
+                  style={{ fontFamily: "Lexend Deca" }}
+                  type="text"
+                  name="name"
+                  value={name}
+                  onChange={e => onChange(e)}
+                  placeholder="Name of exercise"
+                  className="mx-3"
+                  required
+                />
+              </span>
+              <br />
+              <br />
+              <span className="form-group">
+                <input
+                  style={{ fontFamily: "Lexend Deca" }}
+                  type="text"
+                  name="type"
+                  value={type}
+                  onChange={e => onChange(e)}
+                  placeholder="Type of exercise"
+                  className="mx-3"
+                />
+              </span>
+            </ModalBody>
+            <ModalFooter>
+              <input
+                type="submit"
+                className="btn btn-primary"
+                value="Finish creating exercise"
+              />
+              <Button
+                color="secondary"
+                onClick={() => setState({ ...state, create: false })}
+              >
+                Cancel
+              </Button>
+            </ModalFooter>
+          </form>
         </Modal>
       </div>
     )
