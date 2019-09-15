@@ -218,7 +218,7 @@ const AddWModal = ({
                 color="primary"
                 onClick={() => setState({ ...state, create: true })}
               >
-                Create Workout
+                <small>Create New Workout</small>
               </Button>{" "}
               <Button color="secondary" onClick={toggle}>
                 Cancel
@@ -296,7 +296,7 @@ const AddWModal = ({
                         style={{ display: "flex" }}
                       >
                         <li
-                          className="clickable mr-a my-1 w-100"
+                          className="clickable mr-a my-1 ml-3 w-100"
                           onClick={e => onClick2(e, x)}
                         >
                           {x.name}
@@ -312,21 +312,24 @@ const AddWModal = ({
                     ) : null;
                   })}
                 </ul>
+                <div className="w-100 text-center">
+                  <Button
+                    color="primary"
+                    onClick={() =>
+                      setState({ ...state, create2: true, create: false })
+                    }
+                  >
+                    <small>Create new exercise</small>
+                  </Button>
+                </div>
               </ModalBody>
               <ModalFooter>
                 <input
                   type="submit"
                   className="btn btn-primary"
-                  value="Finish creating workout"
+                  value="Create workout"
                 />
-                <Button
-                  color="primary"
-                  onClick={() =>
-                    setState({ ...state, create2: true, create: false })
-                  }
-                >
-                  Create exercise
-                </Button>{" "}
+
                 <Button
                   color="secondary"
                   onClick={() => setState({ ...state, create: false })}
@@ -374,7 +377,7 @@ const AddWModal = ({
                 <input
                   type="submit"
                   className="btn btn-primary"
-                  value="Finish creating exercise"
+                  value="Create exercise"
                 />
                 <Button
                   color="secondary"

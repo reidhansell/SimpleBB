@@ -36,8 +36,7 @@ function About() {
         >
           Reid Hansell
         </a>
-        , a web developer currently developing the skills to get into the
-        industry. I am fitness-obsessed and have loved bodybuilding since I was
+        , a software developer currently seeking opportunity to use my skills in a professional capacity. I am fitness-obsessed and have loved bodybuilding since I was
         a teen. I made this app not only to gain experience but also to use on a
         daily basis. My hopes are to turn this into a mobile app aswell to make
         usage more realistic.

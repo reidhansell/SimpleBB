@@ -45,9 +45,7 @@ const Login = ({ login, isAuthenticated }) => {
       </div>
       <div className="mt-3 ml-3 mr-a" style={{ maxWidth: "22vh" }}>
         <h1 className="large text-primary">Login</h1>
-        <p className="lead">
-          <i className="fas fa-user" /> Account Login
-        </p>
+        <br />
         <form className="form" onSubmit={e => onSubmit(e)}>
           <div className="form-group">
             <input

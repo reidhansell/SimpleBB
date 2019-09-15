@@ -86,13 +86,7 @@ const Tracker = ({
           </span>
           <input type="submit" className="btn btn-primary mb-2" value="Save" />
         </form>
-        <Button
-          color="secondary"
-          className="mb-2 ml-3"
-          onClick={() => setState({ ...state, weight: "" })}
-        >
-          Clear
-        </Button>
+
         <br />
         <br />
         <AddEModal date={date} />

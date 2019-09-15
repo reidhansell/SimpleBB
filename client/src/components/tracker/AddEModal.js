@@ -104,7 +104,7 @@ const AddEModal = ({
             <br />
             <ul style={{ listStyleType: "none", padding: "0" }}>
               {user.exercises.length === 0
-                ? "No exercises created"
+                ? <p className="ml-3">No exercises created</p>
                 : user.exercises.map(x => {
                     return x.name === null ? null : x.name.includes(search) ? (
                       <div
@@ -113,7 +113,7 @@ const AddEModal = ({
                         style={{ display: "flex" }}
                       >
                         <li
-                          className="clickable pt-1 w-100 pl-2"
+                          className="clickable pt-1 w-100 pl-3"
                           onClick={e => onClick(e, x)}
                         >
                           {x.name}
@@ -135,8 +135,8 @@ const AddEModal = ({
               color="primary"
               onClick={() => setState({ ...state, create: true })}
             >
-              Create exercise
-            </Button>{" "}
+              <small>Create new exercise</small>
+            </Button>
             <Button color="secondary" onClick={toggle}>
               Cancel
             </Button>
@@ -191,7 +191,7 @@ const AddEModal = ({
               <input
                 type="submit"
                 className="btn btn-primary"
-                value="Finish creating exercise"
+                value="Create exercise"
               />
               <Button
                 color="secondary"
