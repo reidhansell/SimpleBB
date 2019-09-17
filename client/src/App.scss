@@ -182,6 +182,14 @@ $dark: hsl(235, 21%, 21%);
   border-radius: 50%;
   animation: spin 1s infinite;
 }
+#spinner-small {
+  border: 2px solid lightgray;
+  border-top-color: hsl(197, 24%, 94%);
+  width: 5vh;
+  height: 5vh;
+  border-radius: 50%;
+  animation: spin 1s infinite;
+}
 
 @keyframes spin {
   from {

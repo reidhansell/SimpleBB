@@ -21,7 +21,8 @@ const AddWModal = ({
   addTrackedExercise,
   createWorkout,
   deleteWorkout,
-  auth: { user, isAuthenticated }
+  auth: { user, isAuthenticated },
+  setAdding
 }) => {
   const [state, setState] = useState({
     modal: false,
@@ -87,10 +88,12 @@ const AddWModal = ({
       x.date = date;
       delete x._id;
     });
+
     addTrackedExercise(newExercises);
 
     newExercises.forEach(x => {
       x.sets = [];
+      x.loading = true;
       user.exercisesTracked.unshift(x);
     });
     updateUser(user);
@@ -262,7 +265,7 @@ const AddWModal = ({
                           className="border-top border-bottom my-2"
                           style={{ display: "flex" }}
                         >
-                          <li className="my-1 mr-a">{x.name}</li>
+                          <li className="my-1 ml-3 mr-a">{x.name}</li>
                           <Button
                             className="ml-a"
                             color="primary"

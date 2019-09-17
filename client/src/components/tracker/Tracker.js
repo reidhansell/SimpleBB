@@ -6,9 +6,10 @@ import DatePicker from "react-date-picker";
 import AddEModal from "./AddEModal";
 import AddWModal from "./AddWModal";
 import Exercise from "./Exercise";
-import { Button } from "reactstrap";
 
 import { updateUser, saveWeight } from "../../actions/auth";
+
+import Reveal from "react-reveal/Reveal";
 
 const Tracker = ({
   updateUser,
@@ -21,6 +22,10 @@ const Tracker = ({
   });
 
   const { date, weight } = state;
+
+  const setAdding = () => {
+    setState({ ...state, adding: true });
+  };
 
   const onSubmit = async e => {
     e.preventDefault();
@@ -69,7 +74,11 @@ const Tracker = ({
         >
           <span className="form-group">
             <input
-              style={{ fontFamily: "Lexend Deca", maxWidth: "25%", border:"1px solid black" }}
+              style={{
+                fontFamily: "Lexend Deca",
+                maxWidth: "25%",
+                border: "1px solid black"
+              }}
               name="weight"
               type="number"
               className="mr-3 bg-light"
@@ -90,24 +99,42 @@ const Tracker = ({
         <br />
         <br />
         <AddEModal date={date} />
-        <AddWModal date={date} />
+        <AddWModal date={date} setAdding={setAdding} />
         <br />
         <br />
       </div>
       <br />
-      <br />
-      <ul className="pb-2 px-3 m-0" style={{ listStyleType: "none" }}>
-        {user.exercisesTracked.map(x => {
-          const newDate = new Date(x.date);
-          return newDate.getDate() === date.getDate() &&
-            newDate.getMonth() === date.getMonth() &&
-            newDate.getFullYear() === date.getFullYear() ? (
-            <li key={x._id}>
-              <Exercise exercise={x} />
-            </li>
-          ) : null;
-        })}
-      </ul>
+      <div className="container">
+        <ul className="pb-2 px-3 m-0" style={{ listStyleType: "none" }}>
+          {user.exercisesTracked.map(x => {
+            const newDate = new Date(x.date);
+            {
+              return x.loading === true ? (
+                <div id="spinner-small" className=" mx-a mt-3" />
+              ) : (
+                newDate.getDate() === null
+              );
+            }
+          })}
+        </ul>
+        <Reveal left cascade>
+          <ul className="pb-2 px-3 m-0" style={{ listStyleType: "none" }}>
+            {user.exercisesTracked.map(x => {
+              const newDate = new Date(x.date);
+              {
+                return x.loading === true ? null : newDate.getDate() ===
+                    date.getDate() &&
+                  newDate.getMonth() === date.getMonth() &&
+                  newDate.getFullYear() === date.getFullYear() ? (
+                  <li key={x._id}>
+                    <Exercise exercise={x} />
+                  </li>
+                ) : null;
+              }
+            })}
+          </ul>
+        </Reveal>
+      </div>
     </div>
   );
 };

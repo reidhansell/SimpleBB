@@ -10,7 +10,7 @@ import {
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
-//add authentication
+
 
 const Exercise = ({
   updateUser,
@@ -77,7 +77,7 @@ const Exercise = ({
 
   return deleting ? null : (
     <Fragment>
-      <div className="clickable pb-1 mb-3 shadow rounded bg-light">
+      <div className="clickable pb-1 mb-3 mx-a shadow rounded bg-light">
         <div
           className="bg-primary rounded-top text-light text-left w-100"
           style={{ display: "flex" }}
@@ -111,7 +111,9 @@ const Exercise = ({
         toggle={toggle}
         style={{ fontFamily: "Lexend Deca" }}
       >
-        <ModalHeader toggle={toggle}>Logged sets for {exercise.name}</ModalHeader>
+        <ModalHeader toggle={toggle}>
+          Logged sets for {exercise.name}
+        </ModalHeader>
         <ModalBody style={{ paddingLeft: "0", paddingRight: "0" }}>
           <form className="form" onSubmit={e => onSubmit(e)}>
             <span className="form-group">
@@ -157,7 +159,8 @@ const Exercise = ({
                       </li>
                       <Button
                         className="ml-a"
-                        color="danger"
+                        color="primary"
+                        style={{ borderRadius: "0" }}
                         onClick={e => onDeleteSet(e, exercise._id, x._id)}
                       >
                         <i className="fas fa-trash" />

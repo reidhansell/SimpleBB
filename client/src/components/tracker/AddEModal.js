@@ -63,6 +63,7 @@ const AddEModal = ({
     addTrackedExercise([newExercise]);
 
     newExercise.sets = [];
+    newExercise.loading = true;
     user.exercisesTracked.unshift(newExercise);
     updateUser(user);
 

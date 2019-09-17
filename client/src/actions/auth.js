@@ -124,7 +124,7 @@ export const addExercise = exercise => async dispatch => {
     };
     await axios.put("/api/users/exercises", exercise, config);
 
-    dispatch(loadUser());
+    //dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -144,7 +144,7 @@ export const deleteExercise = id => async dispatch => {
   try {
     await axios.delete(`/api/users/exercises/${id}`);
 
-    dispatch(loadUser());
+    //dispatch(loadUser());
 
     //dispatch(setAlert('Post Removed', 'success'));
   } catch (err) {
@@ -186,7 +186,7 @@ export const deleteTrackedExercise = id => async dispatch => {
   try {
     await axios.delete(`/api/users/exercisesTracked/${id}`);
 
-    dispatch(loadUser());
+    //dispatch(loadUser());
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -204,7 +204,7 @@ export const addSet = set => async dispatch => {
       }
     };
     await axios.put("/api/users/exercisesTracked/sets", set, config);
-    dispatch(loadUser());
+    //dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -229,7 +229,7 @@ export const deleteTrackedExerciseSet = (
       `/api/users/exercisesTracked/${exerciseid}/sets/${setid}`
     );
 
-    dispatch(loadUser());
+    //dispatch(loadUser());
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -250,7 +250,7 @@ export const saveWeight = (weight, date) => async dispatch => {
     const body = JSON.stringify({ weight, date });
 
     await axios.put(`/api/users/weight`, body, config);
-    dispatch(loadUser());
+    //dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -277,7 +277,7 @@ export const createWorkout = workout => async dispatch => {
     const body = JSON.stringify(workout);
 
     await axios.put(`/api/users/workouts`, body, config);
-    dispatch(loadUser());
+    //dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -297,7 +297,7 @@ export const deleteWorkout = id => async dispatch => {
   try {
     await axios.delete(`/api/users/workouts/${id}`);
 
-    dispatch(loadUser());
+    //dispatch(loadUser());
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
