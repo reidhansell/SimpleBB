@@ -176,7 +176,7 @@ const AddWModal = ({
                           key={x._id}
                         >
                           <div
-                            className="bg-primary rounded-top text-white text-left w-100"
+                            className="bg-primary rounded-top text-light text-left w-100"
                             style={{ display: "flex" }}
                           >
                             <div
@@ -188,7 +188,7 @@ const AddWModal = ({
                             <div>
                               <Button
                                 className="ml-a"
-                                color="danger"
+                                color="primary"
                                 onClick={e => onDelete(e, x._id)}
                               >
                                 <i className="fas fa-trash ml-a" />
@@ -265,7 +265,8 @@ const AddWModal = ({
                           <li className="my-1 mr-a">{x.name}</li>
                           <Button
                             className="ml-a"
-                            color="danger"
+                            color="primary"
+                            style={{ borderRadius: "0" }}
                             onClick={e => onDelete3(e, x)}
                           >
                             <i className="fas fa-trash" />
@@ -303,7 +304,8 @@ const AddWModal = ({
                         </li>
                         <Button
                           className="ml-a"
-                          color="danger"
+                          color="primary"
+                          style={{ borderRadius: "0" }}
                           onClick={e => onDelete2(e, x._id)}
                         >
                           <i className="fas fa-trash" />

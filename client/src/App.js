@@ -9,7 +9,7 @@ import store from "./store";
 import { loadUser } from "./actions/auth";
 import setAuthToken from "./utils/setAuthToken";
 
-import "./App.css";
+import "./App.scss";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);

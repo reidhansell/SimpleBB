@@ -1,5 +1,11 @@
 @import url("https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap");
 
+$primary: hsl(350, 96%, 43%);
+$secondary: hsl(218, 17%, 62%);
+$light: hsl(197, 24%, 94%);
+$dark: hsl(235, 21%, 21%);
+@import "~bootstrap/scss/bootstrap.scss";
+
 @media screen and (max-width: 500px) {
   #root,
   #root p {
@@ -27,7 +33,7 @@
 
 #root {
   color: black;
-  background-color: white;
+  background-color: hsl(235, 21%, 21%);
   font-family: "Lexend Deca";
   min-width: 320px;
 }
@@ -67,10 +73,14 @@
   text-decoration-line: line-through;
 }
 
+#root button {
+  outline: none;
+}
+
 #root a {
   transition: 0.5s;
   text-decoration: none;
-  color: white;
+  color: hsl(197, 24%, 94%);
 }
 
 #root a:hover {
@@ -166,7 +176,7 @@
 
 #spinner {
   border: 2px solid lightgray;
-  border-top-color: white;
+  border-top-color: hsl(197, 24%, 94%);
   width: 17.5vh;
   height: 17.5vh;
   border-radius: 50%;

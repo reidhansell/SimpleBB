@@ -103,31 +103,34 @@ const AddEModal = ({
             <br />
             <br />
             <ul style={{ listStyleType: "none", padding: "0" }}>
-              {user.exercises.length === 0
-                ? <p className="ml-3">No exercises created</p>
-                : user.exercises.map(x => {
-                    return x.name === null ? null : x.name.includes(search) ? (
-                      <div
-                        key={x._id}
-                        className="border-top border-bottom my-2"
-                        style={{ display: "flex" }}
+              {user.exercises.length === 0 ? (
+                <p className="ml-3">No exercises created</p>
+              ) : (
+                user.exercises.map(x => {
+                  return x.name === null ? null : x.name.includes(search) ? (
+                    <div
+                      key={x._id}
+                      className="border-top border-bottom my-2"
+                      style={{ display: "flex" }}
+                    >
+                      <li
+                        className="clickable pt-1 w-100 pl-3"
+                        onClick={e => onClick(e, x)}
                       >
-                        <li
-                          className="clickable pt-1 w-100 pl-3"
-                          onClick={e => onClick(e, x)}
-                        >
-                          {x.name}
-                        </li>
-                        <Button
-                          className="ml-a"
-                          color="danger"
-                          onClick={e => onDelete(e, x._id)}
-                        >
-                          <i className="fas fa-trash" />
-                        </Button>
-                      </div>
-                    ) : null;
-                  })}
+                        {x.name}
+                      </li>
+                      <Button
+                        className="ml-a"
+                        color="primary"
+                        style={{ borderRadius: "0" }}
+                        onClick={e => onDelete(e, x._id)}
+                      >
+                        <i className="fas fa-trash" />
+                      </Button>
+                    </div>
+                  ) : null;
+                })
+              )}
             </ul>
           </ModalBody>
           <ModalFooter>

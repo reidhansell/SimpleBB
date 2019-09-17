@@ -77,15 +77,15 @@ const Exercise = ({
 
   return deleting ? null : (
     <Fragment>
-      <div className="clickable pb-1 mb-3 shadow rounded bg-white">
+      <div className="clickable pb-1 mb-3 shadow rounded bg-light">
         <div
-          className="bg-primary rounded-top text-white text-left w-100"
+          className="bg-primary rounded-top text-light text-left w-100"
           style={{ display: "flex" }}
         >
           <h5 onClick={toggle} className="ml-5 mr-a pt-2 w-100">
             {exercise.name}
           </h5>
-          <Button color="danger" onClick={e => onDelete(e, exercise._id)}>
+          <Button color="primary" onClick={e => onDelete(e, exercise._id)}>
             <i className="fas fa-trash" />
           </Button>
         </div>
@@ -111,7 +111,7 @@ const Exercise = ({
         toggle={toggle}
         style={{ fontFamily: "Lexend Deca" }}
       >
-        <ModalHeader toggle={toggle}>{exercise.name} logged sets</ModalHeader>
+        <ModalHeader toggle={toggle}>Logged sets for {exercise.name}</ModalHeader>
         <ModalBody style={{ paddingLeft: "0", paddingRight: "0" }}>
           <form className="form" onSubmit={e => onSubmit(e)}>
             <span className="form-group">

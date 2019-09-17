@@ -49,11 +49,11 @@ const Tracker = ({
     <div id="spinner" className=" mx-a mt-5" />
   ) : (
     <div className="text-center">
-      <div className="shadow bg-white rounded-bottom">
+      <div className="shadow bg-light">
         <br />
         <h5>
           <DatePicker
-            className="my-3"
+            className="my-3 bg-light"
             onChange={date => setState({ ...state, date })}
             value={date}
             clearIcon={null}
@@ -69,11 +69,11 @@ const Tracker = ({
         >
           <span className="form-group">
             <input
-              style={{ fontFamily: "Lexend Deca", maxWidth: "25%" }}
+              style={{ fontFamily: "Lexend Deca", maxWidth: "25%", border:"1px solid black" }}
               name="weight"
               type="number"
-              className="mr-3"
-              placeholder="Bodyweight"
+              className="mr-3 bg-light"
+              placeholder="Bodyweight..."
               value={weight}
               onChange={e =>
                 setState({

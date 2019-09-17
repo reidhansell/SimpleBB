@@ -44,7 +44,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   }
 
   return (
-    <div className="bg-white rounded-bottom shadow p-1 d-flex flex-row pb-3">
+    <div className="bg-light rounded-bottom shadow p-1 d-flex flex-row pb-3">
       <div className="mt-3 mr-3 ml-a" style={{ maxWidth: "22vh" }}>
         <h5 className="text-primary mt-2">Simple Bodybuilding</h5>
         <br />
@@ -61,7 +61,8 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         <form className="form" onSubmit={e => onSubmit(e)}>
           <div className="form-group">
             <input
-              style={{ fontFamily: "Lexend Deca" }}
+              style={{ fontFamily: "Lexend Deca", border: "1px solid black" }}
+              className="bg-light"
               type="text"
               placeholder="Name"
               name="name"
@@ -73,7 +74,8 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
           </div>
           <div className="form-group">
             <input
-              style={{ fontFamily: "Lexend Deca" }}
+              style={{ fontFamily: "Lexend Deca", border: "1px solid black" }}
+              className="bg-light"
               type="email"
               placeholder="Email Address"
               name="email"
@@ -85,7 +87,8 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
           </div>
           <div className="form-group">
             <input
-              style={{ fontFamily: "Lexend Deca" }}
+              style={{ fontFamily: "Lexend Deca", border: "1px solid black" }}
+              className="bg-light"
               type="password"
               placeholder="Password"
               name="password"
@@ -97,7 +100,8 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
           </div>
           <div className="form-group">
             <input
-              style={{ fontFamily: "Lexend Deca" }}
+              style={{ fontFamily: "Lexend Deca", border: "1px solid black" }}
+              className="bg-light"
               type="password"
               placeholder="Confirm Password"
               name="password2"
