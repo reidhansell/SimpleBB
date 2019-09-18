@@ -1,4 +1,4 @@
-# SimpleBB
+# SimpleBodybuilding
 
 A MERN stack application for tracking fitness goals and more. 
 
@@ -6,11 +6,11 @@ Scroll to the bottom for a todo list.
 
 ## Quick Start
 
-# create default.json inside of config/
+Create default.json inside of config/
 
-# file path will look like simplebb/config/default.json
+File path will look like simplebb/config/default.json
 
-# add the following code and fill it out accordingly
+Add the following code and fill it out accordingly
 
 ```
 {
@@ -47,17 +47,15 @@ Reid Hansell
 
 This project is licensed under the MIT License
 
-### To do lists; in order of importance
-
-Main list:  
--Edit all things that can be created 
--Stricter rules for signup  
--Back end security
--Add diet tracking  
--Add social profiles  
--Fix Redux actions or remove it entirely. Keep in mind it will be useful when diet tracking and social profiles are added.  
--General fixes. Fix repeated, inconsistent, and unnecessary code. 
-
+### To do list
+-Edit all things that can be created <br>
+-Stricter rules for signup  <br>
+-Back end security<br>
+-Add diet tracking  <br>
+-Add social profiles  <br>
+-Fix Redux actions or remove it entirely. Keep in mind it will be useful when diet tracking and social profiles are added.  <br>
+-General fixes. Fix repeated, inconsistent, and unnecessary code. <br>
+-Beginner tutorial<br>
  
 
 
