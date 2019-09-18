@@ -47,9 +47,7 @@ Reid Hansell
 
 This project is licensed under the MIT License
 
-### To do lists; in order of importance
-
-Main list:  
+### To do list
 -Edit all things that can be created 
 -Stricter rules for signup  
 -Back end security
