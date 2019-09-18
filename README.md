@@ -1,4 +1,4 @@
-# SimpleBB
+# SimpleBodybuilding
 
 A MERN stack application for tracking fitness goals and more. 
 
@@ -6,11 +6,11 @@ Scroll to the bottom for a todo list.
 
 ## Quick Start
 
-# create default.json inside of config/
+Create default.json inside of config/
 
-# file path will look like simplebb/config/default.json
+File path will look like simplebb/config/default.json
 
-# add the following code and fill it out accordingly
+Add the following code and fill it out accordingly
 
 ```
 {
