@@ -15,6 +15,8 @@ const Footer = () => {
           Reid Hansell
         </a>
       </small>
+      <br />
+      <br />
     </div>
   );
 };
