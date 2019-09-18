@@ -11,7 +11,8 @@ import {
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../../actions/auth";
-import logo from "../../LogoWhite.png";
+
+import Fade from "react-reveal/Fade";
 
 const BootStrapNav = ({ auth: { user, isAuthenticated, loading }, logout }) => {
   const [toggle, setToggle] = useState(false);
@@ -23,30 +24,30 @@ const BootStrapNav = ({ auth: { user, isAuthenticated, loading }, logout }) => {
   const authLinks = (
     <Nav className="ml-auto" navbar>
       {!loading && isAuthenticated && (
-        <span className="mx-2">Welcome, {user.name}</span>
+        <span className="mx-3">Welcome, {user.name}</span>
       )}
       <NavItem onClick={() => close()}>
-        <Link to="/tracker" className="mx-2">
+        <Link to="/tracker" className="mx-3">
           Exercise Tracker
         </Link>
       </NavItem>
       <NavItem onClick={() => close()}>
-        <Link to="/about" className="mx-2">
+        <Link to="/about" className="mx-3">
           About
         </Link>
       </NavItem>
       <NavItem onClick={() => close()}>
-        <Link to="/help" className="mx-2">
+        <Link to="/help" className="mx-3">
           Help
         </Link>
       </NavItem>
       <NavItem onClick={() => close()}>
-        <Link to="#" className="mx-2 disabled">
+        <Link to="#" className="mx-3 disabled">
           Diet Tracker
         </Link>
       </NavItem>
       <NavItem onClick={() => close()}>
-        <a onClick={logout} href="#!" className="mx-2">
+        <a onClick={logout} href="#!" className="mx-3">
           <i className="fas fa-sign-out-alt" />{" "}
           <span className="hide-sm">Logout</span>
         </a>
@@ -57,23 +58,23 @@ const BootStrapNav = ({ auth: { user, isAuthenticated, loading }, logout }) => {
   const guestLinks = (
     <Nav className="ml-auto" navbar>
       <NavItem onClick={() => close()}>
-        <Link to="/login" className="mx-2">
+        <Link to="/login" className="mx-3">
           Login
         </Link>
       </NavItem>
       <NavItem onClick={() => close()}>
-        <Link to="/register" className="mx-2">
+        <Link to="/register" className="mx-3">
           Register
         </Link>
       </NavItem>
 
       <NavItem onClick={() => close()}>
-        <Link to="/about" className="mx-2">
+        <Link to="/about" className="mx-3">
           About
         </Link>
       </NavItem>
       <NavItem onClick={() => close()}>
-        <Link to="/help" className="mx-2">
+        <Link to="/help" className="mx-3">
           Help
         </Link>
       </NavItem>
@@ -83,7 +84,16 @@ const BootStrapNav = ({ auth: { user, isAuthenticated, loading }, logout }) => {
   return (
     <Navbar dark color="primary" expand="lg">
       <NavbarBrand id="navbar-brand" href="/" className="mx-2">
-        <img src={logo} alt="Logo" style={{ maxWidth: "215px" }} />
+        <h4 className="my-0 pb-1">
+          <b>
+            <Fade top cascade>
+              <span className="text-light">Simple</span>
+            </Fade>
+            <Fade bottom cascade>
+              <span className="text-secondary">Bodybuilding</span>
+            </Fade>
+          </b>
+        </h4>
       </NavbarBrand>
       <NavbarToggler onClick={() => setToggle(!toggle)} />
       <Collapse isOpen={toggle} navbar>

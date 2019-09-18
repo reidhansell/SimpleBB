@@ -10,6 +10,7 @@ import PrivateRoute from "../routing/PrivateRoute";
 import Alert from "../layout/Alert";
 import { Container } from "reactstrap";
 import BootStrapNav from "../layout/BootStrapNav";
+import Footer from "../layout/Footer";
 
 const Routes = () => {
   return (
@@ -25,6 +26,7 @@ const Routes = () => {
         <PrivateRoute exact path="/tracker" component={Tracker} />
         <Route component={NotFound} />
       </Switch>
+      <Footer />
     </Container>
   );
 };

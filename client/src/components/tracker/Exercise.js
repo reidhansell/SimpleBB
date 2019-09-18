@@ -10,8 +10,6 @@ import {
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
-
-
 const Exercise = ({
   updateUser,
   exercise,
@@ -85,7 +83,11 @@ const Exercise = ({
           <h5 onClick={toggle} className="ml-5 mr-a pt-2 w-100">
             {exercise.name}
           </h5>
-          <Button color="primary" onClick={e => onDelete(e, exercise._id)}>
+          <Button
+            color="primary"
+            style={{ borderRadius: "0px" }}
+            onClick={e => onDelete(e, exercise._id)}
+          >
             <i className="fas fa-trash" />
           </Button>
         </div>

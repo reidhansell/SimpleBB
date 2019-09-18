@@ -33,7 +33,12 @@ const Login = ({ login, isAuthenticated }) => {
   return (
     <div className="bg-light rounded-bottom shadow p-1 d-flex flex-row pb-3">
       <div className="mt-3 mr-3 ml-a" style={{ maxWidth: "22vh" }}>
-        <h5 className="text-primary mt-2">Simple Bodybuilding</h5>
+        <h5 className="pt-3">
+          <b>
+            <span className="text-primary">Simple</span>
+            <span className="text-secondary">Bodybuilding</span>
+          </b>
+        </h5>
         <br />
         <p>
           A web-based fitness tracker catering to bodybuilder-style training.
@@ -49,7 +54,7 @@ const Login = ({ login, isAuthenticated }) => {
         <form className="form" onSubmit={e => onSubmit(e)}>
           <div className="form-group">
             <input
-              style={{ fontFamily: "Lexend Deca", border:"1px solid black" }}
+              style={{ fontFamily: "Lexend Deca", border: "1px solid black" }}
               className="bg-light"
               type="email"
               placeholder="Email Address"
@@ -62,7 +67,7 @@ const Login = ({ login, isAuthenticated }) => {
           </div>
           <div className="form-group">
             <input
-              style={{ fontFamily: "Lexend Deca", border:"1px solid black" }}
+              style={{ fontFamily: "Lexend Deca", border: "1px solid black" }}
               className="bg-light"
               type="password"
               placeholder="Password"

@@ -193,6 +193,7 @@ const AddWModal = ({
                                 className="ml-a"
                                 color="primary"
                                 onClick={e => onDelete(e, x._id)}
+                                style={{ borderRadius: "0px" }}
                               >
                                 <i className="fas fa-trash ml-a" />
                               </Button>

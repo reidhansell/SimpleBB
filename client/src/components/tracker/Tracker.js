@@ -55,13 +55,13 @@ const Tracker = ({
   ) : (
     <div className="text-center">
       <div className="shadow bg-light">
-        <br />
         <h5>
           <DatePicker
             className="my-3 bg-light"
             onChange={date => setState({ ...state, date })}
             value={date}
             clearIcon={null}
+            style={{ border: "1px solid black" }}
           />
         </h5>
         <h5 className="my-3">
@@ -95,14 +95,14 @@ const Tracker = ({
           </span>
           <input type="submit" className="btn btn-primary mb-2" value="Save" />
         </form>
-
-        <br />
-        <br />
-        <AddEModal date={date} />
-        <AddWModal date={date} setAdding={setAdding} />
         <br />
         <br />
       </div>
+      <br />
+      <AddEModal date={date} />
+      <AddWModal date={date} setAdding={setAdding} />
+      <br />
+
       <br />
       <div className="container">
         <ul className="pb-2 px-3 m-0" style={{ listStyleType: "none" }}>
