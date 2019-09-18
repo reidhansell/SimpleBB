@@ -144,7 +144,7 @@ const AddWModal = ({
 
   return isAuthenticated ? (
     <>
-      <Button className="mb-1 btn-lg" color="primary" onClick={toggle}>
+      <Button className="btn-lg shadow" color="primary" onClick={toggle}>
         Add Workout
       </Button>
       <Modal

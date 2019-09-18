@@ -55,16 +55,18 @@ const Tracker = ({
   ) : (
     <div className="text-center">
       <div className="shadow bg-light">
+        <br />
         <h5>
           <DatePicker
-            className="my-3 bg-light"
+            className="bg-light"
             onChange={date => setState({ ...state, date })}
             value={date}
             clearIcon={null}
             style={{ border: "1px solid black" }}
           />
         </h5>
-        <h5 className="my-3">
+        <br />
+        <h5 className="">
           Weight: {currentWeight === null ? "Not logged" : currentWeight}
         </h5>
         <form
@@ -98,13 +100,13 @@ const Tracker = ({
         <br />
         <br />
       </div>
-      <br />
-      <AddEModal date={date} />
-      <AddWModal date={date} setAdding={setAdding} />
-      <br />
-
-      <br />
       <div className="container">
+        <br />
+        <AddEModal date={date} />
+        <br />
+        <AddWModal date={date} setAdding={setAdding} />
+        <br />
+        <br />
         <ul className="pb-2 px-3 m-0" style={{ listStyleType: "none" }}>
           {user.exercisesTracked.map(x => {
             const newDate = new Date(x.date);

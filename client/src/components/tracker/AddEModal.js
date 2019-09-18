@@ -82,7 +82,7 @@ const AddEModal = ({
   return isAuthenticated ? (
     !create ? (
       <div>
-        <Button className="mb-1 btn-lg" color="primary" onClick={toggle}>
+        <Button className="btn-lg shadow" color="primary" onClick={toggle}>
           Add Exercise
         </Button>
         <Modal

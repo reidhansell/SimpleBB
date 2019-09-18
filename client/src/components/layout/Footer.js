@@ -2,7 +2,8 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="text-center my-4">
+    <div className="text-center">
+      <br />
       <small>
         Created by{" "}
         <a
