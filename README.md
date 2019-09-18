@@ -48,15 +48,14 @@ Reid Hansell
 This project is licensed under the MIT License
 
 ### To do list
--Edit all things that can be created 
--Stricter rules for signup  
--Back end security
--Add diet tracking  
--Add social profiles  
--Fix Redux actions or remove it entirely. Keep in mind it will be useful when diet tracking and social profiles are added.  
--General fixes. Fix repeated, inconsistent, and unnecessary code. 
--Beginner tutorial
-
+-Edit all things that can be created <br>
+-Stricter rules for signup  <br>
+-Back end security<br>
+-Add diet tracking  <br>
+-Add social profiles  <br>
+-Fix Redux actions or remove it entirely. Keep in mind it will be useful when diet tracking and social profiles are added.  <br>
+-General fixes. Fix repeated, inconsistent, and unnecessary code. <br>
+-Beginner tutorial<br>
  
 
 
