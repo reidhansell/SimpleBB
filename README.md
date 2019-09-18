@@ -57,6 +57,7 @@ Main list:
 -Add social profiles  
 -Fix Redux actions or remove it entirely. Keep in mind it will be useful when diet tracking and social profiles are added.  
 -General fixes. Fix repeated, inconsistent, and unnecessary code. 
+-Beginner tutorial
 
  
 
