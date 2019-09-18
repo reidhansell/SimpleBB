@@ -4,21 +4,15 @@ A MERN stack application for tracking fitness goals and more.
 
 Scroll to the bottom for a todo list.
 
-Architecture inspired by [Brad Traversy's MERN stack Udemy course](https://www.udemy.com/mern-stack-front-to-back/?couponCode=TRAVERSYMEDIA).
-
-Design inspired by FitList for iOS.
-
-Linter: Prettier
-
 ## Quick Start
 
-```
 # create default.json inside of config/
 
 # file path will look like simplebb/config/default.json
 
 # add the following code and fill it out accordingly
 
+```
 {
   "mongoURI": "",
 
@@ -37,17 +31,13 @@ npm install
 
 # Run both Express & React from root
 npm run dev
-
-# Build for production
-cd client
-npm run build
 ```
 
 ## App Info
 
 ### Author
 
-Reid Hansell with inspiration from Brad Traversy's MERN stack tutorial and FitList.
+Reid Hansell
 
 ### Version
 
@@ -60,21 +50,14 @@ This project is licensed under the MIT License
 ### To do lists; in order of importance
 
 Main list:  
--Aesthetics and navigation [see below for a relevant list]  
--Edit all things that can be created (if and only if necessary)  
--Optimization [see below for a relevant list]  
--Stricter input rules for signup  
--User input security
+-Edit all things that can be created 
+-Stricter rules for signup  
 -Back end security
 -Add diet tracking  
 -Add social profiles  
-  
-Optimization list:  
 -Fix Redux actions or remove it entirely. Keep in mind it will be useful when diet tracking and social profiles are added.  
--General fixes. Fix repeated, inconsistent, and unnecessary code.  
+-General fixes. Fix repeated, inconsistent, and unnecessary code. 
 
-Aesthetics and navigation list:  
--Implement color pallette  
--General design improvements  
+ 
 
 
