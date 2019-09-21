@@ -1,8 +1,12 @@
 const express = require("express");
+const compression = require("compression");
 const connectDB = require("./config/db");
 const path = require("path");
 
 const app = express();
+
+// compress responses
+app.use(compression());
 
 // Connect Database
 connectDB();
