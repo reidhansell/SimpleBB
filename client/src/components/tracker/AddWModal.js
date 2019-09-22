@@ -11,8 +11,6 @@ import {
   createWorkout,
   deleteWorkout
 } from "../../actions/auth";
-//Todo: rename functions
-//2 has been added to things related to exercises.
 const AddWModal = ({
   date,
   updateUser,
@@ -25,25 +23,25 @@ const AddWModal = ({
 }) => {
   const [state, setState] = useState({
     modal: false,
-    search: "",
-    search2: "",
-    create: false,
-    create2: false,
-    name: "",
+    searchWorkout: "",
+    searchExercise: "",
+    createW: false,
+    createE: false,
+    nameW: "",
     exercises: [],
-    name2: "",
+    nameE: "",
     type: ""
   });
 
   const {
     modal,
-    search,
-    search2,
-    create,
-    create2,
-    name,
+    searchWorkout,
+    searchExercise,
+    createW,
+    createE,
+    nameW,
     exercises,
-    name2,
+    nameE,
     type
   } = state;
 
@@ -58,25 +56,25 @@ const AddWModal = ({
     });
 
   const toggle = () => {
-    setState({ ...state, modal: !modal, create: false, create2: false });
+    setState({ ...state, modal: !modal, createW: false, createE: false });
   };
 
   const onSubmitWorkout = async e => {
     e.preventDefault();
-    const workout = { exercises, name };
+    const workout = { exercises, name: nameW };
     createWorkout(workout);
     user.workouts.unshift(workout);
     updateUser(user);
-    setState({ ...state, create: false, exercises: [], name: "" });
+    setState({ ...state, createW: false, exercises: [], nameW: "" });
   };
 
   const onSubmitExercise = async e => {
     e.preventDefault();
-    const newExercise = { name: name2, type };
+    const newExercise = { name: nameE, type };
     addExercise(newExercise);
     user.exercises.unshift(newExercise);
     updateUser(user);
-    setState({ ...state, create: true, create2: false, name2: "", type: "" });
+    setState({ ...state, createW: true, createE: false, nameE: "", type: "" });
   };
 
   const onClick = async (e, workout) => {
@@ -101,7 +99,7 @@ const AddWModal = ({
 
   const onClick2 = (e, exercise) => {
     e.preventDefault();
-    //To remove ID create newExercise
+    //To remove ID createW newExercise
     const newExercise = {
       name: exercise.name,
       type: exercise.type
@@ -152,16 +150,16 @@ const AddWModal = ({
         style={{ fontFamily: "Lexend Deca" }}
       >
         {//Begin add workout
-        modal && !create && !create2 ? (
+        modal && !createW && !createE ? (
           <>
             <ModalHeader toggle={toggle}>Add workout</ModalHeader>
             <ModalBody>
               <input
                 style={{ fontFamily: "Lexend Deca" }}
                 type="search"
-                name="search"
+                name="searchWorkout"
                 placeholder="Search..."
-                value={search}
+                value={searchWorkout}
                 onChange={e => onChange(e)}
               />
               <br />
@@ -171,7 +169,7 @@ const AddWModal = ({
                   ? "No workouts created"
                   : user.workouts.map(x => {
                       return x.name === null ? null : x.name.includes(
-                          search
+                          searchWorkout
                         ) ? (
                         <li
                           className="clickable my-1 py-1 rounded shadow"
@@ -219,7 +217,7 @@ const AddWModal = ({
             <ModalFooter>
               <Button
                 color="primary"
-                onClick={() => setState({ ...state, create: true })}
+                onClick={() => setState({ ...state, createW: true })}
               >
                 <small>Create New Workout</small>
               </Button>{" "}
@@ -230,8 +228,8 @@ const AddWModal = ({
           </>
         ) : null}
 
-        {//Begin create workout
-        create ? (
+        {//Begin createW workout
+        createW ? (
           <>
             <ModalHeader toggle={toggle}>Create workout</ModalHeader>
             <form className="form" onSubmit={e => onSubmitWorkout(e)}>
@@ -242,8 +240,8 @@ const AddWModal = ({
                     className="ml-3"
                     type="text"
                     placeholder="Name of workout..."
-                    value={name}
-                    name="name"
+                    value={nameW}
+                    name="nameW"
                     onChange={e => onChange(e)}
                     required
                   />
@@ -286,14 +284,16 @@ const AddWModal = ({
                   style={{ fontFamily: "Lexend Deca" }}
                   className="ml-3"
                   type="search"
-                  name="search2"
+                  name="searchExercise"
                   placeholder="Search..."
-                  value={search2}
+                  value={searchExercise}
                   onChange={e => onChange(e)}
                 />
                 <ul style={{ listStyleType: "none", padding: "0" }}>
                   {user.exercises.map(x => {
-                    return x.name === null ? null : x.name.includes(search2) ? (
+                    return x.name === null ? null : x.name.includes(
+                        searchExercise
+                      ) ? (
                       <div
                         key={x._id}
                         className="border-top border-bottom my-2"
@@ -321,7 +321,7 @@ const AddWModal = ({
                   <Button
                     color="primary"
                     onClick={() =>
-                      setState({ ...state, create2: true, create: false })
+                      setState({ ...state, createE: true, createW: false })
                     }
                   >
                     <small>Create new exercise</small>
@@ -337,7 +337,7 @@ const AddWModal = ({
 
                 <Button
                   color="secondary"
-                  onClick={() => setState({ ...state, create: false })}
+                  onClick={() => setState({ ...state, createW: false })}
                 >
                   Cancel
                 </Button>
@@ -346,8 +346,8 @@ const AddWModal = ({
           </>
         ) : null}
 
-        {//Begin create exercise
-        create2 ? (
+        {//Begin createW exercise
+        createE ? (
           <>
             <ModalHeader toggle={toggle}>Create exercise</ModalHeader>
             <form className="form" onSubmit={e => onSubmitExercise(e)}>
@@ -356,8 +356,8 @@ const AddWModal = ({
                   <input
                     style={{ fontFamily: "Lexend Deca" }}
                     type="text"
-                    name="name2"
-                    value={name2}
+                    name="nameE"
+                    value={nameE}
                     onChange={e => onChange(e)}
                     placeholder="Name of exercise"
                     className="mx-3"
@@ -387,7 +387,7 @@ const AddWModal = ({
                 <Button
                   color="secondary"
                   onClick={() =>
-                    setState({ ...state, create2: false, create: true })
+                    setState({ ...state, createE: false, createW: true })
                   }
                 >
                   Cancel

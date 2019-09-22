@@ -14,7 +14,7 @@ import Footer from "../layout/Footer";
 
 const Routes = () => {
   return (
-    <Container fluid={true} id="mainContainer" className="p-0 m-0 bg-secondary">
+    <Container fluid={true} style={{minHeight:"100vh"}}className="p-0 m-0 bg-secondary">
       <BootStrapNav app={Routes} />
       <Alert />
       <Switch>

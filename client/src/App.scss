@@ -37,11 +37,6 @@ $dark: hsl(235, 21%, 21%);
   min-width: 320px;
 }
 
-#root,
-#mainContainer {
-  min-height: 100vh;
-}
-
 #root .disabled {
   cursor: default;
   color: hsl(218, 17%, 62%);

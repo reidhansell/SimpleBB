@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "simple-bodybuilding-client",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
