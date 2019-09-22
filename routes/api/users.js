@@ -72,7 +72,6 @@ router.post(
         }
       );
     } catch (err) {
-      console.error(err.message);
       res.status(500).send("Server error");
     }
   }
@@ -96,7 +95,7 @@ router.put("/exercises", [auth, []], async (req, res) => {
 
     await user.save();
 
-    res.json(user);
+    res.json(user.exercises);
   } catch (err) {
     res.status(500).send("Server Error");
   }
@@ -123,15 +122,12 @@ router.delete("/exercises/:id", auth, async (req, res) => {
 
     res.json({ msg: "Exercise removed" });
   } catch (err) {
-    if (err.kind === "ObjectId") {
-      return res.status(404).json({ msg: "Post not found" });
-    }
     res.status(500).send("Server Error");
   }
 });
 
-// @route    PUT api/users/days/exercisesTracked
-// @desc     Add exercises to day
+// @route    PUT api/users/exercisesTracked
+// @desc     Add tracked exercises
 // @access   Private
 router.put("/exercisesTracked", [auth, []], async (req, res) => {
   const { exercises } = req.body;
@@ -145,14 +141,14 @@ router.put("/exercisesTracked", [auth, []], async (req, res) => {
 
     await user.save();
 
-    res.json(user);
+    res.json(user.exercisesTracked);
   } catch (err) {
     res.status(500).send("Server Error");
   }
 });
 
 // @route    DELETE api/users/exercisesTracked/:id
-// @desc     Delete an exercise
+// @desc     Delete a tracked exercise
 // @access   Private
 router.delete("/exercisesTracked/:id", auth, async (req, res) => {
   try {
@@ -163,24 +159,21 @@ router.delete("/exercisesTracked/:id", auth, async (req, res) => {
     });
 
     if (!exercise) {
-      return res.status(404).json({ msg: "Exercise not found" });
+      return res.status(404).json({ msg: "Tracked exercise not found" });
     }
 
     await exercise.remove();
 
     await user.save();
 
-    res.json({ msg: "Exercise removed" });
+    res.json({ msg: "Tracked exercise removed" });
   } catch (err) {
-    if (err.kind === "ObjectId") {
-      return res.status(404).json({ msg: "Post not found" });
-    }
     res.status(500).send("Server Error");
   }
 });
 
 // @route    PUT api/users/exercisesTracked/sets
-// @desc     Add set to exercisesTracked
+// @desc     Add set to tracked exercise
 // @access   Private
 router.put("/exercisesTracked/sets", [auth, []], async (req, res) => {
   const { weightdistance, repstime, exerciseid } = req.body;
@@ -202,7 +195,7 @@ router.put("/exercisesTracked/sets", [auth, []], async (req, res) => {
 
     await user.save();
 
-    res.json(user);
+    res.json(user.exercisesTracked);
   } catch (err) {
     res.status(500).send("Server Error");
   }
@@ -222,30 +215,31 @@ router.delete(
         return x.id === req.params.exerciseid;
       });
 
+      if (!exercise) {
+        return res.status(404).json({ msg: "Tracked exercise not found" });
+      }
+
       const set = exercise.sets.find(x => {
         return x.id === req.params.setid;
       });
 
-      if (!exercise) {
-        return res.status(404).json({ msg: "Exercise not found" });
+      if (!set) {
+        return res.status(404).json({ msg: "Set in tracked exercise not found" });
       }
 
       await set.remove();
 
       await user.save();
 
-      res.json({ msg: "Exercise removed" });
+      res.json({ msg: "Tracked exercise removed" });
     } catch (err) {
-      if (err.kind === "ObjectId") {
-        return res.status(404).json({ msg: "Post not found" });
-      }
       res.status(500).send("Server Error");
     }
   }
 );
 
 // @route    PUT api/users/weight
-// @desc     Add set to exercisesTracked
+// @desc     Update daily weight
 // @access   Private
 router.put("/weight", [auth, []], async (req, res) => {
   const { weight, date } = req.body;
@@ -274,7 +268,7 @@ router.put("/weight", [auth, []], async (req, res) => {
 
     await user.save();
 
-    res.json(user);
+    res.json(user.weight);
   } catch (err) {
     res.status(500).send("Server Error");
   }
@@ -298,7 +292,7 @@ router.put("/workouts", [auth, []], async (req, res) => {
 
     await user.save();
 
-    res.json(user);
+    res.json(user.workouts);
   } catch (err) {
     res.status(500).send("Server Error");
   }
@@ -316,19 +310,15 @@ router.delete("/workouts/:id", auth, async (req, res) => {
     });
 
     if (!workout) {
-      return res.status(404).json({ msg: "Exercise not found" });
+      return res.status(404).json({ msg: "Workout not found" });
     }
 
     await workout.remove();
 
     await user.save();
 
-    res.json({ msg: "Exercise removed" });
+    res.json({ msg: "Workout deleted" });
   } catch (err) {
-    console.error(err.message);
-    if (err.kind === "ObjectId") {
-      return res.status(404).json({ msg: "Post not found" });
-    }
     res.status(500).send("Server Error");
   }
 });

@@ -7,7 +7,7 @@ import {
   updateUser,
   addExercise,
   deleteExercise,
-  addTrackedExercise,
+  addTrackedExercises,
   createWorkout,
   deleteWorkout
 } from "../../actions/auth";
@@ -18,7 +18,7 @@ const AddWModal = ({
   updateUser,
   addExercise,
   deleteExercise,
-  addTrackedExercise,
+  addTrackedExercises,
   createWorkout,
   deleteWorkout,
   auth: { user }
@@ -88,7 +88,7 @@ const AddWModal = ({
       delete x._id;
     });
 
-    addTrackedExercise(newExercises);
+    addTrackedExercises(newExercises);
 
     newExercises.forEach(x => {
       x.sets = [];
@@ -406,7 +406,7 @@ AddWModal.propTypes = {
   auth: PropTypes.object.isRequired,
   addExercise: PropTypes.func.isRequired,
   deleteExercise: PropTypes.func.isRequired,
-  addTrackedExercise: PropTypes.func.isRequired,
+  addTrackedExercises: PropTypes.func.isRequired,
   createWorkout: PropTypes.func.isRequired,
   deleteWorkout: PropTypes.func.isRequired
 };
@@ -416,7 +416,7 @@ const mapStateToProps = state => ({
   auth: state.auth,
   addExercise: addExercise,
   deleteExercise: deleteExercise,
-  addTrackedExercise: addTrackedExercise,
+  addTrackedExercises: addTrackedExercises,
   createWorkout: createWorkout,
   deleteWorkout: deleteWorkout
 });
@@ -428,7 +428,7 @@ export default connect(
     createWorkout,
     deleteWorkout,
     addExercise,
-    addTrackedExercise,
+    addTrackedExercises,
     deleteExercise
   }
 )(AddWModal);

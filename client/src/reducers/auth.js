@@ -6,7 +6,12 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  LOGOUT
+  LOGOUT,
+  ADD_EXERCISE,
+  ADD_TRACKED_EXERCISES,
+  ADD_SET,
+  UPDATE_WEIGHT,
+  CREATE_WORKOUT
   //ACCOUNT_DELETED,
 } from "../actions/types";
 
@@ -49,6 +54,27 @@ export default function(state = initialState, action) {
         token: null,
         isAuthenticated: false,
         loading: false
+      };
+    case ADD_EXERCISE:
+      return {
+        ...state,
+        user: { ...state.user, exercises: payload }
+      };
+    case ADD_TRACKED_EXERCISES:
+    case ADD_SET:
+      return {
+        ...state,
+        user: { ...state.user, exercisesTracked: payload }
+      };
+    case UPDATE_WEIGHT:
+      return {
+        ...state,
+        user: { ...state.user, weight: payload }
+      };
+    case CREATE_WORKOUT:
+      return {
+        ...state,
+        user: { ...state.user, workouts: payload }
       };
     default:
       return state;

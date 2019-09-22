@@ -8,7 +8,12 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  LOGOUT
+  LOGOUT,
+  ADD_EXERCISE,
+  ADD_TRACKED_EXERCISES,
+  ADD_SET,
+  UPDATE_WEIGHT,
+  CREATE_WORKOUT
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 
@@ -122,9 +127,11 @@ export const addExercise = exercise => async dispatch => {
         "Content-Type": "application/json"
       }
     };
-    await axios.put("/api/users/exercises", exercise, config);
-
-    //dispatch(loadUser());
+    const res = await axios.put("/api/users/exercises", exercise, config);
+    dispatch({
+      type: ADD_EXERCISE,
+      payload: res.data
+    });
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -144,9 +151,7 @@ export const deleteExercise = id => async dispatch => {
   try {
     await axios.delete(`/api/users/exercises/${id}`);
 
-    //dispatch(loadUser());
-
-    //dispatch(setAlert('Post Removed', 'success'));
+    //dispatch(setAlert('Exercise Removed', 'success'));
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -155,8 +160,8 @@ export const deleteExercise = id => async dispatch => {
   }
 };
 
-// Add tracked exercise
-export const addTrackedExercise = exercises => async dispatch => {
+// Add tracked exercises
+export const addTrackedExercises = exercises => async dispatch => {
   try {
     const config = {
       headers: {
@@ -165,8 +170,11 @@ export const addTrackedExercise = exercises => async dispatch => {
     };
 
     const body = JSON.stringify({ exercises });
-    await axios.put("/api/users/exercisesTracked", body, config);
-    dispatch(loadUser());
+    const res = await axios.put("/api/users/exercisesTracked", body, config);
+    dispatch({
+      type: ADD_TRACKED_EXERCISES,
+      payload: res.data
+    });
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -186,7 +194,6 @@ export const deleteTrackedExercise = id => async dispatch => {
   try {
     await axios.delete(`/api/users/exercisesTracked/${id}`);
 
-    //dispatch(loadUser());
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -203,8 +210,15 @@ export const addSet = set => async dispatch => {
         "Content-Type": "application/json"
       }
     };
-    await axios.put("/api/users/exercisesTracked/sets", set, config);
-    //dispatch(loadUser());
+    const res = await axios.put(
+      "/api/users/exercisesTracked/sets",
+      set,
+      config
+    );
+    dispatch({
+      type: ADD_SET,
+      payload: res.data
+    });
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -229,7 +243,6 @@ export const deleteTrackedExerciseSet = (
       `/api/users/exercisesTracked/${exerciseid}/sets/${setid}`
     );
 
-    //dispatch(loadUser());
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -238,7 +251,7 @@ export const deleteTrackedExerciseSet = (
   }
 };
 
-// Save weight to date
+// Update daily weight
 export const saveWeight = (weight, date) => async dispatch => {
   try {
     const config = {
@@ -249,8 +262,11 @@ export const saveWeight = (weight, date) => async dispatch => {
 
     const body = JSON.stringify({ weight, date });
 
-    await axios.put(`/api/users/weight`, body, config);
-    //dispatch(loadUser());
+    const res = await axios.put(`/api/users/weight`, body, config);
+    dispatch({
+      type: UPDATE_WEIGHT,
+      payload: res.data
+    });
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -276,8 +292,11 @@ export const createWorkout = workout => async dispatch => {
 
     const body = JSON.stringify(workout);
 
-    await axios.put(`/api/users/workouts`, body, config);
-    //dispatch(loadUser());
+    const res = await axios.put(`/api/users/workouts`, body, config);
+    dispatch({
+      type: CREATE_WORKOUT,
+      payload: res.data
+    });
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -297,7 +316,6 @@ export const deleteWorkout = id => async dispatch => {
   try {
     await axios.delete(`/api/users/workouts/${id}`);
 
-    //dispatch(loadUser());
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,

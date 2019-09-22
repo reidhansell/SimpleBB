@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import {
   updateUser,
   addExercise,
-  addTrackedExercise,
+  addTrackedExercises,
   deleteExercise
 } from "../../actions/auth";
 
@@ -15,7 +15,7 @@ const AddEModal = ({
   updateUser,
   date,
   addExercise,
-  addTrackedExercise,
+  addTrackedExercises,
   deleteExercise,
   auth: { user }
 }) => {
@@ -60,7 +60,7 @@ const AddEModal = ({
       type: exercise.type,
       date: date
     };
-    addTrackedExercise([newExercise]);
+    addTrackedExercises([newExercise]);
 
     newExercise.sets = [];
     newExercise.loading = true;
@@ -213,7 +213,7 @@ AddEModal.propTypes = {
   updateUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   addExercise: PropTypes.func.isRequired,
-  addTrackedExercise: PropTypes.func.isRequired,
+  addTrackedExercises: PropTypes.func.isRequired,
   deleteExercise: PropTypes.func.isRequired
 };
 
@@ -221,11 +221,11 @@ const mapStateToProps = state => ({
   updateUser: state.updateUser,
   auth: state.auth,
   addExercise: addExercise,
-  addTrackedExercise: addTrackedExercise,
+  addTrackedExercises: addTrackedExercises,
   deleteExercise: deleteExercise
 });
 
 export default connect(
   mapStateToProps,
-  { updateUser, addExercise, addTrackedExercise, deleteExercise }
+  { updateUser, addExercise, addTrackedExercises, deleteExercise }
 )(AddEModal);
