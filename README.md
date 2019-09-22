@@ -1,8 +1,6 @@
 # SimpleBodybuilding
 
-A MERN stack application for tracking fitness goals and more. 
-
-Scroll to the bottom for a todo list.
+A fitness tracker and more. Made with the MERN stack
 
 ## Quick Start
 
@@ -33,29 +31,16 @@ npm install
 npm run dev
 ```
 
-## App Info
-
-### Author
+## Author
 
 Reid Hansell
 
-### Version
 
-1.0.0
-
-### License
+## License
 
 This project is licensed under the MIT License
 
-### To do list
--Edit all things that can be created <br>
--Stricter rules for signup  <br>
--Back end security<br>
--Add diet tracking  <br>
--Add social profiles  <br>
--Fix Redux actions or remove it entirely. Keep in mind it will be useful when diet tracking and social profiles are added.  <br>
--General fixes. Fix repeated, inconsistent, and unnecessary code. <br>
--Beginner tutorial<br>
+
  
 
 
