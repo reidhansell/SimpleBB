@@ -16,7 +16,7 @@ const Exercise = ({
   addSet,
   deleteTrackedExercise,
   deleteTrackedExerciseSet,
-  auth: { user, isAuthenticated }
+  auth: { user }
 }) => {
   const [state, setState] = useState({
     weightdistance: "",
@@ -75,12 +75,12 @@ const Exercise = ({
 
   return deleting ? null : (
     <Fragment>
-      <div className="clickable pb-1 mb-3 mx-a shadow rounded bg-light">
+      <div className="clickable pb-1 mb-3 mx-auto shadow rounded bg-light">
         <div
           className="bg-primary rounded-top text-light text-left w-100"
           style={{ display: "flex" }}
         >
-          <h5 onClick={toggle} className="ml-5 mr-a pt-2 w-100">
+          <h5 onClick={toggle} className="ml-5 mr-auto pt-2 w-100">
             {exercise.name}
           </h5>
           <Button
@@ -156,11 +156,11 @@ const Exercise = ({
                       className="border-top border-bottom my-2"
                       style={{ display: "flex" }}
                     >
-                      <li key={x._id} className="pt-1 mr-a text-center w-100">
+                      <li key={x._id} className="pt-1 mr-auto text-center w-100">
                         {x.weightdistance} x {x.repstime}
                       </li>
                       <Button
-                        className="ml-a"
+                        className="ml-auto"
                         color="primary"
                         style={{ borderRadius: "0" }}
                         onClick={e => onDeleteSet(e, exercise._id, x._id)}

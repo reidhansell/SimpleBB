@@ -21,8 +21,7 @@ const AddWModal = ({
   addTrackedExercise,
   createWorkout,
   deleteWorkout,
-  auth: { user, isAuthenticated },
-  setAdding
+  auth: { user }
 }) => {
   const [state, setState] = useState({
     modal: false,
@@ -62,7 +61,7 @@ const AddWModal = ({
     setState({ ...state, modal: !modal, create: false, create2: false });
   };
 
-  const onSubmit = async e => {
+  const onSubmitWorkout = async e => {
     e.preventDefault();
     const workout = { exercises, name };
     createWorkout(workout);
@@ -71,7 +70,7 @@ const AddWModal = ({
     setState({ ...state, create: false, exercises: [], name: "" });
   };
 
-  const onSubmit2 = async e => {
+  const onSubmitExercise = async e => {
     e.preventDefault();
     const newExercise = { name: name2, type };
     addExercise(newExercise);
@@ -112,7 +111,7 @@ const AddWModal = ({
       : setState({ ...state, exercises: [...exercises, newExercise] });
   };
 
-  const onDelete = async (e, id) => {
+  const onDeleteWorkout = async (e, id) => {
     e.preventDefault();
     deleteWorkout(id);
     user.workouts = user.workouts.filter(x => {
@@ -121,7 +120,7 @@ const AddWModal = ({
     updateUser(user);
   };
 
-  const onDelete2 = async (e, id) => {
+  const onDeleteExercise = async (e, id) => {
     e.preventDefault();
     deleteExercise(id);
     user.exercises = user.exercises.filter(x => {
@@ -130,7 +129,7 @@ const AddWModal = ({
     updateUser(user);
   };
 
-  const onDelete3 = async (e, exercise) => {
+  const onRemoveExercise = async (e, exercise) => {
     e.preventDefault();
     setState({
       ...state,
@@ -142,7 +141,7 @@ const AddWModal = ({
     });
   };
 
-  return isAuthenticated ? (
+  return (
     <>
       <Button className="btn-lg shadow" color="primary" onClick={toggle}>
         Add Workout
@@ -183,19 +182,19 @@ const AddWModal = ({
                             style={{ display: "flex" }}
                           >
                             <div
-                              className="mt-2 ml-1 mr-a w-100"
+                              className="mt-2 ml-1 mr-auto w-100"
                               onClick={e => onClick(e, x)}
                             >
                               {x.name}
                             </div>{" "}
                             <div>
                               <Button
-                                className="ml-a"
+                                className="ml-auto"
                                 color="primary"
-                                onClick={e => onDelete(e, x._id)}
+                                onClick={e => onDeleteWorkout(e, x._id)}
                                 style={{ borderRadius: "0px" }}
                               >
-                                <i className="fas fa-trash ml-a" />
+                                <i className="fas fa-trash ml-auto" />
                               </Button>
                             </div>
                           </div>
@@ -235,7 +234,7 @@ const AddWModal = ({
         create ? (
           <>
             <ModalHeader toggle={toggle}>Create workout</ModalHeader>
-            <form className="form" onSubmit={e => onSubmit(e)}>
+            <form className="form" onSubmit={e => onSubmitWorkout(e)}>
               <ModalBody style={{ paddingLeft: "0", paddingRight: "0" }}>
                 <span className="form-group">
                   <input
@@ -266,12 +265,12 @@ const AddWModal = ({
                           className="border-top border-bottom my-2"
                           style={{ display: "flex" }}
                         >
-                          <li className="my-1 ml-3 mr-a">{x.name}</li>
+                          <li className="my-1 ml-3 mr-auto">{x.name}</li>
                           <Button
-                            className="ml-a"
+                            className="ml-auto"
                             color="primary"
                             style={{ borderRadius: "0" }}
-                            onClick={e => onDelete3(e, x)}
+                            onClick={e => onRemoveExercise(e, x)}
                           >
                             <i className="fas fa-trash" />
                           </Button>
@@ -301,16 +300,16 @@ const AddWModal = ({
                         style={{ display: "flex" }}
                       >
                         <li
-                          className="clickable mr-a my-1 ml-3 w-100"
+                          className="clickable mr-auto my-1 ml-3 w-100"
                           onClick={e => onClick2(e, x)}
                         >
                           {x.name}
                         </li>
                         <Button
-                          className="ml-a"
+                          className="ml-auto"
                           color="primary"
                           style={{ borderRadius: "0" }}
-                          onClick={e => onDelete2(e, x._id)}
+                          onClick={e => onDeleteExercise(e, x._id)}
                         >
                           <i className="fas fa-trash" />
                         </Button>
@@ -351,7 +350,7 @@ const AddWModal = ({
         create2 ? (
           <>
             <ModalHeader toggle={toggle}>Create exercise</ModalHeader>
-            <form className="form" onSubmit={e => onSubmit2(e)}>
+            <form className="form" onSubmit={e => onSubmitExercise(e)}>
               <ModalBody style={{ paddingLeft: "0", paddingRight: "0" }}>
                 <span className="form-group">
                   <input
@@ -399,7 +398,7 @@ const AddWModal = ({
         ) : null}
       </Modal>
     </>
-  ) : null;
+  );
 };
 
 AddWModal.propTypes = {

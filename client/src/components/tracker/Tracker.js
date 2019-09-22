@@ -11,11 +11,7 @@ import { updateUser, saveWeight } from "../../actions/auth";
 
 import Reveal from "react-reveal/Reveal";
 
-const Tracker = ({
-  updateUser,
-  saveWeight,
-  auth: { loading, user, isAuthenticated }
-}) => {
+const Tracker = ({ updateUser, saveWeight, auth: { loading, user } }) => {
   const [state, setState] = useState({
     date: new Date(),
     weight: ""
@@ -37,21 +33,19 @@ const Tracker = ({
 
   var currentWeight = loading
     ? null
-    : isAuthenticated
-    ? user.weight.find(x => {
+    : user.weight.find(x => {
         const newDate = new Date(x.date);
         return newDate.getDate() === date.getDate() &&
           newDate.getMonth() === date.getMonth() &&
           newDate.getFullYear() === date.getFullYear()
           ? x.weight
           : null;
-      })
-    : null;
+      });
 
   currentWeight = currentWeight ? currentWeight.weight : null;
 
-  return !isAuthenticated || loading ? (
-    <div id="spinner" className=" mx-a mt-5" />
+  return loading ? (
+    <div id="spinner" className=" mx-auto mt-5" />
   ) : (
     <div className="text-center">
       <div className="shadow bg-light">
@@ -110,29 +104,27 @@ const Tracker = ({
         <ul className="pb-2 px-3 m-0" style={{ listStyleType: "none" }}>
           {user.exercisesTracked.map(x => {
             const newDate = new Date(x.date);
-            {
-              return x.loading === true ? (
-                <div id="spinner-small" className=" mx-a mt-3" />
-              ) : (
-                newDate.getDate() === null
-              );
-            }
+
+            return x.loading === true ? (
+              <div id="spinner-small" className=" mx-auto mt-3" />
+            ) : (
+              newDate.getDate() === null
+            );
           })}
         </ul>
         <Reveal left cascade>
           <ul className="pb-2 px-3 m-0" style={{ listStyleType: "none" }}>
             {user.exercisesTracked.map(x => {
               const newDate = new Date(x.date);
-              {
-                return x.loading === true ? null : newDate.getDate() ===
-                    date.getDate() &&
-                  newDate.getMonth() === date.getMonth() &&
-                  newDate.getFullYear() === date.getFullYear() ? (
-                  <li key={x._id}>
-                    <Exercise exercise={x} />
-                  </li>
-                ) : null;
-              }
+
+              return x.loading === true ? null : newDate.getDate() ===
+                  date.getDate() &&
+                newDate.getMonth() === date.getMonth() &&
+                newDate.getFullYear() === date.getFullYear() ? (
+                <li key={x._id}>
+                  <Exercise exercise={x} />
+                </li>
+              ) : null;
             })}
           </ul>
         </Reveal>

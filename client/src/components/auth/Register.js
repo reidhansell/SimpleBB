@@ -44,15 +44,14 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   }
 
   return (
-    <div className="bg-light rounded-bottom shadow p-1 d-flex flex-row pb-3">
-      <div className="mt-3 mr-3 ml-a" style={{ maxWidth: "22vh" }}>
-      <h5 className="pt-3">
+    <div className="bg-light shadow p-1 pb-3">
+      <div className="container">
+        <h1 className="pt-3">
           <b>
             <span className="text-primary">Simple</span>
             <span className="text-secondary">Bodybuilding</span>
           </b>
-        </h5>
-        <br />
+        </h1>
         <p>
           A web-based fitness tracker catering to bodybuilder-style training.
         </p>
@@ -60,9 +59,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
           Register to start tracking exercises. No sensitive data other than a
           password is used or stored.
         </p>
-      </div>
-      <div className="mt-3 ml-3 mr-a" style={{ maxWidth: "22vh" }}>
-        <h1 className="large text-primary">Register</h1>
+
         <form className="form" onSubmit={e => onSubmit(e)}>
           <div className="form-group">
             <input
