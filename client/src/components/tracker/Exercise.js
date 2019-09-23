@@ -176,6 +176,8 @@ const Exercise = ({
                           ? "reps"
                           : exercise.type === "km"
                           ? "min"
+                          : exercise.type === "mi"
+                          ? "min"
                           : "exercise not properly added. Report bug to ReidHansell@GMail.com or just delete this exercise from your exercise list"}
                       </li>
                       <Button
