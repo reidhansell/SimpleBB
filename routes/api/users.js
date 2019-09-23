@@ -44,8 +44,6 @@ router.post(
         name,
         email,
         password,
-        workouts: [],
-        exercises: [],
         exercisesTracked: [],
         weight: []
       });
