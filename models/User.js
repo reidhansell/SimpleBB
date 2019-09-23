@@ -36,6 +36,7 @@ const UserSchema = new mongoose.Schema({
   weight: [
     {
       date: { type: Date },
+      type: { type: String },
       weight: { type: Number }
     }
   ]

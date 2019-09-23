@@ -100,7 +100,15 @@ const Exercise = ({
             ? exercise.sets.map(x => {
                 return (
                   <li key={x._id} className="my-1 py-1 ">
-                    {x.weightdistance} x {x.repstime}
+                    {x.weightdistance + " " + exercise.type} x{" "}
+                    {x.repstime + " "}
+                    {exercise.type === "kg"
+                      ? "reps"
+                      : exercise.type === "lbs"
+                      ? "reps"
+                      : exercise.type === "km"
+                      ? "min"
+                      : "exercise not properly added. Report bug to ReidHansell@GMail.com or just delete this exercise from your exercise list"}
                   </li>
                 );
               })
@@ -156,8 +164,19 @@ const Exercise = ({
                       className="border-top border-bottom my-2"
                       style={{ display: "flex" }}
                     >
-                      <li key={x._id} className="pt-1 mr-auto text-center w-100">
-                        {x.weightdistance} x {x.repstime}
+                      <li
+                        key={x._id}
+                        className="pt-1 mr-auto text-center w-100"
+                      >
+                        {x.weightdistance + " " + exercise.type} x{" "}
+                        {x.repstime + " "}
+                        {exercise.type === "kg"
+                          ? "reps"
+                          : exercise.type === "lbs"
+                          ? "reps"
+                          : exercise.type === "km"
+                          ? "min"
+                          : "exercise not properly added. Report bug to ReidHansell@GMail.com or just delete this exercise from your exercise list"}
                       </li>
                       <Button
                         className="ml-auto"

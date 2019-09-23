@@ -30,7 +30,7 @@ const AddWModal = ({
     nameW: "",
     exercises: [],
     nameE: "",
-    type: ""
+    type: "lbs"
   });
 
   const {
@@ -53,6 +53,12 @@ const AddWModal = ({
         .replace(/(\b[a-z](?!\s))/g, function(x) {
           return x.toUpperCase();
         })
+    });
+
+  const onChangeType = e =>
+    setState({
+      ...state,
+      type: e.target.value
     });
 
   const toggle = () => {
@@ -206,7 +212,7 @@ const AddWModal = ({
                             onClick={e => onClick(e, x)}
                           >
                             {x.exercises.map(x => {
-                              return <li key={x.name}>{x.name}</li>;
+                              return <li key={x.name}><small>{x.name}</small></li>;
                             })}
                           </ul>
                         </li>
@@ -346,7 +352,7 @@ const AddWModal = ({
           </>
         ) : null}
 
-        {//Begin createW exercise
+        {//Begin create exercise
         createE ? (
           <>
             <ModalHeader toggle={toggle}>Create exercise</ModalHeader>
@@ -367,15 +373,19 @@ const AddWModal = ({
                 <br />
                 <br />
                 <span className="form-group">
-                  <input
+                  <span className="ml-3">Type:</span>
+                  <select
                     style={{ fontFamily: "Lexend Deca" }}
-                    type="text"
                     name="type"
                     value={type}
-                    onChange={e => onChange(e)}
-                    placeholder="Type of exercise"
+                    onChange={e => onChangeType(e)}
                     className="mx-3"
-                  />
+                  >
+                    <option value="lbs">lbs / reps</option>
+                    <option value="kg">kg / reps</option>
+                    <option value="mi">mi / time</option>
+                    <option value="km"> km / time</option>
+                  </select>
                 </span>
               </ModalBody>
               <ModalFooter>

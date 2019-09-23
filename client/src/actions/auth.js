@@ -252,7 +252,7 @@ export const deleteTrackedExerciseSet = (
 };
 
 // Update daily weight
-export const saveWeight = (weight, date) => async dispatch => {
+export const saveWeight = (weight, type, date) => async dispatch => {
   try {
     const config = {
       headers: {
@@ -260,7 +260,7 @@ export const saveWeight = (weight, date) => async dispatch => {
       }
     };
 
-    const body = JSON.stringify({ weight, date });
+    const body = JSON.stringify({ weight, type, date });
 
     const res = await axios.put(`/api/users/weight`, body, config);
     dispatch({

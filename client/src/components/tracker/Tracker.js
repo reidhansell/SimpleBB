@@ -14,19 +14,26 @@ import Reveal from "react-reveal/Reveal";
 const Tracker = ({ updateUser, saveWeight, auth: { loading, user } }) => {
   const [state, setState] = useState({
     date: new Date(),
-    weight: ""
+    weight: "",
+    type: "lbs"
   });
 
-  const { date, weight } = state;
+  const { date, weight, type } = state;
 
   const setAdding = () => {
     setState({ ...state, adding: true });
   };
 
+  const onChangeType = e =>
+    setState({
+      ...state,
+      type: e.target.value
+    });
+
   const onSubmit = async e => {
     e.preventDefault();
-    saveWeight(weight, date);
-    user.weight.unshift({ weight, date });
+    saveWeight(weight, type, date);
+    user.weight.unshift({ weight, type, date });
     updateUser(user);
     setState({ ...state, weight: "" });
   };
@@ -41,8 +48,6 @@ const Tracker = ({ updateUser, saveWeight, auth: { loading, user } }) => {
           ? x.weight
           : null;
       });
-
-  currentWeight = currentWeight ? currentWeight.weight : null;
 
   return loading ? (
     <div id="spinner" className=" mx-auto mt-5" />
@@ -60,9 +65,11 @@ const Tracker = ({ updateUser, saveWeight, auth: { loading, user } }) => {
           />
         </h5>
         <br />
-        <h5 className="">
-          Weight: {currentWeight === null ? "Not logged" : currentWeight}
-        </h5>
+        <h4 className="">
+          {currentWeight ? currentWeight.weight : "Weight not logged"}{" "}
+          {currentWeight ? currentWeight.type : null}
+        </h4>
+        <br />
         <form
           className="form"
           style={{ display: "inline" }}
@@ -73,11 +80,13 @@ const Tracker = ({ updateUser, saveWeight, auth: { loading, user } }) => {
               style={{
                 fontFamily: "Lexend Deca",
                 maxWidth: "25%",
+                width: "125px",
+                height: "30px",
                 border: "1px solid black"
               }}
               name="weight"
               type="number"
-              className="mr-3 bg-light"
+              className="bg-light"
               placeholder="Bodyweight..."
               value={weight}
               onChange={e =>
@@ -88,8 +97,22 @@ const Tracker = ({ updateUser, saveWeight, auth: { loading, user } }) => {
               }
               required
             />
+            <select
+              style={{
+                fontFamily: "Lexend Deca",
+                border: "1px solid black",
+                height: "30px"
+              }}
+              name="type"
+              value={type}
+              onChange={e => onChangeType(e)}
+              className="mx-3 bg-light"
+            >
+              <option value="lbs">lbs</option>
+              <option value="kg">kg</option>
+            </select>
           </span>
-          <input type="submit" className="btn btn-primary mb-2" value="Save" />
+          <input type="submit" className="btn btn-primary mb-1" value="Save" />
         </form>
         <br />
         <br />

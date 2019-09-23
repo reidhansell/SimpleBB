@@ -24,7 +24,7 @@ const AddEModal = ({
     create: false,
     search: "",
     name: "",
-    type: ""
+    type: "lbs"
   });
 
   const { modal, create, search, name, type } = state;
@@ -37,6 +37,12 @@ const AddEModal = ({
         .replace(/(\b[a-z](?!\s))/g, function(x) {
           return x.toUpperCase();
         })
+    });
+
+    const onChangeType = e =>
+    setState({
+      ...state,
+      type: e.target.value
     });
 
   const toggle = () => {
@@ -179,15 +185,19 @@ const AddEModal = ({
             <br />
             <br />
             <span className="form-group">
-              <input
+              <span className="ml-3">Type:</span>
+              <select
                 style={{ fontFamily: "Lexend Deca" }}
-                type="text"
                 name="type"
                 value={type}
-                onChange={e => onChange(e)}
-                placeholder="Type of exercise"
+                onChange={e => onChangeType(e)}
                 className="mx-3"
-              />
+              >
+                <option value="lbs">lbs / reps</option>
+                <option value="kg">kg / reps</option>
+                <option value="mi">mi / time</option>
+                <option value="km"> km / time</option>
+              </select>
             </span>
           </ModalBody>
           <ModalFooter>

@@ -224,7 +224,9 @@ router.delete(
       });
 
       if (!set) {
-        return res.status(404).json({ msg: "Set in tracked exercise not found" });
+        return res
+          .status(404)
+          .json({ msg: "Set in tracked exercise not found" });
       }
 
       await set.remove();
@@ -242,10 +244,11 @@ router.delete(
 // @desc     Update daily weight
 // @access   Private
 router.put("/weight", [auth, []], async (req, res) => {
-  const { weight, date } = req.body;
+  const { weight, type, date } = req.body;
 
   const newDate = {
     weight,
+    type,
     date
   };
   try {
@@ -263,7 +266,7 @@ router.put("/weight", [auth, []], async (req, res) => {
     });
 
     existingDate
-      ? (existingDate.weight = weight)
+      ? (existingDate.weight = weight) && (existingDate.type = type)
       : user.weight.unshift(newDate);
 
     await user.save();
