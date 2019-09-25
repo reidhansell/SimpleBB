@@ -30,7 +30,7 @@ const Exercise = ({
   const onChange = e =>
     setState({
       ...state,
-      [e.target.name]: e.target.value.replace(/[^0-9 ]/g, "")
+      [e.target.name]: e.target.value.replace(/[^0-9.]/g, "")
     });
 
   const onSubmit = async e => {
@@ -131,11 +131,14 @@ const Exercise = ({
             <span className="form-group">
               <input
                 style={{ fontFamily: "Lexend Deca" }}
+                /*BUG: PROBLEMS WITH +. -, AND e INPUT. NO CURRENT FIX (RESEARCHED).
+              OPTIONS: CHANGE TO TEXT AND LOSE NUMBER PAD DEFAULT
+              ALLOW FOR + AND - AND KEEP NUMBER PAD DEFAULT */
                 type="number"
                 name="weightdistance"
                 value={weightdistance}
                 onChange={e => onChange(e)}
-                placeholder="Weight/distance"
+                placeholder={exercise.type}
                 className="w-25 mr-3"
                 required
               />
@@ -144,11 +147,14 @@ const Exercise = ({
             <span className="form-group">
               <input
                 style={{ fontFamily: "Lexend Deca" }}
+                /*BUG: PROBLEMS WITH +. -, AND e INPUT. NO CURRENT FIX (RESEARCHED).
+              OPTIONS: CHANGE TO TEXT AND LOSE NUMBER PAD DEFAULT
+              ALLOW FOR + AND - AND KEEP NUMBER PAD DEFAULT */
                 type="number"
                 name="repstime"
                 value={repstime}
                 onChange={e => onChange(e)}
-                placeholder="Reps/time"
+                placeholder={exercise.type === "km" || exercise.type === "mi" ? "min" : "reps"}
                 className="mx-3 w-25"
                 required
               />

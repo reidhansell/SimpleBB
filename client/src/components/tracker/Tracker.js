@@ -86,13 +86,16 @@ const Tracker = ({ updateUser, saveWeight, auth: { loading, user } }) => {
               }}
               name="weight"
               type="number"
+              /*BUG: PROBLEMS WITH +. -, AND e INPUT. NO CURRENT FIX (RESEARCHED).
+              OPTIONS: CHANGE TO TEXT AND LOSE NUMBER PAD DEFAULT
+              ALLOW FOR + AND - AND KEEP NUMBER PAD DEFAULT */
               className="bg-light"
               placeholder="Bodyweight..."
               value={weight}
               onChange={e =>
                 setState({
                   ...state,
-                  [e.target.name]: e.target.value.replace(/[^0-9 ]/g, "")
+                  [e.target.name]: e.target.value.replace(/[^0-9.]/g, "")
                 })
               }
               required
