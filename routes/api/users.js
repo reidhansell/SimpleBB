@@ -44,6 +44,8 @@ router.post(
         name,
         email,
         password,
+        exercises: [],
+        workouts: [],
         exercisesTracked: [],
         weight: []
       });
@@ -51,6 +53,21 @@ router.post(
       const salt = await bcrypt.genSalt(10);
 
       user.password = await bcrypt.hash(password, salt);
+
+      user.exercises.unshift({ name: "Barbell Bench Press", type: "lbs" });
+      user.exercises.unshift({ name: "Barbell Row", type: "lbs" });
+      user.exercises.unshift({ name: "Barbell Squat", type: "lbs" });
+      user.exercises.unshift({ name: "Running", type: "mi" });
+
+      user.workouts.unshift({
+        name: "Full Body",
+        exercises: [
+          { name: "Barbell Bench Press", type: "lbs" },
+          { name: "Barbell Row", type: "lbs" },
+          { name: "Barbell Squat", type: "lbs" },
+          { name: "Running", type: "mi" }
+        ]
+      });
 
       await user.save();
 
@@ -119,6 +136,33 @@ router.delete("/exercises/:id", auth, async (req, res) => {
     await user.save();
 
     res.json({ msg: "Exercise removed" });
+  } catch (err) {
+    res.status(500).send("Server Error");
+  }
+});
+
+// @route    PUT api/users/exercises/:id
+// @desc     EDIT exercise
+// @access   Private
+router.put("/exercises/:id", [auth, []], async (req, res) => {
+  const { name, type } = req.body;
+
+  try {
+    const user = await User.findOne({ _id: req.user.id });
+    const exercise = user.exercises.find(x => {
+      return x.id === req.params.id;
+    });
+
+    if (!exercise) {
+      return res.status(404).json({ msg: "Exercise not found" });
+    }
+
+    exercise.name = name;
+    exercise.type = type;
+
+    await user.save();
+
+    res.json(user.exercises);
   } catch (err) {
     res.status(500).send("Server Error");
   }

@@ -18,31 +18,13 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  workouts: {
-    type: Array,
-    default: [
-      {
-        name: "Full Body",
-        exercises: [
-          { name: "Bench Press", type: "lbs" },
-          { name: "Barbell Row", type: "lbs" },
-          { name: "Barbell Squat", type: "lbs" },
-          { name: "Running", type: "mi" }
-        ]
-      }
-    ],
-    name: { type: String },
-    exercises: [{ name: { type: String }, type: { type: String } }]
-  },
-  exercises: {
-    type: Array,
-    default: [
-      { name: "Bench Press", type: "lbs" },
-      { name: "Barbell Row", type: "lbs" },
-      { name: "Barbell Squat", type: "lbs" },
-      { name: "Running", type: "mi" }
-    ]
-  },
+  workouts: [
+    {
+      name: String,
+      exercises: [{ name: { type: String }, type: { type: String } }]
+    }
+  ],
+  exercises: [{ name: { type: String }, type: { type: String } }],
   exercisesTracked: [
     {
       date: { type: Date },

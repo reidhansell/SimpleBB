@@ -134,7 +134,7 @@ const Exercise = ({
                 /*BUG: PROBLEMS WITH +. -, AND e INPUT. NO CURRENT FIX (RESEARCHED).
               OPTIONS: CHANGE TO TEXT AND LOSE NUMBER PAD DEFAULT
               ALLOW FOR + AND - AND KEEP NUMBER PAD DEFAULT */
-                type="number"
+                //type="number"
                 name="weightdistance"
                 value={weightdistance}
                 onChange={e => onChange(e)}
@@ -150,7 +150,7 @@ const Exercise = ({
                 /*BUG: PROBLEMS WITH +. -, AND e INPUT. NO CURRENT FIX (RESEARCHED).
               OPTIONS: CHANGE TO TEXT AND LOSE NUMBER PAD DEFAULT
               ALLOW FOR + AND - AND KEEP NUMBER PAD DEFAULT */
-                type="number"
+                //type="number"
                 name="repstime"
                 value={repstime}
                 onChange={e => onChange(e)}

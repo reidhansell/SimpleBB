@@ -7,6 +7,7 @@ import {
   updateUser,
   addExercise,
   deleteExercise,
+  editExercise,
   addTrackedExercises,
   createWorkout,
   deleteWorkout
@@ -16,6 +17,7 @@ const AddWModal = ({
   updateUser,
   addExercise,
   deleteExercise,
+  editExercise,
   addTrackedExercises,
   createWorkout,
   deleteWorkout,
@@ -30,7 +32,9 @@ const AddWModal = ({
     nameW: "",
     exercises: [],
     nameE: "",
-    type: "lbs"
+    type: "lbs",
+    editE: false,
+    eID: ""
   });
 
   const {
@@ -42,7 +46,9 @@ const AddWModal = ({
     nameW,
     exercises,
     nameE,
-    type
+    type,
+    editE,
+    eID
   } = state;
 
   const onChange = e =>
@@ -81,6 +87,25 @@ const AddWModal = ({
     user.exercises.unshift(newExercise);
     updateUser(user);
     setState({ ...state, createW: true, createE: false, nameE: "", type: "" });
+  };
+
+  const onSubmitEditE = async e => {
+    e.preventDefault();
+    const exercise = { name: nameE, type, id: eID };
+    editExercise(exercise);
+    user.exercises = user.exercises.filter(x => {
+      return x._id !== eID ? x : null;
+    });
+    user.exercises.unshift(exercise);
+    updateUser(user);
+    setState({
+      ...state,
+      editE: !editE,
+      nameE: "",
+      type: "",
+      editID: "",
+      createW: true
+    });
   };
 
   const onClick = async (e, workout) => {
@@ -156,7 +181,7 @@ const AddWModal = ({
         style={{ fontFamily: "Lexend Deca" }}
       >
         {//Begin add workout
-        modal && !createW && !createE ? (
+        modal && !createW && !createE && !editE ? (
           <>
             <ModalHeader toggle={toggle}>Add workout</ModalHeader>
             <ModalBody>
@@ -212,7 +237,11 @@ const AddWModal = ({
                             onClick={e => onClick(e, x)}
                           >
                             {x.exercises.map(x => {
-                              return <li key={x.name}><small>{x.name}</small></li>;
+                              return (
+                                <li key={x.name}>
+                                  <small>{x.name}</small>
+                                </li>
+                              );
                             })}
                           </ul>
                         </li>
@@ -311,8 +340,22 @@ const AddWModal = ({
                         >
                           {x.name}
                         </li>
+                        <span
+                          className="text-secondary clickable pl-2 pr-2 pt-2"
+                          onClick={() =>
+                            setState({
+                              ...state,
+                              createW: false,
+                              editE: true,
+                              nameE: x.name,
+                              typeE: x.type,
+                              eID: x._id
+                            })
+                          }
+                        >
+                          Edit
+                        </span>
                         <Button
-                          className="ml-auto"
                           color="primary"
                           style={{ borderRadius: "0" }}
                           onClick={e => onDeleteExercise(e, x._id)}
@@ -406,6 +449,62 @@ const AddWModal = ({
             </form>
           </>
         ) : null}
+
+        {editE ? (
+          <>
+            <ModalHeader toggle={toggle}>Edit exercise</ModalHeader>
+            <ModalBody style={{ paddingLeft: "0", paddingRight: "0" }}>
+              <span className="form-group">
+                <input
+                  style={{ fontFamily: "Lexend Deca" }}
+                  type="text"
+                  name="nameE"
+                  value={nameE}
+                  onChange={e => onChange(e)}
+                  placeholder="Name of exercise"
+                  className="mx-3"
+                  required
+                />
+              </span>
+              <br />
+              <br />
+              <span className="form-group">
+                <span className="ml-3">Type:</span>
+                <select
+                  style={{ fontFamily: "Lexend Deca" }}
+                  name="type"
+                  value={type}
+                  onChange={e => onChangeType(e)}
+                  className="mx-3"
+                >
+                  <option value="lbs">lbs / reps</option>
+                  <option value="kg">kg / reps</option>
+                  <option value="mi">mi / time</option>
+                  <option value="km"> km / time</option>
+                </select>
+              </span>
+            </ModalBody>
+            <ModalFooter>
+              <Button color="primary" onClick={e => onSubmitEditE(e)}>
+                Save Exercise
+              </Button>
+              <Button
+                color="secondary"
+                onClick={() =>
+                  setState({
+                    ...state,
+                    editE: false,
+                    nameE: "",
+                    typeE: "lbs",
+                    createW: true
+                  })
+                }
+              >
+                Cancel
+              </Button>
+            </ModalFooter>
+          </>
+        ) : null}
       </Modal>
     </>
   );
@@ -416,6 +515,7 @@ AddWModal.propTypes = {
   auth: PropTypes.object.isRequired,
   addExercise: PropTypes.func.isRequired,
   deleteExercise: PropTypes.func.isRequired,
+  editExercise: PropTypes.func.isRequired,
   addTrackedExercises: PropTypes.func.isRequired,
   createWorkout: PropTypes.func.isRequired,
   deleteWorkout: PropTypes.func.isRequired
@@ -426,6 +526,7 @@ const mapStateToProps = state => ({
   auth: state.auth,
   addExercise: addExercise,
   deleteExercise: deleteExercise,
+  editExercise: editExercise,
   addTrackedExercises: addTrackedExercises,
   createWorkout: createWorkout,
   deleteWorkout: deleteWorkout
@@ -439,6 +540,7 @@ export default connect(
     deleteWorkout,
     addExercise,
     addTrackedExercises,
-    deleteExercise
+    deleteExercise,
+    editExercise
   }
 )(AddWModal);

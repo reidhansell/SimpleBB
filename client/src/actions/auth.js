@@ -13,7 +13,9 @@ import {
   ADD_TRACKED_EXERCISES,
   ADD_SET,
   UPDATE_WEIGHT,
-  CREATE_WORKOUT
+  CREATE_WORKOUT,
+  EDIT_EXERCISE,
+  //EDIT_WORKOUT
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 
@@ -160,6 +162,37 @@ export const deleteExercise = id => async dispatch => {
   }
 };
 
+// Edit exercise
+export const editExercise = exercise => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+    const res = await axios.put(
+      `/api/users/exercises/${exercise.id}`,
+      exercise,
+      config
+    );
+    dispatch({
+      type: EDIT_EXERCISE,
+      payload: res.data
+    });
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+    }
+
+    dispatch({
+      type: AUTH_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
 // Add tracked exercises
 export const addTrackedExercises = exercises => async dispatch => {
   try {
@@ -193,7 +226,6 @@ export const addTrackedExercises = exercises => async dispatch => {
 export const deleteTrackedExercise = id => async dispatch => {
   try {
     await axios.delete(`/api/users/exercisesTracked/${id}`);
-
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -242,7 +274,6 @@ export const deleteTrackedExerciseSet = (
     await axios.delete(
       `/api/users/exercisesTracked/${exerciseid}/sets/${setid}`
     );
-
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -315,7 +346,6 @@ export const createWorkout = workout => async dispatch => {
 export const deleteWorkout = id => async dispatch => {
   try {
     await axios.delete(`/api/users/workouts/${id}`);
-
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,

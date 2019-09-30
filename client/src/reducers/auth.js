@@ -11,7 +11,9 @@ import {
   ADD_TRACKED_EXERCISES,
   ADD_SET,
   UPDATE_WEIGHT,
-  CREATE_WORKOUT
+  CREATE_WORKOUT,
+  EDIT_EXERCISE,
+  EDIT_WORKOUT
   //ACCOUNT_DELETED,
 } from "../actions/types";
 
@@ -56,6 +58,7 @@ export default function(state = initialState, action) {
         loading: false
       };
     case ADD_EXERCISE:
+    case EDIT_EXERCISE:
       return {
         ...state,
         user: { ...state.user, exercises: payload }
@@ -72,6 +75,7 @@ export default function(state = initialState, action) {
         user: { ...state.user, weight: payload }
       };
     case CREATE_WORKOUT:
+    case EDIT_WORKOUT:
       return {
         ...state,
         user: { ...state.user, workouts: payload }

@@ -11,6 +11,8 @@ import { updateUser, saveWeight } from "../../actions/auth";
 
 import Reveal from "react-reveal/Reveal";
 
+import uuid from "uuid";
+
 const Tracker = ({ updateUser, saveWeight, auth: { loading, user } }) => {
   const [state, setState] = useState({
     date: new Date(),
@@ -85,10 +87,10 @@ const Tracker = ({ updateUser, saveWeight, auth: { loading, user } }) => {
                 border: "1px solid black"
               }}
               name="weight"
-              type="number"
               /*BUG: PROBLEMS WITH +. -, AND e INPUT. NO CURRENT FIX (RESEARCHED).
               OPTIONS: CHANGE TO TEXT AND LOSE NUMBER PAD DEFAULT
               ALLOW FOR + AND - AND KEEP NUMBER PAD DEFAULT */
+              //type="number"
               className="bg-light"
               placeholder="Bodyweight..."
               value={weight}
@@ -132,7 +134,11 @@ const Tracker = ({ updateUser, saveWeight, auth: { loading, user } }) => {
             const newDate = new Date(x.date);
 
             return x.loading === true ? (
-              <div id="spinner-small" className=" mx-auto mt-3" />
+              <div
+                key={uuid.v4()}
+                id="spinner-small"
+                className=" mx-auto mt-3"
+              />
             ) : (
               newDate.getDate() === null
             );
