@@ -11,7 +11,12 @@ import { updateUser, saveWeight } from "../../actions/user";
 
 import Reveal from "react-reveal/Reveal";
 
-const Tracker = ({ updateUser, saveWeight, auth: { loading, user } }) => {
+const Tracker = ({
+  updateUser,
+  saveWeight,
+  user: { user },
+  auth: { loading }
+}) => {
   const [state, setState] = useState({
     date: new Date(),
     weight: "",
@@ -150,12 +155,14 @@ const Tracker = ({ updateUser, saveWeight, auth: { loading, user } }) => {
 
 Tracker.propTypes = {
   auth: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
   updateUser: PropTypes.func.isRequired,
   saveWeight: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
+  user: state.user,
   updateUser: updateUser,
   saveWeight: saveWeight
 });

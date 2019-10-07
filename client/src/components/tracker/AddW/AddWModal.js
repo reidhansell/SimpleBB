@@ -25,7 +25,7 @@ const AddWModal = ({
   addTrackedExercises,
   createWorkout,
   deleteWorkout,
-  auth: { user }
+  user: { user }
 }) => {
   const [state, setState] = useState({
     modal: false,
@@ -345,7 +345,7 @@ const AddWModal = ({
 
 AddWModal.propTypes = {
   updateUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
   addExercise: PropTypes.func.isRequired,
   deleteExercise: PropTypes.func.isRequired,
   editExercise: PropTypes.func.isRequired,
@@ -356,7 +356,7 @@ AddWModal.propTypes = {
 
 const mapStateToProps = state => ({
   updateUser: state.updateUser,
-  auth: state.auth,
+  user: state.user,
   addExercise: addExercise,
   deleteExercise: deleteExercise,
   editExercise: editExercise,

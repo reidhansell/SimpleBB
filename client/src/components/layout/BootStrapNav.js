@@ -14,7 +14,11 @@ import { logout } from "../../actions/auth";
 
 import Fade from "react-reveal/Fade";
 
-const BootStrapNav = ({ auth: { user, isAuthenticated, loading }, logout }) => {
+const BootStrapNav = ({
+  user: { user },
+  auth: { isAuthenticated, loading },
+  logout
+}) => {
   const [toggle, setToggle] = useState(false);
 
   const close = () => {
@@ -107,11 +111,13 @@ const BootStrapNav = ({ auth: { user, isAuthenticated, loading }, logout }) => {
 
 Navbar.propTypes = {
   logout: PropTypes.func,
-  auth: PropTypes.object
+  auth: PropTypes.object,
+  user: PropTypes.object
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  user: state.user
 });
 
 export default connect(
