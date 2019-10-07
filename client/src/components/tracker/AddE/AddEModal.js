@@ -8,11 +8,12 @@ import {
   addTrackedExercises,
   deleteExercise,
   editExercise
-} from "../../actions/auth";
+} from "../../../actions/user";
 
 import uuid from "uuid";
 
-//To do: create one modal and load information based on  Reduce the amount of ?s.
+import EditE from "./EditE";
+import CreateE from "./CreateE";
 
 const AddEModal = ({
   updateUser,
@@ -27,13 +28,13 @@ const AddEModal = ({
     modal: false,
     create: false,
     search: "",
-    name: "",
+    nameE: "",
     type: "lbs",
     edit: false,
     editID: ""
   });
 
-  const { modal, create, search, name, type, edit, editID } = state;
+  const { modal, create, search, nameE, type, edit, editID } = state;
 
   const onChange = e =>
     setState({
@@ -57,7 +58,7 @@ const AddEModal = ({
 
   const onSubmit = async e => {
     e.preventDefault();
-    const exercise = { name, type };
+    const exercise = { name: nameE, type };
     addExercise(exercise);
     user.exercises.unshift(exercise);
     updateUser(user);
@@ -66,14 +67,22 @@ const AddEModal = ({
 
   const onSubmitEdit = async e => {
     e.preventDefault();
-    const exercise = { name, type, id: editID };
+    const exercise = { name: nameE, type, id: editID };
     editExercise(exercise);
     user.exercises = user.exercises.filter(x => {
       return x._id !== editID ? x : null;
     });
     user.exercises.unshift(exercise);
     updateUser(user);
-    setState({ ...state, edit: !edit, name: "", type: "", editID: "" });
+    setState({ ...state, edit: !edit, nameE: "", type: "", editID: "" });
+  };
+
+  const exitEdit = () => {
+    setState({ ...state, edit: false, nameE: "", type: "lbs" });
+  };
+
+  const exitCreate = () => {
+    setState({ ...state, create: false });
   };
 
   const onClick = async (e, exercise) => {
@@ -152,7 +161,7 @@ const AddEModal = ({
                             setState({
                               ...state,
                               edit: true,
-                              name: x.name,
+                              nameE: x.name,
                               type: x.type,
                               editID: x._id
                             })
@@ -188,106 +197,27 @@ const AddEModal = ({
         ) : null}
 
         {create ? (
-          <>
-            <ModalHeader toggle={toggle}>Create exercise</ModalHeader>
-
-            <form className="form" onSubmit={e => onSubmit(e)}>
-              <ModalBody style={{ paddingLeft: "0", paddingRight: "0" }}>
-                <span className="form-group">
-                  <input
-                    style={{ fontFamily: "Lexend Deca" }}
-                    type="text"
-                    name="name"
-                    value={name}
-                    onChange={e => onChange(e)}
-                    placeholder="Name of exercise"
-                    className="mx-3"
-                    required
-                  />
-                </span>
-                <br />
-                <br />
-                <span className="form-group">
-                  <span className="ml-3">Type:</span>
-                  <select
-                    style={{ fontFamily: "Lexend Deca" }}
-                    name="type"
-                    value={type}
-                    onChange={e => onChangeType(e)}
-                    className="mx-3"
-                  >
-                    <option value="lbs">lbs / reps</option>
-                    <option value="kg">kg / reps</option>
-                    <option value="mi">mi / time</option>
-                    <option value="km"> km / time</option>
-                  </select>
-                </span>
-              </ModalBody>
-              <ModalFooter>
-                <input
-                  type="submit"
-                  className="btn btn-primary"
-                  value="Create exercise"
-                />
-                <Button
-                  color="secondary"
-                  onClick={() => setState({ ...state, create: false })}
-                >
-                  Cancel
-                </Button>
-              </ModalFooter>
-            </form>
-          </>
+          <CreateE
+            toggle={() => toggle()}
+            onSubmit={e => onSubmit(e)}
+            onChange={e => onChange(e)}
+            type={type}
+            onChangeType={e => onChangeType(e)}
+            exitCreate={() => exitCreate()}
+            nameE={nameE}
+          />
         ) : null}
 
         {edit ? (
-          <>
-            <ModalHeader toggle={toggle}>Edit exercise</ModalHeader>
-            <ModalBody style={{ paddingLeft: "0", paddingRight: "0" }}>
-              <span className="form-group">
-                <input
-                  style={{ fontFamily: "Lexend Deca" }}
-                  type="text"
-                  name="name"
-                  value={name}
-                  onChange={e => onChange(e)}
-                  placeholder="Name of exercise"
-                  className="mx-3"
-                  required
-                />
-              </span>
-              <br />
-              <br />
-              <span className="form-group">
-                <span className="ml-3">Type:</span>
-                <select
-                  style={{ fontFamily: "Lexend Deca" }}
-                  name="type"
-                  value={type}
-                  onChange={e => onChangeType(e)}
-                  className="mx-3"
-                >
-                  <option value="lbs">lbs / reps</option>
-                  <option value="kg">kg / reps</option>
-                  <option value="mi">mi / time</option>
-                  <option value="km"> km / time</option>
-                </select>
-              </span>
-            </ModalBody>
-            <ModalFooter>
-              <Button color="primary" onClick={e => onSubmitEdit(e)}>
-                Save Exercise
-              </Button>
-              <Button
-                color="secondary"
-                onClick={() =>
-                  setState({ ...state, edit: false, name: "", type: "lbs" })
-                }
-              >
-                Cancel
-              </Button>
-            </ModalFooter>
-          </>
+          <EditE
+            toggle={toggle}
+            onChange={onChange}
+            type={type}
+            onChangeType={onChangeType}
+            onSubmitEdit={onSubmitEdit}
+            exitEdit={exitEdit}
+            nameE={nameE}
+          />
         ) : null}
       </Modal>
     </>

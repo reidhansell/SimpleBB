@@ -6,7 +6,7 @@ import {
   addSet,
   deleteTrackedExercise,
   deleteTrackedExerciseSet
-} from "../../actions/auth";
+} from "../../actions/user";
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
@@ -154,7 +154,11 @@ const Exercise = ({
                 name="repstime"
                 value={repstime}
                 onChange={e => onChange(e)}
-                placeholder={exercise.type === "km" || exercise.type === "mi" ? "min" : "reps"}
+                placeholder={
+                  exercise.type === "km" || exercise.type === "mi"
+                    ? "min"
+                    : "reps"
+                }
                 className="mx-3 w-25"
                 required
               />

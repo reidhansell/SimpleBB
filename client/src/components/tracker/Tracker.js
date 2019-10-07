@@ -3,15 +3,13 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import DatePicker from "react-date-picker";
-import AddEModal from "./AddEModal";
-import AddWModal from "./AddWModal";
+import AddEModal from "./AddE/AddEModal";
+import AddWModal from "./AddW/AddWModal";
 import Exercise from "./Exercise";
 
-import { updateUser, saveWeight } from "../../actions/auth";
+import { updateUser, saveWeight } from "../../actions/user";
 
 import Reveal from "react-reveal/Reveal";
-
-import uuid from "uuid";
 
 const Tracker = ({ updateUser, saveWeight, auth: { loading, user } }) => {
   const [state, setState] = useState({
@@ -129,21 +127,6 @@ const Tracker = ({ updateUser, saveWeight, auth: { loading, user } }) => {
         <AddWModal date={date} setAdding={setAdding} />
         <br />
         <br />
-        <ul className="pb-2 px-3 m-0" style={{ listStyleType: "none" }}>
-          {user.exercisesTracked.map(x => {
-            const newDate = new Date(x.date);
-
-            return x.loading === true ? (
-              <div
-                key={uuid.v4()}
-                id="spinner-small"
-                className=" mx-auto mt-3"
-              />
-            ) : (
-              newDate.getDate() === null
-            );
-          })}
-        </ul>
         <Reveal left cascade>
           <ul className="pb-2 px-3 m-0" style={{ listStyleType: "none" }}>
             {user.exercisesTracked.map(x => {
