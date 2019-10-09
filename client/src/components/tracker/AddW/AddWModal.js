@@ -132,10 +132,9 @@ const AddWModal = ({
     e.preventDefault();
     const workout = { name: nameW, exercises, id: wID };
     editWorkout(workout);
-    user.workouts = user.workouts.filter(x => {
-      return x._id !== wID ? x : null;
-    });
-    user.workouts.unshift(workout);
+    user.workouts.find(x => {
+      return x._id === wID ? x : null;
+    }).exercises = workout.exercises;
     updateUser(user);
     setState({
       ...state,
