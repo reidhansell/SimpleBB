@@ -8,8 +8,8 @@ import {
   ADD_SET,
   UPDATE_WEIGHT,
   CREATE_WORKOUT,
-  EDIT_EXERCISE
-  //EDIT_WORKOUT
+  EDIT_EXERCISE,
+  EDIT_WORKOUT
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 
@@ -264,6 +264,37 @@ export const deleteWorkout = id => async dispatch => {
     dispatch({
       type: AUTH_ERROR,
       payload: { msg: err.res.statusText, status: err.res.status }
+    });
+  }
+};
+
+//Edit workout
+export const editWorkout = workout => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+    const res = await axios.put(
+      `/api/users/workouts/${workout.id}`,
+      workout,
+      config
+    );
+    dispatch({
+      type: EDIT_WORKOUT,
+      payload: res.data
+    });
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+    }
+
+    dispatch({
+      type: AUTH_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
 };

@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import uuid from "uuid";
 const CreateW = props => {
   const {
     toggle,
@@ -46,7 +47,7 @@ const CreateW = props => {
               {exercises.map(x => {
                 return x.name === null ? null : (
                   <div
-                    key={x._id}
+                    key={x._id || uuid.v4()}
                     className="border-top border-bottom my-2"
                     style={{ display: "flex" }}
                   >

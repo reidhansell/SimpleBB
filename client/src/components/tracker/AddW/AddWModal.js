@@ -6,6 +6,9 @@ import { connect } from "react-redux";
 import CreateE from "../AddE/CreateE";
 import CreateW from "./CreateW";
 import EditE from "../AddE/EditE";
+import EditW from "./EditW";
+
+import uuid from "uuid";
 
 import {
   updateUser,
@@ -14,7 +17,8 @@ import {
   editExercise,
   addTrackedExercises,
   createWorkout,
-  deleteWorkout
+  deleteWorkout,
+  editWorkout
 } from "../../../actions/user";
 const AddWModal = ({
   date,
@@ -25,6 +29,7 @@ const AddWModal = ({
   addTrackedExercises,
   createWorkout,
   deleteWorkout,
+  editWorkout,
   user: { user }
 }) => {
   const [state, setState] = useState({
@@ -38,7 +43,9 @@ const AddWModal = ({
     nameE: "",
     type: "lbs",
     editE: false,
-    eID: ""
+    editW: false,
+    eID: "",
+    wID: ""
   });
 
   const {
@@ -52,11 +59,20 @@ const AddWModal = ({
     nameE,
     type,
     editE,
-    eID
+    editW,
+    eID,
+    wID
   } = state;
   //Toggle modal
   const toggle = () => {
-    setState({ ...state, modal: !modal, createW: false, createE: false });
+    setState({
+      ...state,
+      modal: !modal,
+      createW: false,
+      createE: false,
+      editE: false,
+      editW: false
+    });
   };
   //Begin onChanges
   const onChange = e =>
@@ -107,8 +123,26 @@ const AddWModal = ({
       editE: !editE,
       nameE: "",
       type: "",
-      editID: "",
+      eID: "",
       createW: true
+    });
+  };
+
+  const onSubmitEditW = async e => {
+    e.preventDefault();
+    const workout = { name: nameW, exercises, id: wID };
+    editWorkout(workout);
+    user.workouts = user.workouts.filter(x => {
+      return x._id !== wID ? x : null;
+    });
+    user.workouts.unshift(workout);
+    updateUser(user);
+    setState({
+      ...state,
+      editW: !editW,
+      nameW: "",
+      exercises: [],
+      wID: ""
     });
   };
   //Begin onClicks
@@ -200,6 +234,10 @@ const AddWModal = ({
   const exitCreateW = () => {
     setState({ ...state, createW: false });
   };
+
+  const exitEditW = () => {
+    setState({ ...state, editW: false });
+  };
   //End functions and begin render
   return (
     <>
@@ -212,7 +250,7 @@ const AddWModal = ({
         style={{ fontFamily: "Lexend Deca" }}
       >
         {//Begin add workout
-        modal && !createW && !createE && !editE ? (
+        modal && !createW && !createE && !editE && !editW ? (
           <>
             <ModalHeader toggle={toggle}>Add workout</ModalHeader>
             <ModalBody>
@@ -235,7 +273,7 @@ const AddWModal = ({
                         ) ? (
                         <li
                           className="clickable my-1 py-1 rounded shadow"
-                          key={x._id}
+                          key={x._id || uuid.v4()}
                         >
                           <div
                             className="bg-primary rounded-top text-light text-left w-100"
@@ -247,14 +285,28 @@ const AddWModal = ({
                             >
                               {x.name}
                             </div>{" "}
+                            <div
+                              className="text-secondary bg-primary clickable pl-2 pr-2 pt-2"
+                              onClick={() =>
+                                setState({
+                                  ...state,
+                                  editW: true,
+                                  nameW: x.name,
+                                  exercises: x.exercises,
+                                  wID: x._id
+                                })
+                              }
+                            >
+                              Edit
+                            </div>
                             <div>
                               <Button
-                                className="ml-auto"
+                                className=""
                                 color="primary"
                                 onClick={e => onDeleteWorkout(e, x._id)}
                                 style={{ borderRadius: "0px" }}
                               >
-                                <i className="fas fa-trash ml-auto" />
+                                <i className="fas fa-trash" />
                               </Button>
                             </div>
                           </div>
@@ -313,6 +365,25 @@ const AddWModal = ({
           />
         ) : null}
 
+        {//Begin edit workout
+        editW ? (
+          <EditW
+            toggle={toggle}
+            onSubmitEditW={onSubmitEditW}
+            nameW={nameW}
+            onChange={onChange}
+            exercises={exercises}
+            onRemoveExercise={onRemoveExercise}
+            searchExercise={searchExercise}
+            user={user}
+            onClick2={onClick2}
+            onDeleteExercise={onDeleteExercise}
+            toCreateE={toCreateE}
+            toEditE={toEditE}
+            exitEditW={exitEditW}
+          />
+        ) : null}
+
         {//Begin create exercise
         createE ? (
           <CreateE
@@ -351,7 +422,8 @@ AddWModal.propTypes = {
   editExercise: PropTypes.func.isRequired,
   addTrackedExercises: PropTypes.func.isRequired,
   createWorkout: PropTypes.func.isRequired,
-  deleteWorkout: PropTypes.func.isRequired
+  deleteWorkout: PropTypes.func.isRequired,
+  editWorkout: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -362,7 +434,8 @@ const mapStateToProps = state => ({
   editExercise: editExercise,
   addTrackedExercises: addTrackedExercises,
   createWorkout: createWorkout,
-  deleteWorkout: deleteWorkout
+  deleteWorkout: deleteWorkout,
+  editWorkout: editWorkout
 });
 
 export default connect(
@@ -371,6 +444,7 @@ export default connect(
     updateUser,
     createWorkout,
     deleteWorkout,
+    editWorkout,
     addExercise,
     addTrackedExercises,
     deleteExercise,

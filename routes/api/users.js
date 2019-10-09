@@ -368,4 +368,31 @@ router.delete("/workouts/:id", auth, async (req, res) => {
   }
 });
 
+// @route    PUT api/users/workouts/:id
+// @desc     EDIT workout
+// @access   Private
+router.put("/workouts/:id", [auth, []], async (req, res) => {
+  const { name, exercises } = req.body;
+
+  try {
+    const user = await User.findOne({ _id: req.user.id });
+    const workout = user.workouts.find(x => {
+      return x.id === req.params.id;
+    });
+
+    if (!workout) {
+      return res.status(404).json({ msg: "Exercise not found" });
+    }
+
+    workout.name = name;
+    workout.exercises = exercises;
+
+    await user.save();
+
+    res.json(user.workouts);
+  } catch (err) {
+    res.status(500).send("Server Error");
+  }
+});
+
 module.exports = router;
