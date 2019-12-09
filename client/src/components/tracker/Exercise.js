@@ -16,7 +16,7 @@ const Exercise = ({
   addSet,
   deleteTrackedExercise,
   deleteTrackedExerciseSet,
-  auth: { user }
+  user: { user }
 }) => {
   const [state, setState] = useState({
     weightdistance: "",
@@ -75,7 +75,7 @@ const Exercise = ({
 
   return deleting ? null : (
     <Fragment>
-      <div className="clickable pb-1 mb-3 mx-auto shadow rounded bg-light">
+      <div className="clickable pb-1 mb-3 mx-auto shadow rounded bg-light mw-100">
         <div
           className="bg-primary rounded-top text-light text-left w-100"
           style={{ display: "flex" }}
@@ -217,7 +217,7 @@ const Exercise = ({
 
 Exercise.propTypes = {
   updateUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
   addSet: PropTypes.func.isRequired,
   exercise: PropTypes.object.isRequired,
   deleteTrackedExercise: PropTypes.func.isRequired,
@@ -226,13 +226,15 @@ Exercise.propTypes = {
 
 const mapStateToProps = state => ({
   updateUser: updateUser,
-  auth: state.auth,
+  user: state.user,
   addSet: addSet,
   deleteTrackedExercise: deleteTrackedExercise,
   deleteTrackedExerciseSet: deleteTrackedExerciseSet
 });
 
-export default connect(
-  mapStateToProps,
-  { updateUser, addSet, deleteTrackedExercise, deleteTrackedExerciseSet }
-)(Exercise);
+export default connect(mapStateToProps, {
+  updateUser,
+  addSet,
+  deleteTrackedExercise,
+  deleteTrackedExerciseSet
+})(Exercise);
