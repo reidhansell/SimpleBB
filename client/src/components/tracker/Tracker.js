@@ -45,7 +45,7 @@ const Tracker = ({
 
   var currentWeight = loading
     ? null
-    : user.weight.find(x => {
+    : user.weightTracked.find(x => {
         const newDate = new Date(x.date);
         return newDate.getDate() === date.getDate() &&
           newDate.getMonth() === date.getMonth() &&
@@ -148,6 +148,16 @@ const Tracker = ({
             })}
           </ul>
         </Reveal>
+        {user.exercisesTracked.find(x => {
+          return (
+            new Date(x.date).getDate() === date.getDate() &&
+            new Date(x.date).getMonth() === date.getMonth() &&
+            new Date(x.date).getFullYear() === date.getFullYear() &&
+            x.deleting !== true
+          );
+        }) ? null : (
+          <b>Add an exercise or workout and it will appear here</b>
+        )}
       </div>
     </div>
   );
@@ -167,7 +177,4 @@ const mapStateToProps = state => ({
   saveWeight: saveWeight
 });
 
-export default connect(
-  mapStateToProps,
-  { updateUser, saveWeight }
-)(Tracker);
+export default connect(mapStateToProps, { updateUser, saveWeight })(Tracker);

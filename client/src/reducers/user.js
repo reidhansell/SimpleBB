@@ -40,7 +40,7 @@ export default function(state = initialState, action) {
     case UPDATE_WEIGHT:
       return {
         ...state,
-        user: { ...state.user, weight: payload }
+        user: { ...state.user, weightTracked: payload }
       };
     case CREATE_WORKOUT:
     case EDIT_WORKOUT:

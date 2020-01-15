@@ -5,7 +5,7 @@ const path = require("path");
 
 const app = express();
 
-// compress responses
+// Compress responses
 app.use(compression());
 
 // Connect Database
@@ -17,6 +17,12 @@ app.use(express.json({ extended: false }));
 // Define Routes
 app.use("/api/users", require("./routes/api/users"));
 app.use("/api/auth", require("./routes/api/auth"));
+app.use("/api/exercises", require("./routes/api/exercises"));
+app.use("/api/exercisesTracked", require("./routes/api/exercisesTracked"));
+app.use("/api/foods", require("./routes/api/foods"));
+app.use("/api/foodsTracked", require("./routes/api/foodsTracked"));
+app.use("/api/workouts", require("./routes/api/workouts"));
+app.use("/api/weightTracked", require("./routes/api/weightTracked"));
 
 // Serve static assets in production
 if (process.env.NODE_ENV === "production") {

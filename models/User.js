@@ -33,11 +33,33 @@ const UserSchema = new mongoose.Schema({
       sets: [{ weightdistance: { type: Number }, repstime: { type: Number } }]
     }
   ],
-  weight: [
+  weightTracked: [
     {
       date: { type: Date },
       type: { type: String },
       weight: { type: Number }
+    }
+  ],
+  foods: [
+    {
+      name: { type: String },
+      calories: { type: Number },
+      proteins: { type: Number },
+      fats: { type: Number },
+      carbs: { type: Number },
+      type: { type: String }
+    }
+  ],
+  foodsTracked: [
+    {
+      name: { type: String },
+      calories: { type: Number },
+      proteins: { type: Number },
+      fats: { type: Number },
+      carbs: { type: Number },
+      date: { type: Date },
+      type: { type: String },
+      quantity: { type: Number }
     }
   ]
 });
