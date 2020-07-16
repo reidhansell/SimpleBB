@@ -8,6 +8,21 @@ const { check, validationResult } = require("express-validator");
 
 const User = require("../../models/User");
 
+//DELETE THIS ROUTE IF NOT USED AFTER FRONTEND IS COMPLETE
+// @route    GET api/users
+// @desc     Get user data
+// @access   Public
+router.get("/", auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+//POSSIBLY MERGE THIS ROUTE WITH AUTH.JS AFTER FRONTEND IS COMPLETE
 // @route    POST api/users
 // @desc     Register user
 // @access   Public

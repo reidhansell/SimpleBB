@@ -1,79 +1,67 @@
 @import url("https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap");
 
-$primary: hsl(350, 96%, 43%);
-$secondary: hsl(218, 17%, 62%);
-$light: hsl(197, 24%, 94%);
-$dark: black;
-@import "~bootstrap/scss/bootstrap.scss";
+//BEGIN THEME
 
-@media screen and (max-width: 500px) {
-  #root,
-  #root p {
-    font-size: 10pt;
-  }
-  #root h1 {
-    font-size: 16pt;
-  }
-  #root h2 {
-    font-size: 15pt;
-  }
-  #root h3 {
-    font-size: 14pt;
-  }
-  #root h4 {
-    font-size: 13pt;
-  }
-  #root h5 {
-    font-size: 12pt;
-  }
-  #root h6 {
-    font-size: 11pt;
-  }
-}
+$primary: rgb(136, 13, 30);
+$text: rgb(34, 29, 35);
+$textsecondary: rgb(63, 64, 69);
+$light: rgb(252, 252, 252);
 
-#root {
-  color: $dark;
+//END THEME, BEGIN GENERAL CSS
+
+body {
+  margin: 0;
+  color: $text;
   font-family: "Lexend Deca";
   min-width: 320px;
+  text-align: center;
+  width: 100vw;
+  min-height: 100%;
+  max-width: 100%;
+  background: $primary;
 }
 
 #root .disabled {
   cursor: default;
-  color: hsl(218, 17%, 62%);
+  color: $textsecondary;
   text-decoration-line: line-through;
-}
-
-.modal {
-  overflow-y: auto;
-}
-
-.modal-open {
-  overflow: auto;
-}
-
-.clickable:hover {
-  cursor: pointer;
-  background: whitesmoke;
 }
 
 #root .disabled:hover {
   cursor: default;
-  color: hsl(218, 17%, 62%);
+  color: $textsecondary;
   text-decoration-line: line-through;
 }
 
-#root button {
+#root button.btn {
+  transition: 0.5s;
+  border-radius: 10px;
+  border: 1px solid $primary;
   outline: none;
+  width: 120px;
+  height: 35px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background: $light;
+  font-weight: bold;
+}
+
+#root button.btn:hover {
+  background: $primary;
+  border: 1px solid $light;
+  cursor: pointer;
 }
 
 #root a {
+  margin: 0;
+  padding: 0;
   transition: 0.5s;
   text-decoration: none;
-  color: hsl(197, 24%, 94%);
+  color: $primary;
 }
 
 #root a:hover {
-  color: $dark;
+  color: $text;
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
   -webkit-animation-fill-mode: both;
@@ -84,38 +72,101 @@ $dark: black;
   -webkit-animation-iteration-count: infinite;
 }
 
-@keyframes float {
+#root input.inpt {
+  font-family: "Lexend Deca";
+  background: $light;
+  border: none;
+  padding: 2px;
+}
+
+#root .alert {
+  background: $light;
+  width: 270px;
+  outline: solid 2px $text;
+  color: $primary;
+  position: absolute;
+  padding: 5px;
+  top: 10vh;
+  left: 50%;
+  margin-left: -135px;
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+#root .page {
+  background: $light;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 1080px;
+  margin: auto;
+}
+
+#root .navi-container {
+  background: $primary;
+  width: 100%;
+  height: 50px;
+}
+
+#root ul.navi {
+  display: inline-block;
+  list-style-type: none;
+  color: $light;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+#root ul.navi a {
+  padding-top: 12.5px;
+  float: left;
+  width: 100px;
+  height: 37.5px;
+  color: $light;
+}
+
+#root ul.navi a:hover {
+  background: $light;
+  color: $primary;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  background-color: $primary;
+}
+
+@-webkit-keyframes fadeInDown {
   0% {
-    transform: translatey(0px);
-  }
-  30% {
-    transform: translatey(-3px);
+    opacity: 0;
+    -webkit-transform: translateY(-30px);
   }
   100% {
-    transform: translatey(0px);
+    opacity: 1;
+    -webkit-transform: translateY(0);
   }
 }
 
-#root a.navbar-brand:hover {
-  -webkit-animation-name: float;
-  animation-name: float;
-  animation-duration: 0.4s;
-  animation-iteration-count: 1;
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
+//BEGIN SPINNER
+
 #spinner {
-  border: 2px solid hsl(218, 17%, 62%);
-  border-top-color: hsl(197, 24%, 94%);
+  border: 2px solid $textsecondary;
+  border-top-color: $light;
   width: 17.5vh;
   height: 17.5vh;
-  border-radius: 50%;
-  animation: spin 1s infinite;
-}
-#spinner-small {
-  border: 2px solid hsl(218, 17%, 62%);
-  border-top-color: hsl(197, 24%, 94%);
-  width: 5vh;
-  height: 5vh;
   border-radius: 50%;
   animation: spin 1s infinite;
 }
@@ -128,3 +179,5 @@ $dark: black;
     transform: rotate(360deg);
   }
 }
+
+//END SPINNER
