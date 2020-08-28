@@ -2,6 +2,7 @@ const express = require("express");
 const compression = require("compression");
 const connectDB = require("./config/db");
 const path = require("path");
+const toobusy = require('toobusy-js');
 
 const app = express();
 
@@ -13,6 +14,15 @@ connectDB();
 
 // Init Middleware
 app.use(express.json({ extended: false }));
+
+// middleware which blocks requests when we're too busy
+app.use(function(req, res, next) {
+  if (toobusy()) {
+    res.send(503, "Server overloaded");
+  } else {
+    next();
+  }
+});
 
 // Define Routes
 app.use("/api/users", require("./routes/api/users"));

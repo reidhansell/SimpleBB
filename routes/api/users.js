@@ -8,35 +8,40 @@ const { check, validationResult } = require("express-validator");
 
 const User = require("../../models/User");
 
-//DELETE THIS ROUTE IF NOT USED AFTER FRONTEND IS COMPLETE
+const regex = new RegExp(/^([0-9a-zA-z]+)$|^$/, "i");
+
 // @route    GET api/users
 // @desc     Get user data
-// @access   Public
+// @access   Private
 router.get("/", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
     res.json(user);
   } catch (err) {
-    console.error(err.message);
     res.status(500).send("Server Error");
   }
 });
 
-//POSSIBLY MERGE THIS ROUTE WITH AUTH.JS AFTER FRONTEND IS COMPLETE
 // @route    POST api/users
 // @desc     Register user
 // @access   Public
 router.post(
   "/",
   [
-    check("name", "Name is required")
-      .not()
-      .isEmpty(),
-    check("email", "Please include a valid email").isEmail(),
+    check("name", "Please enter a name between 1 and 64 characters")
+      .trim()
+      .isLength({ min: 1, max: 64 }),
+    check("name", "Name must not contain any special characters").matches(
+      regex
+    ),
+    check("email", "Please include a valid email")
+      .trim()
+      .isEmail()
+      .normalizeEmail(),
     check(
       "password",
-      "Please enter a password with 6 or more characters"
-    ).isLength({ min: 6 })
+      "Please enter a password between 6 and 128 characters"
+    ).isLength({ min: 6, max: 128 }),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -55,41 +60,40 @@ router.post(
           .json({ errors: [{ msg: "User already exists" }] });
       }
 
+      //NOTE... Default arrays don't work with MongoDB Schemas!
       user = new User({
         name,
         email,
         password,
         exercises: [],
         workouts: [],
-        exercisesTracked: [],
-        weight: []
+        foods: [],
+        meals: [],
+        weight: [],
       });
-
       const salt = await bcrypt.genSalt(10);
-
-      user.password = await bcrypt.hash(password, salt);
-
-      user.exercises.unshift({ name: "Barbell Bench Press", type: "lbs" });
-      user.exercises.unshift({ name: "Barbell Row", type: "lbs" });
-      user.exercises.unshift({ name: "Barbell Squat", type: "lbs" });
-      user.exercises.unshift({ name: "Running", type: "mi" });
-
-      user.workouts.unshift({
+      const hash = await bcrypt.hash(password, salt);
+      user.password = hash;
+      await user.exercises.unshift({ name: "Barbell Bench Press", type: "lbs" });
+      await user.exercises.unshift({ name: "Barbell Row", type: "lbs" });
+      await user.exercises.unshift({ name: "Barbell Squat", type: "lbs" });
+      await user.exercises.unshift({ name: "Running", type: "mi" });
+      /*await user.workouts.unshift({
         name: "Full Body",
         exercises: [
-          { name: "Barbell Bench Press", type: "lbs" },
-          { name: "Barbell Row", type: "lbs" },
-          { name: "Barbell Squat", type: "lbs" },
-          { name: "Running", type: "mi" }
-        ]
+          { eID: exercises[0].id },
+          { eID: exercises[1].id },
+          { eID: exercises[2].id },
+          { eID: exercises[3].id },
+        ],
       });
-
+      console.log("Workout added")*/
       await user.save();
 
       const payload = {
         user: {
-          id: user.id
-        }
+          id: user.id,
+        },
       };
 
       jwt.sign(

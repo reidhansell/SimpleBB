@@ -1,27 +1,29 @@
 const express = require("express");
 const router = express.Router();
 const auth = require("../../middleware/auth");
-const { check, query, validationResult } = require("express-validator");
+const { check, query, validationResult, body } = require("express-validator");
 
 const User = require("../../models/User");
 
-// @route    PUT api/exercises
+const regex = new RegExp(/^([0-9a-zA-z ]+)$|^$/, "i");
+
+// @route    POST api/exercises
 // @desc     Add exercise
 // @access   Public
-router.put(
+router.post(
   "/",
   [
     auth,
     [
+      body("*", "No special characters").matches(regex),
       check("name", "Name must be between 1 and 64 characters")
-        .isLength({ min: 1, max: 64 })
         .trim()
-        .escape(),
+        .isLength({ min: 1, max: 64 }),
       check("type", "Type must be between 1 and 16 characters")
-        .isLength({ min: 1, max: 16 })
         .trim()
-        .escape() //To add... is equal to limited possible inputs?
-    ]
+        .isLength({ min: 1, max: 16 }),
+      //To add... is equal to limited possible inputs ("mi"/"km"...etc)?
+    ],
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -32,17 +34,17 @@ router.put(
 
     const newExercise = {
       name,
-      type
+      type,
     };
 
     try {
       const user = await User.findOne({ _id: req.user.id });
 
-      user.exercises.unshift(newExercise);
+      await user.exercises.unshift(newExercise);
 
       await user.save();
 
-      res.json(user.exercises);
+      res.json({success: true});
     } catch (err) {
       res.status(500).send("Server Error");
     }
@@ -56,10 +58,9 @@ router.delete(
   "/:id",
   auth,
   [
-    query("id", "ID must be between 1 and 64 characters")
-      .isLength({ min: 1, max: 64 })
+    check("id", "ID must be between 1 and 64 characters") //This is mostly a placeholder. I don't know how IDs are generated so I will need to find out and come back to this
       .trim()
-      .escape()
+      .isLength({ min: 1, max: 64 }),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -69,7 +70,7 @@ router.delete(
     try {
       const user = await User.findOne({ _id: req.user.id });
 
-      const exercise = user.exercises.find(x => {
+      const exercise = await user.exercises.find((x) => {
         return x.id === req.params.id;
       });
 
@@ -81,7 +82,7 @@ router.delete(
 
       await user.save();
 
-      res.json({ msg: "Exercise removed" });
+      res.json({ success: true });
     } catch (err) {
       res.status(500).send("Server Error");
     }
@@ -96,19 +97,18 @@ router.put(
   [
     auth,
     [
-      query("id", "ID must be between 1 and 64 characters")
-        .isLength({ min: 1, max: 64 })
+      check("id", "ID must be between 1 and 64 characters") //This is mostly a placeholder. I don't know how IDs are generated so I will need to find out and come back to this
         .trim()
-        .escape(),
+        .isLength({ min: 1, max: 64 }),
+      body("*", "No special characters").matches(regex),
       check("name", "Name must be between 1 and 64 characters")
-        .isLength({ min: 1, max: 64 })
         .trim()
-        .escape(),
+        .isLength({ min: 1, max: 64 }),
+
       check("type", "Type must be between 1 and 16 characters")
-        .isLength({ min: 1, max: 16 })
         .trim()
-        .escape() //To add... is equal to limited possible inputs?
-    ]
+        .isLength({ min: 1, max: 16 }), //To add... is equal to limited possible inputs?
+    ],
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -119,7 +119,7 @@ router.put(
 
     try {
       const user = await User.findOne({ _id: req.user.id });
-      const exercise = user.exercises.find(x => {
+      const exercise = await user.exercises.find((x) => {
         return x.id === req.params.id;
       });
 
@@ -132,7 +132,7 @@ router.put(
 
       await user.save();
 
-      res.json(user.exercises);
+      res.json({success: 1});
     } catch (err) {
       res.status(500).send("Server Error");
     }

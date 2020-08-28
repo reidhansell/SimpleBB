@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const auth = require("../../middleware/auth");
 const jwt = require("jsonwebtoken");
 const config = require("config");
 const { check, validationResult } = require("express-validator");
@@ -14,8 +13,11 @@ const User = require("../../models/User");
 router.post(
   "/",
   [
-    check("email", "Please include a valid email").isEmail().normalizeEmail(),
-    check("password", "Password is required").isLength({min: 5}).trim().escape()
+    check("email", "Please include a valid email")
+      .isEmail()
+      .normalizeEmail()
+      .trim(),
+    check("password", "Password required").not().isEmpty(), //For maximum security, password requirements should only be explained during the registration process (or edit account process)
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -40,7 +42,7 @@ router.post(
 
       const payload = {
         user: {
-          id: user.id
+          id: user.id,
         }
       };
 

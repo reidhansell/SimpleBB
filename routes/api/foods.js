@@ -7,7 +7,7 @@ const User = require("../../models/User");
 
 // @route    PUT api/foods
 // @desc     Add food
-// @access   Public
+// @access   Private
 router.put(
   "/",
   [
