@@ -28,11 +28,11 @@ app.use(function(req, res, next) {
 app.use("/api/users", require("./routes/api/users"));
 app.use("/api/auth", require("./routes/api/auth"));
 app.use("/api/exercises", require("./routes/api/exercises"));
-app.use("/api/exercisesTracked", require("./routes/api/trackedExercises"));
+app.use("/api/trackedExercises", require("./routes/api/trackedExercises"));
 app.use("/api/foods", require("./routes/api/foods"));
-app.use("/api/foodsTracked", require("./routes/api/trackedFoods"));
+app.use("/api/trackedFoods", require("./routes/api/trackedFoods"));
 app.use("/api/workouts", require("./routes/api/workouts"));
-app.use("/api/weightTracked", require("./routes/api/trackedWeight"));
+app.use("/api/trackedWeight", require("./routes/api/trackedWeight"));
 
 // Serve static assets in production
 if (process.env.NODE_ENV === "production") {

@@ -4,8 +4,44 @@ const auth = require("../../middleware/auth");
 const { check, validationResult } = require("express-validator");
 
 const TrackedExercise = require("../../models/TrackedExercise");
+const User = require("../../models/User");
 
-const regex = new RegExp(/^([0-9a-zA-z]+)$|^$/, "i");
+const regex = new RegExp(/^([0-9a-zA-z ]+)$|^$/, "i");
+
+// @route    GET api/trackedExercises
+// @desc     Get tracked exercises from a particular date
+// @access   Private
+router.get(
+  "/",
+  [auth, [check("date", "Date invalid").trim().isDate()]],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { date } = req.body;
+    console.log(date);
+    try {
+      const user = await User.findById(req.user.id);
+      console.log(user);
+      console.log("Attempting to find tracked exercises");
+      const trackedExercises = await TrackedExercise.find({
+        user: req.user.id,
+        date: date,
+      });
+
+      if (!trackedExercises) {
+        trackedExercises = [];
+      }
+
+      console.log(trackedExercises);
+      res.json(trackedExercises);
+    } catch (err) {
+      res.status(500).send("Server Error");
+    }
+  }
+);
 
 // @route    POST api/trackedExercises
 // @desc     Add tracked exercises
@@ -15,29 +51,29 @@ router.post(
   [
     auth,
     [
-      check("exercises.*.name", "Name must be between 1 and 64 characters")
-        .trim()
-        .isLength({ min: 1, max: 64 })
-        .matches(regex),
-      check("exercises.*.type", "Type must be between 1 and 16 characters")
-        .trim()
-        .isLength({ min: 1, max: 16 })
-        .matches(regex),
-      //To add... is equal to limited possible inputs ("mi"/"km"...etc)?
-      check("exercises.*.sets.*", "Sets must be integers").trim().isInt(),
+      //Holding off on validating ID inputs such as user and exercise because I am unsure how they're generated
+      check("exercises.*.date", "Date invalid").trim().isDate(),
     ],
   ],
   async (req, res) => {
     const { trackedExercises } = req.body;
-
+    console.log(trackedExercises);
+    console.log("begin adding exercises");
     try {
+      const user = req.user.id;
       await trackedExercises.forEach((x) => {
-        const { user, date, name, type, sets } = x;
-        let trackedExercise = new TrackedExercise(user, date, name, type, sets);
-
+        const { date, exercise } = x;
+        console.log(date);
+        let trackedExercise = new TrackedExercise({
+          user,
+          date,
+          exercise,
+          sets: [],
+        });
+        console.log("begin single save");
         trackedExercise.save();
       });
-
+      console.log("exercises saved");
       res.json({ success: true });
     } catch (err) {
       res.status(500).send("Server Error");
@@ -54,12 +90,6 @@ router.delete("/:id", auth, async (req, res) => {
       _id: req.params.id,
     });
 
-    if (trackedExercise.user !== req.user.id) {
-      return res
-        .status(400)
-        .json({ msg: "You do not own this tracked exercise" });
-    }
-
     if (!trackedExercise) {
       return res.status(404).json({ msg: "Tracked exercise not found" });
     }
@@ -72,15 +102,15 @@ router.delete("/:id", auth, async (req, res) => {
   }
 });
 
-// @route    POST api/trackedExercises/sets
+// @route    POST api/trackedExercises/:id/sets
 // @desc     Add set to tracked exercise
 // @access   Private
 router.post("/:id/sets", [auth, []], async (req, res) => {
-  const { weightdistance, repstime } = req.body;
+  const { weightDistance, repsTime } = req.body;
 
   const newSet = {
-    weightdistance,
-    repstime,
+    weightDistance,
+    repsTime,
   };
 
   try {
@@ -98,24 +128,26 @@ router.post("/:id/sets", [auth, []], async (req, res) => {
   }
 });
 
-// @route    DELETE api/trackedExercises/:exerciseid/sets/:setid
+// @route    DELETE api/trackedExercises/:exerciseid/:setid
 // @desc     Delete a set
 // @access   Private
-router.delete("/:id/sets/:setid", auth, async (req, res) => {
+router.delete("/:id/:setid", auth, async (req, res) => {
   try {
-    const trackedExercise = await trackedExercise.findOne({
+    const trackedExercise = await TrackedExercise.findOne({
       _id: req.params.id,
     });
-
+    console.log(trackedExercise);
     const set = await trackedExercise.sets.find((x) => {
       return x.id === req.params.setid;
     });
-
+    console.log(set);
     if (!set) {
       return res.status(404).json({ msg: "Set not found" });
     }
 
-    await set.remove(); //Confirm no need to save after this
+    await set.remove();
+
+    await trackedExercise.save();
 
     res.json({ success: true });
   } catch (err) {
