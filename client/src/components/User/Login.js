@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { Link, Redirect } from "react-router-dom";
 
-import { login } from "../actions/auth";
+import { login } from "../../actions/auth";
 
 import { connect } from "react-redux";
 
@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 const Login = ({ login, isAuthenticated }) => {
   const [state, setState] = useState({
     email: "",
-    password: ""
+    password: "",
   });
 
   const { email, password } = state;
@@ -20,49 +20,50 @@ const Login = ({ login, isAuthenticated }) => {
     return <Redirect to="/activity" />;
   }
 
-  const onChange = e =>
+  const onChange = (e) =>
     setState({
       ...state,
       [e.target.name]:
         e.target.name === "email"
           ? e.target.value.replace(/[^a-zA-Z0-9@. ]/g, "")
-          : e.target.value.replace(/[^a-zA-Z0-9 ]/g, "")
+          : e.target.value.replace(/[^a-zA-Z0-9 ]/g, ""),
     });
 
-  const onSubmit = async e => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     login(email.toLowerCase(), password);
   };
 
   return (
-    <div style={{ marginTop: "20vh" }}>
-      <h1>
+    <div style={{ marginTop: "20vh", textAlign: "center" }}>
+      <h1 style={{ margin: "0" }}>
         <b>Simple</b>
         <b style={{ color: "rgb(252, 252, 252)" }}>Bodybuilding</b>
       </h1>
+      <br />
       <p
         style={{
-          color: "rgb(252, 252, 252)",
+          color: "rgb(252, 252, 252)", //Color of $light
           textAlign: "left",
           display: "inline-block",
-          marginTop: "0"
+          margin: "0",
         }}
       >
-        Track activity and diet. <br />
-        Get help starting your fitness journey. <br />
-        Connect with friends.
+        Track exercises<br />
+        Track foods macro-style<br />
+        Get helping starting your fitness journey
       </p>
+      <br />
       <br />
       <input
         className="inpt"
-        style={{ marginTop: "5px" }}
         type="email"
         placeholder="Email Address"
         name="email"
         value={email}
-        onChange={e => onChange(e)}
+        onChange={(e) => onChange(e)}
         required
-        size="20"
+        size="24"
       ></input>
       <br />
       <br />
@@ -72,23 +73,23 @@ const Login = ({ login, isAuthenticated }) => {
         placeholder="Password"
         name="password"
         value={password}
-        onChange={e => onChange(e)}
+        onChange={(e) => onChange(e)}
         minLength="6"
         required
-        size="20"
+        size="24"
       ></input>
       <br />
       <br />
-      <button className="btn" onClick={e => onSubmit(e)}>
+      <button className="btn" onClick={(e) => onSubmit(e)} style={{marginRight: "5px"}}>
         Login
-      </button>{" "}
+      </button>
       <Link to="/register">
-        <button className="btn">Register</button>
+        <button className="btn" style={{marginLeft: "5px"}}>Register</button>
       </Link>
       <br />
       <br />
-      <button className="btn">
-        <big>Demo</big>
+      <button className="btn" style={{ width: "250px" }}>
+        Demo
       </button>
     </div>
   );
@@ -96,11 +97,11 @@ const Login = ({ login, isAuthenticated }) => {
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool
+  isAuthenticated: PropTypes.bool,
 };
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { login })(Login);

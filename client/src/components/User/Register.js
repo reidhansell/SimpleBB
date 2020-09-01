@@ -2,9 +2,9 @@ import React, { useState } from "react";
 
 import { Link, Redirect } from "react-router-dom";
 
-import { register } from "../actions/auth";
+import { register } from "../../actions/auth";
 
-import { setAlert } from "../actions/alert";
+import { setAlert } from "../../actions/alert";
 
 import { connect } from "react-redux";
 
@@ -15,7 +15,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     name: "",
     email: "",
     password: "",
-    password2: ""
+    password2: "",
   });
 
   const { name, email, password, password2 } = state;
@@ -24,16 +24,16 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     return <Redirect to="/activity" />;
   }
 
-  const onChange = e =>
+  const onChange = (e) =>
     setState({
       ...state,
       [e.target.name]:
         e.target.name === "email"
           ? e.target.value.replace(/[^a-zA-Z0-9@. ]/g, "")
-          : e.target.value.replace(/[^a-zA-Z0-9 ]/g, "")
+          : e.target.value.replace(/[^a-zA-Z0-9 ]/g, ""),
     });
 
-  const onSubmit = async e => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
       setAlert("Passwords must match", "danger");
@@ -43,7 +43,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   };
 
   return (
-    <div style={{ marginTop: "20vh" }}>
+    <div style={{ marginTop: "20vh", textAlign: "center" }}>
       <h1>
         <b>Simple</b>
         <b style={{ color: "rgb(252, 252, 252)" }}>Bodybuilding</b>
@@ -53,22 +53,24 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
           color: "rgb(252, 252, 252)",
           textAlign: "left",
           display: "inline-block",
-          marginTop: "0"
+          marginTop: "0",
         }}
       >
-        Track activity and diet. <br />
-        Get help starting your fitness journey. <br />
-        Connect with friends.
+        Track exercises
+        <br />
+        Track foods macro-style
+        <br />
+        Get helping starting your fitness journey
       </p>
       <br />
       <input
         className="inpt"
-        placeholder="Preferred name"
+        placeholder="Name"
         style={{ marginTop: "5px", fontFamily: "Lexend Deca" }}
         type="text"
         name="name"
         value={name}
-        onChange={e => onChange(e)}
+        onChange={(e) => onChange(e)}
         required
         size="20"
       ></input>
@@ -80,7 +82,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         placeholder="Email Address"
         name="email"
         value={email}
-        onChange={e => onChange(e)}
+        onChange={(e) => onChange(e)}
         required
         size="20"
       ></input>
@@ -92,7 +94,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         placeholder="Password"
         name="password"
         value={password}
-        onChange={e => onChange(e)}
+        onChange={(e) => onChange(e)}
         minLength="6"
         required
         size="20"
@@ -105,7 +107,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         placeholder="Confirm password"
         name="password2"
         value={password2}
-        onChange={e => onChange(e)}
+        onChange={(e) => onChange(e)}
         minLength="6"
         required
         size="20"
@@ -113,15 +115,21 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
       <br />
       <br />
       <Link to="/">
-        <button className="btn">Login</button>
-      </Link>{" "}
-      <button className="btn" onClick={e => onSubmit(e)}>
+        <button className="btn" style={{ marginRight: "5px" }}>
+          Login
+        </button>
+      </Link>
+      <button
+        className="btn"
+        onClick={(e) => onSubmit(e)}
+        style={{ marginLeft: "5px" }}
+      >
         Register
       </button>
       <br />
       <br />
-      <button className="btn">
-        <big>Demo</big>
+      <button className="btn" style={{ width: "250px" }}>
+        Demo
       </button>
     </div>
   );
@@ -130,11 +138,11 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool
+  isAuthenticated: PropTypes.bool,
 };
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { setAlert, register })(Register);

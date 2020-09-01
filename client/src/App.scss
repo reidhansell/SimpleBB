@@ -3,9 +3,11 @@
 //BEGIN THEME
 
 $primary: rgb(136, 13, 30);
+$secondary: rgb(0, 0, 0);
 $text: rgb(34, 29, 35);
 $textsecondary: rgb(63, 64, 69);
 $light: rgb(252, 252, 252);
+$dark: rgb(34, 29, 35);
 
 //END THEME, BEGIN GENERAL CSS
 
@@ -14,7 +16,6 @@ body {
   color: $text;
   font-family: "Lexend Deca";
   min-width: 320px;
-  text-align: center;
   width: 100vw;
   min-height: 100%;
   max-width: 100%;
@@ -36,28 +37,24 @@ body {
 #root button.btn {
   transition: 0.5s;
   border-radius: 10px;
-  border: 1px solid $primary;
+  border: 1px solid $dark;
   outline: none;
   width: 120px;
   height: 35px;
   padding-top: 5px;
   padding-bottom: 5px;
-  background: $light;
+  background: $primary;
   font-weight: bold;
+  color: $light;
 }
 
 #root button.btn:hover {
-  background: $primary;
-  border: 1px solid $light;
+  background: $dark;
   cursor: pointer;
 }
 
 #root a {
-  margin: 0;
-  padding: 0;
-  transition: 0.5s;
-  text-decoration: none;
-  color: $primary;
+
 }
 
 #root a:hover {
@@ -76,7 +73,7 @@ body {
   font-family: "Lexend Deca";
   background: $light;
   border: none;
-  padding: 2px;
+  outline: none;
 }
 
 #root .alert {
@@ -133,7 +130,6 @@ body {
   color: $primary;
 }
 
-/* Change the link color to #111 (black) on hover */
 li a:hover {
   background-color: $primary;
 }

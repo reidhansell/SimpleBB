@@ -3,10 +3,10 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Alert from "./components/Alert";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import ActivityMain from "./components/Activity/ActivityMain";
-import { DietMain } from "./components/Diet/DietMain";
+import Login from "./components/User/Login";
+import Register from "./components/User/Register";
+import ExerciseMain from "./components/Exercise/ExerciseMain";
+import { FoodMain } from "./components/Food/FoodMain";
 import { HelpMain } from "./components/Help/HelpMain";
 
 // Redux
@@ -37,11 +37,11 @@ const App = () => {
           <Route path="/register">
             <Register />
           </Route>
-          <Route path="/activity">
-            <ActivityMain />
+          <Route path="/exercise">
+            <ExerciseMain />
           </Route>
-          <Route path="/diet">
-            <DietMain />
+          <Route path="/food">
+            <FoodMain />
           </Route>
           <Route path="/help">
             <HelpMain />
