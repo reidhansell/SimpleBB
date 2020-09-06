@@ -44,7 +44,7 @@ router.post(
 
       await user.save();
 
-      res.json({success: true});
+      res.json({ success: true });
     } catch (err) {
       res.status(500).send("Server Error");
     }
@@ -132,7 +132,7 @@ router.put(
 
       await user.save();
 
-      res.json({success: 1});
+      res.json({ success: 1 });
     } catch (err) {
       res.status(500).send("Server Error");
     }

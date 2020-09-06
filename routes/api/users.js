@@ -74,7 +74,10 @@ router.post(
       const salt = await bcrypt.genSalt(10);
       const hash = await bcrypt.hash(password, salt);
       user.password = hash;
-      await user.exercises.unshift({ name: "Barbell Bench Press", type: "lbs" });
+      await user.exercises.unshift({
+        name: "Barbell Bench Press",
+        type: "lbs",
+      });
       await user.exercises.unshift({ name: "Barbell Row", type: "lbs" });
       await user.exercises.unshift({ name: "Barbell Squat", type: "lbs" });
       await user.exercises.unshift({ name: "Running", type: "mi" });

@@ -16,7 +16,7 @@ router.put("/", [auth, []], async (req, res) => {
 
   const newWorkout = {
     name: name,
-    exercises: exercises
+    exercises: exercises,
   };
 
   try {
@@ -39,7 +39,7 @@ router.delete("/:id", auth, async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.user.id });
 
-    const workout = user.workouts.find(x => {
+    const workout = user.workouts.find((x) => {
       return x.id === req.params.id;
     });
 
@@ -65,7 +65,7 @@ router.put("/:id", [auth, []], async (req, res) => {
 
   try {
     const user = await User.findOne({ _id: req.user.id });
-    const workout = user.workouts.find(x => {
+    const workout = user.workouts.find((x) => {
       return x.id === req.params.id;
     });
 

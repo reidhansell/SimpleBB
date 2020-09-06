@@ -11,8 +11,12 @@ $dark: rgb(34, 29, 35);
 
 //END THEME, BEGIN GENERAL CSS
 
-body {
+#root * {
   margin: 0;
+  padding: 0;
+}
+
+body {
   color: $text;
   font-family: "Lexend Deca";
   min-width: 320px;
@@ -54,7 +58,6 @@ body {
 }
 
 #root a {
-
 }
 
 #root a:hover {
@@ -73,7 +76,11 @@ body {
   font-family: "Lexend Deca";
   background: $light;
   border: none;
+  border-radius: 10px;
+  border: 1px solid $dark;
   outline: none;
+  height: 35px;
+  padding-left: 5px;
 }
 
 #root .alert {
@@ -112,8 +119,6 @@ body {
   display: inline-block;
   list-style-type: none;
   color: $light;
-  margin: 0;
-  padding: 0;
   height: 100%;
 }
 

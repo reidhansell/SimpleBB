@@ -21,7 +21,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   const { name, email, password, password2 } = state;
 
   if (isAuthenticated) {
-    return <Redirect to="/activity" />;
+    return <Redirect to="/exercise" />;
   }
 
   const onChange = (e) =>
@@ -48,12 +48,12 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         <b>Simple</b>
         <b style={{ color: "rgb(252, 252, 252)" }}>Bodybuilding</b>
       </h1>
+      <br />
       <p
         style={{
           color: "rgb(252, 252, 252)",
           textAlign: "left",
           display: "inline-block",
-          marginTop: "0",
         }}
       >
         Track exercises
@@ -63,16 +63,16 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         Get helping starting your fitness journey
       </p>
       <br />
+      <br />
       <input
         className="inpt"
         placeholder="Name"
-        style={{ marginTop: "5px", fontFamily: "Lexend Deca" }}
+        style={{ fontFamily: "Lexend Deca", width: "250px" }}
         type="text"
         name="name"
         value={name}
         onChange={(e) => onChange(e)}
         required
-        size="20"
       ></input>
       <br />
       <br />
@@ -84,7 +84,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         value={email}
         onChange={(e) => onChange(e)}
         required
-        size="20"
+        style={{ width: "250px" }}
       ></input>
       <br />
       <br />
@@ -97,7 +97,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         onChange={(e) => onChange(e)}
         minLength="6"
         required
-        size="20"
+        style={{ width: "250px" }}
       ></input>
       <br />
       <br />
@@ -110,7 +110,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         onChange={(e) => onChange(e)}
         minLength="6"
         required
-        size="20"
+        style={{ width: "250px" }}
       ></input>
       <br />
       <br />

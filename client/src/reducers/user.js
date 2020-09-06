@@ -7,14 +7,16 @@ import {
   UPDATE_WEIGHT,
   CREATE_WORKOUT,
   EDIT_EXERCISE,
-  EDIT_WORKOUT
+  EDIT_WORKOUT,
 } from "../actions/types";
 
 const initialState = {
-  user: null
+  user: null,
+  demo: false,
+  trackedExercises: null,
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
@@ -22,31 +24,26 @@ export default function(state = initialState, action) {
     case USER_LOADED:
       return {
         ...state,
-        user: payload
+        user: payload,
       };
 
     case ADD_EXERCISE:
     case EDIT_EXERCISE:
       return {
         ...state,
-        user: { ...state.user, exercises: payload }
+        user: { ...state.user, exercises: payload },
       };
-    case ADD_TRACKED_EXERCISES:
-    case ADD_SET:
-      return {
-        ...state,
-        user: { ...state.user, exercisesTracked: payload }
-      };
+
     case UPDATE_WEIGHT:
       return {
         ...state,
-        user: { ...state.user, weightTracked: payload }
+        user: { ...state.user, weightTracked: payload },
       };
     case CREATE_WORKOUT:
     case EDIT_WORKOUT:
       return {
         ...state,
-        user: { ...state.user, workouts: payload }
+        user: { ...state.user, workouts: payload },
       };
     default:
       return state;

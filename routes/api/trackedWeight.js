@@ -14,14 +14,14 @@ router.put("/", [auth, []], async (req, res) => {
   const newDate = {
     weight,
     type,
-    date
+    date,
   };
   try {
     const user = await User.findOne({ _id: req.user.id });
 
     const reqDate = new Date(date);
 
-    const existingDate = user.weightTracked.find(x => {
+    const existingDate = user.weightTracked.find((x) => {
       const newDate = new Date(x.date);
       return (
         newDate.getDate() === reqDate.getDate() &&

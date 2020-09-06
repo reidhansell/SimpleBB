@@ -17,7 +17,7 @@ const Login = ({ login, isAuthenticated }) => {
   const { email, password } = state;
 
   if (isAuthenticated) {
-    return <Redirect to="/activity" />;
+    return <Redirect to="/exercise" />;
   }
 
   const onChange = (e) =>
@@ -63,7 +63,7 @@ const Login = ({ login, isAuthenticated }) => {
         value={email}
         onChange={(e) => onChange(e)}
         required
-        size="24"
+        style={{ width: "250px" }}
       ></input>
       <br />
       <br />
@@ -76,7 +76,7 @@ const Login = ({ login, isAuthenticated }) => {
         onChange={(e) => onChange(e)}
         minLength="6"
         required
-        size="24"
+        style={{ width: "250px" }}
       ></input>
       <br />
       <br />

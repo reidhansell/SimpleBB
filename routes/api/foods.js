@@ -40,8 +40,8 @@ router.put(
       check("per", "Per must be integer between 0 and 10,000")
         .isInt({ min: 1, max: 10000 })
         .trim()
-        .escape()
-    ]
+        .escape(),
+    ],
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -57,7 +57,7 @@ router.put(
       calories,
       protein,
       fats,
-      carbs
+      carbs,
     };
 
     try {
@@ -84,7 +84,7 @@ router.delete(
     query("id", "ID must be between 1 and 64 characters")
       .isLength({ min: 1, max: 64 })
       .trim()
-      .escape()
+      .escape(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -94,7 +94,7 @@ router.delete(
     try {
       const user = await User.findOne({ _id: req.user.id });
 
-      const food = user.foods.find(x => {
+      const food = user.foods.find((x) => {
         return x.id === req.params.id;
       });
 
@@ -148,8 +148,8 @@ router.put(
       check("per", "Per must be integer between 0 and 10,000")
         .isInt({ min: 1, max: 10000 })
         .trim()
-        .escape()
-    ]
+        .escape(),
+    ],
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -165,12 +165,12 @@ router.put(
       calories,
       protein,
       fats,
-      carbs
+      carbs,
     };
 
     try {
       const user = await User.findOne({ _id: req.user.id });
-      const food = user.foods.find(x => {
+      const food = user.foods.find((x) => {
         return x.id === req.params.id;
       });
 

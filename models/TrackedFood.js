@@ -9,7 +9,7 @@ const TrackedFoodSchema = new mongoose.Schema({
   carbs: { type: Number },
   date: { type: Date },
   type: { type: String },
-  quantity: { type: Number }
+  quantity: { type: Number },
 });
 
 module.exports = User = mongoose.model("trackedfood", TrackedFoodSchema);
