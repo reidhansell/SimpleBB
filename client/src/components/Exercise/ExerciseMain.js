@@ -2,7 +2,9 @@ import React, { useState } from "react";
 
 import { Navi } from "../Navi";
 
-import DatePicker from "react-date-picker";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 import { connect } from "react-redux";
 
@@ -22,15 +24,16 @@ const ActivityMain = ({ isAuthenticated }) => {
       <Navi />
       <div className="container">
         <br />
-        <h3>
-          <DatePicker
-          className="bg-light"
-            onChange={(date) => setState({ ...state, date })}
-            value={date}
-            clearIcon={null}
-          />
-        </h3>
+
+        <DatePicker
+          className="picker"
+          onChange={(date) => setState({ ...state, date })}
+          selected={date}
+        />
       </div>
+      <br />
+      <button className="btn" style={{marginRight: "5px"}}>Add Exercise</button>
+      <button className="btn" style={{marginLeft: "5px"}}>Add Workout</button>
     </>
   );
 };

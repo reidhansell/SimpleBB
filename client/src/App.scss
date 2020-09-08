@@ -67,7 +67,7 @@ body {
 #root button.btn {
   transition: 0.5s;
   border-radius: 10px;
-  border: 1px solid $dark;
+  border: 1px solid $light;
   outline: none;
   width: 120px;
   height: 35px;
@@ -124,10 +124,23 @@ body {
 }
 
 #root .container {
-  min-height: 100vh;
   width: 100%;
   max-width: 1080px;
   margin: auto;
+}
+
+.picker {
+  font-size: 24pt;
+  text-align: center;
+  color: $light;
+  border: none;
+  background: transparent;
+  border-bottom: 2px solid $primary;
+  max-width: 80vw;
+}
+
+.picker:focus {
+  outline: none;
 }
 
 //Begin navigation
@@ -138,6 +151,7 @@ body {
   background: $primary;
   border-bottom: 1px solid $light;
   color: $light;
+  position: relative;
 }
 
 #root button.hamburger {
@@ -155,13 +169,19 @@ body {
   height: 100%;
   width: 100%;
   text-align: right;
+  transition: margin-top 0.5s;
+  margin-top: -204px;
+}
+
+#root ul.open {
+  margin-top: 0;
 }
 
 #root ul.navi li {
   color: $light;
   height: 35px;
   padding-top: 15px;
-  padding-right: 15px;
+  padding-right: 50px;
   border-bottom: 1px solid $light;
 }
 
@@ -223,4 +243,13 @@ body {
   to {
     transform: rotate(360deg);
   }
+}
+
+#root .expanable {
+  transition: all 0.5s ease-in-out;
+  height: 0;
+}
+
+.expandable:target {
+  height: auto;
 }

@@ -28,22 +28,21 @@ export const Navi = () => {
           </big>
         </button>
       </div>
-      {expanded ? (
-        <ul className="navi">
-          <Link to="/exercise">
-            <li>Exercise</li>
-          </Link>
 
-          <Link to="/food">
-            <li>Food</li>
-          </Link>
-          <li className="clickable">Help / Support</li>
-          <li className="clickable">Sign out</li>
-          {
-            //<Link to="/help">Help</Link>
-          }
-        </ul>
-      ) : null}
+      <ul className={expanded ? "navi open" : "navi"}>
+        <Link to="/exercise">
+          <li>Exercise</li>
+        </Link>
+
+        <Link to="/food">
+          <li>Food</li>
+        </Link>
+        <li className="clickable">Help / Support</li>
+        <li className="clickable">Sign out</li>
+        {
+          //<Link to="/help">Help</Link>
+        }
+      </ul>
     </>
   );
 };
