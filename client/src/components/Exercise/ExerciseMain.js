@@ -12,19 +12,20 @@ const ActivityMain = ({ isAuthenticated }) => {
   const [state, setState] = useState({
     date: new Date(),
     weight: "",
-    type: "lbs"
+    type: "lbs",
   });
 
   const { date, weight, type } = state;
 
   return (
     <>
-      <div className="page">
-        <Navi />
+      <Navi />
+      <div className="container">
         <br />
         <h3>
           <DatePicker
-            onChange={date => setState({ ...state, date })}
+          className="bg-light"
+            onChange={(date) => setState({ ...state, date })}
             value={date}
             clearIcon={null}
           />
@@ -35,11 +36,11 @@ const ActivityMain = ({ isAuthenticated }) => {
 };
 
 ActivityMain.propTypes = {
-  isAuthenticated: PropTypes.bool
+  isAuthenticated: PropTypes.bool,
 };
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, {})(ActivityMain);

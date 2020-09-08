@@ -2,15 +2,13 @@ import React, { useState } from "react";
 
 import { Link, Redirect } from "react-router-dom";
 
-import { register } from "../../actions/auth";
-
-import { setAlert } from "../../actions/alert";
+import { register, startDemo } from "../../actions/auth";
 
 import { connect } from "react-redux";
 
 import PropTypes from "prop-types";
 
-const Register = ({ setAlert, register, isAuthenticated }) => {
+const Register = ({ register, startDemo, isAuthenticated, demo }) => {
   const [state, setState] = useState({
     name: "",
     email: "",
@@ -20,7 +18,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 
   const { name, email, password, password2 } = state;
 
-  if (isAuthenticated) {
+  if (isAuthenticated || demo) {
     return <Redirect to="/exercise" />;
   }
 
@@ -35,15 +33,17 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (password !== password2) {
-      setAlert("Passwords must match", "danger");
-    } else {
-      register(name, email.toLowerCase(), password);
-    }
+
+    register(name, email.toLowerCase(), password);
+  };
+
+  const onDemo = async (e) => {
+    e.preventDefault();
+    startDemo();
   };
 
   return (
-    <div style={{ marginTop: "20vh", textAlign: "center" }}>
+    <div className="landing">
       <h1>
         <b>Simple</b>
         <b style={{ color: "rgb(252, 252, 252)" }}>Bodybuilding</b>
@@ -128,7 +128,11 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
       </button>
       <br />
       <br />
-      <button className="btn" style={{ width: "250px" }}>
+      <button
+        className="btn"
+        style={{ width: "250px" }}
+        onClick={(e) => onDemo(e)}
+      >
         Demo
       </button>
     </div>
@@ -136,13 +140,15 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 };
 
 Register.propTypes = {
-  setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
+  startDemo: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
+  demo: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
+  demo: state.auth.demo,
 });
 
-export default connect(mapStateToProps, { setAlert, register })(Register);
+export default connect(mapStateToProps, { register, startDemo })(Register);

@@ -2,18 +2,16 @@ import {
   USER_LOADED,
   USER_UPDATED,
   ADD_EXERCISE,
-  ADD_TRACKED_EXERCISES,
-  ADD_SET,
   UPDATE_WEIGHT,
   CREATE_WORKOUT,
-  EDIT_EXERCISE,
-  EDIT_WORKOUT,
+  UPDATE_EXERCISE,
+  UPDATE_WORKOUT,
+  START_DEMO,
+  END_DEMO,
 } from "../actions/types";
 
 const initialState = {
   user: null,
-  demo: false,
-  trackedExercises: null,
 };
 
 export default function (state = initialState, action) {
@@ -28,7 +26,7 @@ export default function (state = initialState, action) {
       };
 
     case ADD_EXERCISE:
-    case EDIT_EXERCISE:
+    case UPDATE_EXERCISE:
       return {
         ...state,
         user: { ...state.user, exercises: payload },
@@ -40,10 +38,29 @@ export default function (state = initialState, action) {
         user: { ...state.user, weightTracked: payload },
       };
     case CREATE_WORKOUT:
-    case EDIT_WORKOUT:
+    case UPDATE_WORKOUT:
       return {
         ...state,
         user: { ...state.user, workouts: payload },
+      };
+    case START_DEMO:
+      return {
+        ...state,
+        user: {
+          name: "Demo",
+          email: null,
+          date: new Date(),
+          trackedWeight: [],
+          exercises: [],
+          workouts: [],
+          foods: [],
+          meals: [],
+        },
+      };
+    case END_DEMO:
+      return {
+        ...state,
+        user: null,
       };
     default:
       return state;

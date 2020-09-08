@@ -9,21 +9,39 @@ $textsecondary: rgb(63, 64, 69);
 $light: rgb(252, 252, 252);
 $dark: rgb(34, 29, 35);
 
+#root .bg-light {
+  background: $light;
+}
+
 //END THEME, BEGIN GENERAL CSS
 
-#root * {
+body * {
   margin: 0;
   padding: 0;
 }
 
 body {
+  text-align: center;
+  background: $dark;
+  margin: 0;
+  padding: 0;
   color: $text;
   font-family: "Lexend Deca";
   min-width: 320px;
   width: 100vw;
   min-height: 100%;
   max-width: 100%;
+}
+
+#root .landing {
+  padding-top: 20vh;
   background: $primary;
+  width: 100vw;
+  min-height: 100vh;
+}
+
+#root .clickable:hover {
+  cursor: pointer;
 }
 
 #root .disabled {
@@ -36,6 +54,14 @@ body {
   cursor: default;
   color: $textsecondary;
   text-decoration-line: line-through;
+}
+
+#root button:hover {
+  cursor: pointer;
+}
+
+#root button:focus {
+  outline: none;
 }
 
 #root button.btn {
@@ -54,10 +80,6 @@ body {
 
 #root button.btn:hover {
   background: $dark;
-  cursor: pointer;
-}
-
-#root a {
 }
 
 #root a:hover {
@@ -101,28 +123,58 @@ body {
   animation-fill-mode: both;
 }
 
-#root .page {
-  background: $light;
+#root .container {
   min-height: 100vh;
   width: 100%;
   max-width: 1080px;
   margin: auto;
 }
 
+//Begin navigation
+
 #root .navi-container {
-  background: $primary;
   width: 100%;
   height: 50px;
+  background: $primary;
+  border-bottom: 1px solid $light;
+  color: $light;
+}
+
+#root button.hamburger {
+  background: none;
+  border: none;
+  color: $light;
+  height: 50px;
+  width: 50px;
+  float: right;
 }
 
 #root ul.navi {
-  display: inline-block;
+  background: $primary;
   list-style-type: none;
-  color: $light;
   height: 100%;
+  width: 100%;
+  text-align: right;
 }
 
-#root ul.navi a {
+#root ul.navi li {
+  color: $light;
+  height: 35px;
+  padding-top: 15px;
+  padding-right: 15px;
+  border-bottom: 1px solid $light;
+}
+
+#root ul.navi li:hover {
+  background: $dark;
+}
+
+#root a {
+  text-decoration: none;
+}
+
+#root .logo {
+  padding-left: 15px;
   padding-top: 12.5px;
   float: left;
   width: 100px;
@@ -130,15 +182,7 @@ body {
   color: $light;
 }
 
-#root ul.navi a:hover {
-  background: $light;
-  color: $primary;
-}
-
-li a:hover {
-  background-color: $primary;
-}
-
+//Begin alert fade in
 @-webkit-keyframes fadeInDown {
   0% {
     opacity: 0;
@@ -180,5 +224,3 @@ li a:hover {
     transform: rotate(360deg);
   }
 }
-
-//END SPINNER

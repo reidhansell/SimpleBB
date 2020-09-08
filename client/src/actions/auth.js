@@ -8,6 +8,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  START_DEMO,
+  END_DEMO,
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 
@@ -98,4 +100,14 @@ export const login = (email, password) => async (dispatch) => {
 // Logout
 export const logout = () => (dispatch) => {
   dispatch({ type: LOGOUT });
+};
+
+// Start demo
+export const startDemo = () => (dispatch) => {
+  dispatch({ type: START_DEMO });
+};
+
+// End demo
+export const endDemo = () => (dispatch) => {
+  dispatch({ type: END_DEMO });
 };

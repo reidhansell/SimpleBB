@@ -6,8 +6,8 @@ import Alert from "./components/Alert";
 import Login from "./components/User/Login";
 import Register from "./components/User/Register";
 import ExerciseMain from "./components/Exercise/ExerciseMain";
-import { FoodMain } from "./components/Food/FoodMain";
-import { HelpMain } from "./components/Help/HelpMain";
+//import FoodMain  from "./components/Food/FoodMain";
+//import HelpMain from "./components/Help/HelpMain";
 
 // Redux
 import { Provider } from "react-redux";
@@ -40,12 +40,12 @@ const App = () => {
           <Route path="/exercise">
             <ExerciseMain />
           </Route>
-          <Route path="/food">
+          {/*<Route path="/food">
             <FoodMain />
           </Route>
           <Route path="/help">
             <HelpMain />
-          </Route>
+          </Route>*/}
         </Switch>
       </Router>
     </Provider>
