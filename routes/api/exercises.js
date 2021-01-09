@@ -44,7 +44,9 @@ router.post(
 
       await user.save();
 
-      res.json({ success: true });
+      const res = user.exercises[0];
+
+      res.json(res);
     } catch (err) {
       res.status(500).send("Server Error");
     }

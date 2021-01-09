@@ -1,21 +1,23 @@
 import axios from "axios";
 import { setAlert } from "./alert";
-import { AUTH_ERROR, ADD_EXERCISE, EDIT_EXERCISE } from "./types";
+import { AUTH_ERROR, ADD_EXERCISE, UPDATE_EXERCISE } from "./types";
 
 // BEGIN EXERCISE FUNCTIONS
 // Add exercise
-export const addExercise = (exercise) => async (dispatch) => {
+export const addExercise = (name, type) => async (dispatch) => {
   try {
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
-    const res = await axios.put("/api/exercises", exercise, config);
+    const payload = { name, type };
+    const res = await axios.post("/api/exercises", payload, config);
     dispatch({
       type: ADD_EXERCISE,
       payload: res.data,
     });
+    return(true);
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -27,6 +29,8 @@ export const addExercise = (exercise) => async (dispatch) => {
       type: AUTH_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
+
+    return(false);
   }
 };
 
@@ -44,8 +48,8 @@ export const deleteExercise = (id) => async (dispatch) => {
   }
 };
 
-// Edit exercise
-export const editExercise = (exercise) => async (dispatch) => {
+// Update exercise
+export const updateExercise = (exercise) => async (dispatch) => {
   try {
     const config = {
       headers: {
@@ -58,7 +62,7 @@ export const editExercise = (exercise) => async (dispatch) => {
       config
     );
     dispatch({
-      type: EDIT_EXERCISE,
+      type: UPDATE_EXERCISE,
       payload: res.data,
     });
   } catch (err) {

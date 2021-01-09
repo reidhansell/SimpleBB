@@ -40,18 +40,17 @@ const Login = ({ login, startDemo, isAuthenticated, demo }) => {
   };
 
   return (
-    <div className="landing" >
-      <h1 style={{ margin: "0" }}>
-        <b>Simple</b>
-        <b style={{ color: "rgb(252, 252, 252)" }}>Bodybuilding</b>
+    <div className="landing">
+      <h1>
+        <b className="text-dark">Simple</b>
+        <b>Bodybuilding</b>
       </h1>
       <br />
       <p
+        className="text-light"
         style={{
-          color: "rgb(252, 252, 252)", //Color of $light
           textAlign: "left",
           display: "inline-block",
-          margin: "0",
         }}
       >
         Track exercises

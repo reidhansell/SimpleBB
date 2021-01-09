@@ -1,19 +1,31 @@
 @import url("https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap");
 
-//BEGIN THEME
+//THEME (Add consistent spacers such as "gap-small"?
 
 $primary: rgb(136, 13, 30);
-$secondary: rgb(0, 0, 0);
-$text: rgb(34, 29, 35);
-$textsecondary: rgb(63, 64, 69);
-$light: rgb(252, 252, 252);
-$dark: rgb(34, 29, 35);
+$secondary: rgb(0, 0, 0); //To add?
+$light: rgb(233, 233, 233);
+$dark: rgb(41, 41, 41);
+
+//UTILITY CLASSES
 
 #root .bg-light {
   background: $light;
 }
 
-//END THEME, BEGIN GENERAL CSS
+.text-light {
+  color: $light;
+}
+
+.text-dark {
+  color: $dark;
+}
+
+.text-primary {
+  color: $primary;
+}
+
+//BODY, PAGES, CONTAINERS
 
 body * {
   margin: 0;
@@ -25,7 +37,7 @@ body {
   background: $dark;
   margin: 0;
   padding: 0;
-  color: $text;
+  color: $light;
   font-family: "Lexend Deca";
   min-width: 320px;
   width: 100vw;
@@ -33,39 +45,36 @@ body {
   max-width: 100%;
 }
 
-#root .landing {
+.landing {
   padding-top: 20vh;
   background: $primary;
-  width: 100vw;
-  min-height: 100vh;
+  width: 100%;
+  min-height: 80vh;
 }
 
-#root .clickable:hover {
+.container {
+  padding-top: 51px;
+  width: 100%;
+  max-width: 1080px;
+  margin: auto;
+}
+
+// BUTTONS
+
+.clickable:hover {
+  //Should only be for pre-release. Delete this class later
   cursor: pointer;
 }
 
-#root .disabled {
-  cursor: default;
-  color: $textsecondary;
-  text-decoration-line: line-through;
-}
-
-#root .disabled:hover {
-  cursor: default;
-  color: $textsecondary;
-  text-decoration-line: line-through;
-}
-
-#root button:hover {
+button:hover {
   cursor: pointer;
 }
 
-#root button:focus {
+button:focus {
   outline: none;
 }
 
-#root button.btn {
-  transition: 0.5s;
+button.btn {
   border-radius: 10px;
   border: 1px solid $light;
   outline: none;
@@ -78,23 +87,32 @@ body {
   color: $light;
 }
 
-#root button.btn:hover {
+button.btn:hover {
   background: $dark;
 }
 
-#root a:hover {
-  color: $text;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-animation-timing-function: ease-in-out;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-  -webkit-animation-iteration-count: infinite;
+//LINKS
+
+a {
+  text-decoration: none;
 }
 
-#root input.inpt {
+a:hover {
+  color: $light;
+}
+
+//INPUT
+
+input,
+select {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+input.inpt,
+select {
+  //Remove class?
   font-family: "Lexend Deca";
   background: $light;
   border: none;
@@ -103,30 +121,6 @@ body {
   outline: none;
   height: 35px;
   padding-left: 5px;
-}
-
-#root .alert {
-  background: $light;
-  width: 270px;
-  outline: solid 2px $text;
-  color: $primary;
-  position: absolute;
-  padding: 5px;
-  top: 10vh;
-  left: 50%;
-  margin-left: -135px;
-  -webkit-animation-name: fadeInDown;
-  animation-name: fadeInDown;
-  -webkit-animation-duration: 0.5s;
-  animation-duration: 0.5s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-}
-
-#root .container {
-  width: 100%;
-  max-width: 1080px;
-  margin: auto;
 }
 
 .picker {
@@ -143,66 +137,81 @@ body {
   outline: none;
 }
 
-//Begin navigation
+//ALERTS
 
-#root .navi-container {
+.alert-container {
+  z-index: 2;
+  position: absolute;
+  left: 50%;
+  top: 10vh;
+}
+
+.alert {
+  background: $light;
+  width: 270px;
+  outline: solid 2px $dark;
+  color: $primary;
+  padding: 5px;
+  margin-left: -135px;
+  margin-bottom: 5px;
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+//NAVIGATION
+
+.navi-container {
+  z-index: 1;
+  position: fixed;
   width: 100%;
-  height: 50px;
   background: $primary;
-  border-bottom: 1px solid $light;
-  color: $light;
-  position: relative;
+
+  .navi-top {
+    height: 50px;
+    border-bottom: 1px solid $light;
+    color: $light;
+  }
+
+  .logo {
+    padding-left: 15px;
+    padding-top: 12.5px;
+    float: left;
+    color: $light;
+  }
+
+  button.hamburger {
+    background: none;
+    border: none;
+    color: $light;
+    height: 50px;
+    width: 50px;
+    float: right;
+  }
+
+  ul {
+    list-style-type: none;
+    width: 100%;
+    text-align: right;
+
+    li {
+      color: $light;
+      height: 35px;
+      padding-top: 15px;
+      padding-right: 15px;
+      border-bottom: 1px solid $light;
+    }
+
+    li:hover {
+      background: $dark;
+    }
+  }
 }
 
-#root button.hamburger {
-  background: none;
-  border: none;
-  color: $light;
-  height: 50px;
-  width: 50px;
-  float: right;
-}
-
-#root ul.navi {
-  background: $primary;
-  list-style-type: none;
-  height: 100%;
-  width: 100%;
-  text-align: right;
-  transition: margin-top 0.5s;
-  margin-top: -204px;
-}
-
-#root ul.open {
-  margin-top: 0;
-}
-
-#root ul.navi li {
-  color: $light;
-  height: 35px;
-  padding-top: 15px;
-  padding-right: 50px;
-  border-bottom: 1px solid $light;
-}
-
-#root ul.navi li:hover {
-  background: $dark;
-}
-
-#root a {
-  text-decoration: none;
-}
-
-#root .logo {
-  padding-left: 15px;
-  padding-top: 12.5px;
-  float: left;
-  width: 100px;
-  height: 37.5px;
-  color: $light;
-}
-
-//Begin alert fade in
+//ANIMATIONS
 @-webkit-keyframes fadeInDown {
   0% {
     opacity: 0;
@@ -225,10 +234,10 @@ body {
   }
 }
 
-//BEGIN SPINNER
+//SPINNER
 
 #spinner {
-  border: 2px solid $textsecondary;
+  border: 2px solid $light;
   border-top-color: $light;
   width: 17.5vh;
   height: 17.5vh;
@@ -243,13 +252,4 @@ body {
   to {
     transform: rotate(360deg);
   }
-}
-
-#root .expanable {
-  transition: all 0.5s ease-in-out;
-  height: 0;
-}
-
-.expandable:target {
-  height: auto;
 }

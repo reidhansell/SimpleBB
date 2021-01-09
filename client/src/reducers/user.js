@@ -8,6 +8,7 @@ import {
   UPDATE_WORKOUT,
   START_DEMO,
   END_DEMO,
+  LOGOUT,
 } from "../actions/types";
 
 const initialState = {
@@ -58,6 +59,7 @@ export default function (state = initialState, action) {
         },
       };
     case END_DEMO:
+    case LOGOUT:
       return {
         ...state,
         user: null,

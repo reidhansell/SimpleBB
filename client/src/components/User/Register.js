@@ -45,13 +45,12 @@ const Register = ({ register, startDemo, isAuthenticated, demo }) => {
   return (
     <div className="landing">
       <h1>
-        <b>Simple</b>
-        <b style={{ color: "rgb(252, 252, 252)" }}>Bodybuilding</b>
+        <b className="text-dark">Simple</b>
+        <b>Bodybuilding</b>
       </h1>
       <br />
       <p
         style={{
-          color: "rgb(252, 252, 252)",
           textAlign: "left",
           display: "inline-block",
         }}
@@ -67,7 +66,7 @@ const Register = ({ register, startDemo, isAuthenticated, demo }) => {
       <input
         className="inpt"
         placeholder="Name"
-        style={{ fontFamily: "Lexend Deca", width: "250px" }}
+        style={{ width: "250px" }}
         type="text"
         name="name"
         value={name}
