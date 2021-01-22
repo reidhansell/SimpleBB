@@ -1,0 +1,7 @@
+Assign temp ID to exercise, then find by temp ID and replace it once req is complete
+
+Pros: appearance of instant front end updating
+
+Cons: could cause problems if the user interacts with the exercise before the real ID is updated
+
+Cons solution: make the exercise grayed out until req is complete. Sort of a hybrid between instant updating and waiting until the req is complete
