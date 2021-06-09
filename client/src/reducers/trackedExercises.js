@@ -4,7 +4,7 @@ const initialState = {
   trackedExercises: null,
 };
 
-export default function (state = initialState, action) {
+const fn = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case ADD_TRACKED_EXERCISES:
@@ -17,3 +17,5 @@ export default function (state = initialState, action) {
       return state;
   }
 }
+
+export default fn;

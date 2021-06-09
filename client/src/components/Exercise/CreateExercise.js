@@ -8,13 +8,18 @@ import { Redirect } from "react-router-dom";
 
 import PropTypes from "prop-types";
 
-export const CreateExercise = ({ addExercise }) => {
+export const CreateExercise =  ({ addE, demo }) => {
   const [state, setState] = useState({
-    name: "",
+    exerciseName: "",
     type: "lb",
+    success: false,
   });
 
-  const { name, type } = state;
+  const { exerciseName, type, success } = state;
+
+  if(success){
+    return <Redirect to="/addexercise" />
+  }
 
   const onChange = (e) => {
     e.preventDefault();
@@ -29,8 +34,8 @@ export const CreateExercise = ({ addExercise }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const success = addExercise(name, type);
-    return success ? <Redirect to="/addexercise" /> : null;
+    addE(exerciseName, type, demo);
+    setState({...state, success: true})
   };
 
   return (
@@ -41,11 +46,11 @@ export const CreateExercise = ({ addExercise }) => {
         <h1>Create Exercise</h1>
         <br />
         <input
-          name="name"
-          value={name}
+          name="exerciseName"
+          value={exerciseName}
           onChange={(e) => onChange(e)}
           className="inpt"
-          placeholder="Name"
+          placeholder="Exercise Name"
           style={{ width: "250px" }}
           required
         ></input>
@@ -77,8 +82,9 @@ export const CreateExercise = ({ addExercise }) => {
   );
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({demo: state.auth.demo});
 
-CreateExercise.propTypes = { addExercise: PropTypes.func.isRequired };
+CreateExercise.propTypes = { addE: PropTypes.func.isRequired,
+demo: PropTypes.bool.isRequired };
 
-export default connect(mapStateToProps, { addExercise })(CreateExercise);
+export default connect(mapStateToProps, { addE: addExercise})(CreateExercise);

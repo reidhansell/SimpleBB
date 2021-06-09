@@ -18,14 +18,14 @@ export const Navi = () => {
       <div className="navi-container">
         <div className="navi-top">
           <Link to="/">
-            <big class="logo">
+            <big className="logo">
               Simple
               <span className="text-dark">Bodybuilding</span>
             </big>
           </Link>
-          <button class="hamburger" onClick={(e) => expand(e)}>
+          <button className="hamburger" onClick={(e) => expand(e)}>
             <big>
-              <i class="fas fa-bars"></i>
+              <i className="fas fa-bars"></i>
             </big>
           </button>
         </div>

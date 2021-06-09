@@ -15,7 +15,7 @@ const initialState = {
   user: null,
 };
 
-export default function (state = initialState, action) {
+const fn = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -27,6 +27,10 @@ export default function (state = initialState, action) {
       };
 
     case ADD_EXERCISE:
+      return{
+        ...state,
+        user:{...state.user, exercises: [...state.user.exercises, payload]}
+      }
     case UPDATE_EXERCISE:
       return {
         ...state,
@@ -52,7 +56,7 @@ export default function (state = initialState, action) {
           email: null,
           date: new Date(),
           trackedWeight: [],
-          exercises: [],
+          exercises: [{name: "Bench Press", type: "lb", id: "0"}],
           workouts: [],
           foods: [],
           meals: [],
@@ -68,3 +72,5 @@ export default function (state = initialState, action) {
       return state;
   }
 }
+
+export default fn;

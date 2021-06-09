@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 import { Navi } from "../Navi";
 
-export const AddExercise = (exercises) => {
+export const AddExercise = ({exercises}) => {
   return (
     <>
       <Navi />
@@ -20,7 +20,7 @@ export const AddExercise = (exercises) => {
           </button>
         </Link>
         <br />
-        {exercises > 0 ? (
+        {exercises.length > 0 ? (
           <ul>
             {exercises.map((exercise) => (
               <li key={exercise.id}>{exercise.name}</li>
@@ -37,7 +37,7 @@ AddExercise.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  exercises: state.user.exercises,
+  exercises: state.user.user.exercises,
 });
 
 export default connect(mapStateToProps)(AddExercise);

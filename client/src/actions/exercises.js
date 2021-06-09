@@ -4,8 +4,15 @@ import { AUTH_ERROR, ADD_EXERCISE, UPDATE_EXERCISE } from "./types";
 
 // BEGIN EXERCISE FUNCTIONS
 // Add exercise
-export const addExercise = (name, type) => async (dispatch) => {
+export const addExercise = (name, type, demo) => async (dispatch) => {
   try {
+    if(demo){
+      dispatch({
+      type: ADD_EXERCISE,
+      payload: {name: name, type: type, id: "1"},
+    });
+    return(true);
+    }else{
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -17,7 +24,7 @@ export const addExercise = (name, type) => async (dispatch) => {
       type: ADD_EXERCISE,
       payload: res.data,
     });
-    return(true);
+    return(true);}
   } catch (err) {
     const errors = err.response.data.errors;
 

@@ -14,7 +14,7 @@ Add the following code and fill it out accordingly
 {
   "mongoURI": "",
 
-  "jwtSecret": "",
+  "jwtSecret": ""
 }
  
 ```
